@@ -33,7 +33,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -61,7 +61,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
 
     private CameraSourcePreview mPreview;
     private GraphicOverlay mGraphicOverlay;
-    private Button takePictureBtn, swichCameraBtn;
+    private ImageButton takePictureBtn, switchCameraBtn;
 
     private int currentCameraDirection = CameraSource.CAMERA_FACING_FRONT;
 
@@ -86,10 +86,10 @@ public final class FaceTrackerActivity extends AppCompatActivity {
         mGraphicOverlay = findViewById(R.id.faceOverlay);
 
         takePictureBtn = findViewById(R.id.btn_main_take_picture);
-        swichCameraBtn = findViewById(R.id.btn_main_switch_camera);
+        switchCameraBtn = findViewById(R.id.btn_main_switch_camera);
 
         takePictureBtn.setOnClickListener(mOnClickListener);
-        swichCameraBtn.setOnClickListener(mOnClickListener);
+        switchCameraBtn.setOnClickListener(mOnClickListener);
 
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
