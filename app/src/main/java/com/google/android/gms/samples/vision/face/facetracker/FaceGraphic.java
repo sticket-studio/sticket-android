@@ -22,7 +22,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.google.android.gms.samples.vision.face.facetracker.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.face.Face;
@@ -92,10 +91,10 @@ class FaceGraphic extends GraphicOverlay.Graphic {
 
         this.context = context;
 
-        initView();
+        initBitmaps();
     }
 
-    private void initView() {
+    private void initBitmaps() {
         bitmaps = new Bitmap[LANDMARK_SIZE];
 
         for (int i = 0; i < LANDMARK_SIZE; i++) {
