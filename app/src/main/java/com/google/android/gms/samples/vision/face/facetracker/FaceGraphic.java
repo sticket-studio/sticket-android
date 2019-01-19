@@ -22,6 +22,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 
 import com.google.android.gms.samples.vision.face.facetracker.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.face.Face;
@@ -37,6 +38,14 @@ class FaceGraphic extends GraphicOverlay.Graphic {
     private static final float ID_Y_OFFSET = 50.0f;
     private static final float ID_X_OFFSET = -50.0f;
     private static final float BOX_STROKE_WIDTH = 5.0f;
+
+    private static final int NO_IMAGE = -1;
+    private static final int LANDMARK_SIZE = 12;
+    private static final int[] LANDMARK_DRAWABLE_ARRAY = new int[]{
+            R.drawable.mouth_bottom, R.drawable.cheek, NO_IMAGE
+            , NO_IMAGE, R.drawable.left_eye, NO_IMAGE
+            , R.drawable.nose, R.drawable.cheek, NO_IMAGE
+            , NO_IMAGE, R.drawable.right_eye, NO_IMAGE};
 
     private static final float F_CENTER = 0.5f;
 
@@ -61,6 +70,8 @@ class FaceGraphic extends GraphicOverlay.Graphic {
     private int mFaceId;
     private float mFaceHappiness;
 
+    private Bitmap[] bitmaps;
+
     FaceGraphic(GraphicOverlay overlay, Context context) {
         super(overlay);
 
@@ -80,6 +91,18 @@ class FaceGraphic extends GraphicOverlay.Graphic {
         mBoxPaint.setStrokeWidth(BOX_STROKE_WIDTH);
 
         this.context = context;
+
+        initView();
+    }
+
+    private void initView() {
+        bitmaps = new Bitmap[LANDMARK_SIZE];
+
+        for (int i = 0; i < LANDMARK_SIZE; i++) {
+            if (LANDMARK_DRAWABLE_ARRAY[i] != NO_IMAGE) {
+                bitmaps[i] = BitmapFactory.decodeResource(context.getResources(), LANDMARK_DRAWABLE_ARRAY[i]);
+            }
+        }
     }
 
     void setId(int id) {
@@ -106,32 +129,21 @@ class FaceGraphic extends GraphicOverlay.Graphic {
 
             final int cx = (int) translateX(landmark.getPosition().x);
             final int cy = (int) translateY(landmark.getPosition().y);
-            switch (type) {
-                case Landmark.LEFT_EYE:
-                    drawLandMark(canvas, R.drawable.left_eye, cx, cy);
-                    break;
-                case Landmark.RIGHT_EYE:
-                    drawLandMark(canvas, R.drawable.right_eye, cx, cy);
-                    break;
-                case Landmark.NOSE_BASE:
-                    drawLandMark(canvas, R.drawable.nose, cx, cy);
-                    break;
-                case Landmark.BOTTOM_MOUTH:
-                    drawLandMark(canvas, R.drawable.mouth_bottom, cx, cy, F_CENTER, 0.2f);
-                    break;
-                case Landmark.LEFT_CHEEK:
-                    drawLandMark(canvas, R.drawable.cheek, cx, cy);
-                    break;
-                case Landmark.RIGHT_CHEEK:
-                    drawLandMark(canvas, R.drawable.cheek, cx, cy);
-                    break;
-                default:
-                    Paint paint = new Paint();
-                    paint.setColor(Color.RED);
-                    paint.setStyle(Paint.Style.STROKE);
-                    paint.setStrokeWidth(5);
-                    canvas.drawCircle(cx, cy, 10, paint);
-                    break;
+
+            if (LANDMARK_DRAWABLE_ARRAY[type] != NO_IMAGE) {
+                if (type == Landmark.BOTTOM_MOUTH) {
+                    // 이런 식으로 기준점의 좌표를 지정해 줄 수도 있음
+                    drawLandMark(canvas, bitmaps[type], cx, cy, F_CENTER, 0.2f);
+                } else {
+                    // default는 F_CENTER (0.5f)
+                    drawLandMark(canvas, bitmaps[type], cx, cy);
+                }
+            } else {
+                Paint paint = new Paint();
+                paint.setColor(Color.RED);
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeWidth(5);
+                canvas.drawCircle(cx, cy, 10, paint);
             }
         }
 
@@ -147,22 +159,22 @@ class FaceGraphic extends GraphicOverlay.Graphic {
 //        canvas.drawText("left eye: " + String.format("%.2f", face.getIsLeftEyeOpenProbability()), x - ID_X_OFFSET*2, y - ID_Y_OFFSET*2, mIdPaint);
 
         // Draws a bounding box around the face.
-        float xOffset = scaleX(halfFaceWidth);
-        float yOffset = scaleY(halfFaceHeight);
-        float left = x - xOffset;
-        float top = y - yOffset;
-        float right = x + xOffset;
-        float bottom = y + yOffset;
-        canvas.drawRect(left, top, right, bottom, mBoxPaint);
+//        float xOffset = scaleX(halfFaceWidth);
+//        float yOffset = scaleY(halfFaceHeight);
+//        float left = x - xOffset;
+//        float top = y - yOffset;
+//        float right = x + xOffset;
+//        float bottom = y + yOffset;
+//        canvas.drawRect(left, top, right, bottom, mBoxPaint);
+
+        postInvalidate();
     }
 
-    private void drawLandMark(Canvas canvas, int resId, int cx, int cy) {
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), resId);
+    private void drawLandMark(Canvas canvas, Bitmap icon, int cx, int cy) {
         canvas.drawBitmap(icon, null, getRect(cx, cy, icon, F_CENTER, F_CENTER), new Paint());
     }
 
-    private void drawLandMark(Canvas canvas, int resId, int cx, int cy, float xf, float yf) {
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), resId);
+    private void drawLandMark(Canvas canvas, Bitmap icon, int cx, int cy, float xf, float yf) {
         canvas.drawBitmap(icon, null, getRect(cx, cy, icon, xf, yf), new Paint());
     }
 
