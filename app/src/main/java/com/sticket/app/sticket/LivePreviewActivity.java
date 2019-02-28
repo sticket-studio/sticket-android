@@ -14,6 +14,7 @@
 package com.sticket.app.sticket;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -21,13 +22,17 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
 
@@ -36,6 +41,8 @@ import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
+import com.sticket.app.sticket.util.CameraSettingDialog;
+import com.sticket.app.sticket.util.StickerDialog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +70,7 @@ public final class LivePreviewActivity extends AppCompatActivity
     private CameraSourcePreview preview;
     private GraphicOverlay graphicOverlay;
     private String selectedModel = FACE_CONTOUR;
+    public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,25 +88,27 @@ public final class LivePreviewActivity extends AppCompatActivity
             Log.d(TAG, "graphicOverlay is null");
         }
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        List<String> options = new ArrayList<>();
-        options.add(FACE_CONTOUR);
-        options.add(FACE_DETECTION);
-        options.add(TEXT_DETECTION);
-        options.add(BARCODE_DETECTION);
-        options.add(IMAGE_LABEL_DETECTION);
-        options.add(CLASSIFICATION_QUANT);
-        options.add(CLASSIFICATION_FLOAT);
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_style, options);
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
-        spinner.setOnItemSelectedListener(this);
+//        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+//        List<String> options = new ArrayList<>();
+//        options.add(FACE_CONTOUR);
+//        options.add(FACE_DETECTION);
+//        options.add(TEXT_DETECTION);
+//        options.add(BARCODE_DETECTION);
+//        options.add(IMAGE_LABEL_DETECTION);
+//        options.add(CLASSIFICATION_QUANT);
+//        options.add(CLASSIFICATION_FLOAT);
+//        // Creating adapter for spinner
+//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_style, options);
+//        // Drop down layout style - list view with radio button
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        // attaching data adapter to spinner
+//        spinner.setAdapter(dataAdapter);
+//        spinner.setOnItemSelectedListener(this);
 
-        ToggleButton facingSwitch = (ToggleButton) findViewById(R.id.facingSwitch);
+
+        ToggleButton facingSwitch = (ToggleButton) findViewById(R.id.btnSwitch);
         facingSwitch.setOnCheckedChangeListener(this);
+
         // Hide the toggle button if there is only 1 camera
         if (Camera.getNumberOfCameras() == 1) {
             facingSwitch.setVisibility(View.GONE);
@@ -109,6 +119,8 @@ public final class LivePreviewActivity extends AppCompatActivity
         } else {
             getRuntimePermissions();
         }
+
+        mContext = this;
     }
 
     @Override
@@ -297,4 +309,15 @@ public final class LivePreviewActivity extends AppCompatActivity
         Log.i(TAG, "Permission NOT granted: " + permission);
         return false;
     }
+
+    public void btnSticker(View v) {
+        StickerDialog stickerDialog = new StickerDialog(LivePreviewActivity.this);
+        stickerDialog.openDialog();
+    }
+
+    public void btnCameraSetting(View v) {
+        CameraSettingDialog cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
+        cameraSettingDialog.openDialog();
+    }
+
 }
