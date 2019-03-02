@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 
+import com.sticket.app.sticket.LivePreviewActivity;
 import com.sticket.app.sticket.R;
 
 import java.util.ArrayList;
@@ -57,7 +58,6 @@ public class StickerDialog extends Activity {
         window.setAttributes(params);
         dlg.show();
     }
-
 
 
 }

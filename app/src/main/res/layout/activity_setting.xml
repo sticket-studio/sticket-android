@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fireTopLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee"
+    android:keepScreenOn="false"
+    tools:context=".util.SettingActivity">
+
+    <RelativeLayout
+        android:id="@+id/app_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#fff">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="#fff"
+            android:onClick="btnToCamera"
+            android:layout_margin="10dp"
+            android:src="@drawable/btn_back" />
+
+        <TextView
+            android:id="@+id/AppCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="설정"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutAccountManagement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:text="계정 관리"
+            android:background="#eee"/>
+
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/textAccountManagement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#fff" >
+
+            <TextView
+                android:id="@+id/txtAccountManagement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:padding="10dp"
+                android:text="계정 관리"
+                android:textColor="#000"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/btnAccountManagement"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnAccountManagement"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:src="@drawable/btn_next"
+                android:background="#fff"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/txtAccountManagement"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="btnToAccountManagement"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/txtAccountManagement"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:background="#fff">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="계정관리"-->
+            <!--android:padding="10dp"-->
+            <!--android:textColor="#000" />-->
+
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/txtCameraSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tex1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:text="카메라 설정"
+            android:background="#eee"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <Switch
+            android:id="@+id/switchGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="그리드"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutWaterMark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <Switch
+            android:id="@+id/switchWaterMark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sticket 워터마크"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutMirror"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <Switch
+            android:id="@+id/switchMirror"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="거울 모드"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <Switch
+            android:id="@+id/switchLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="위치 정보"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutSavePath"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/txtSavePath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="저장 경로"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/txtPath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="저장 경로"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="#888"
+            android:textSize="11sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutAppInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtAppInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:text="앱 정보"
+            android:background="#eee"/>
+
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/txtVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:padding="10dp"
+            android:text="버전"
+            android:textColor="#000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/txtVersionNumber"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtVersionNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:text="1.0.1"
+            android:textColor="#888"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/txtVersion"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/txtReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="리뷰 및 별점 주기"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/txtContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CONTACT US"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutTermsOfService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/txtTermsOfService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이용 약관"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutPrivacyStatement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/txtPrivacyStatement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="개인정보 취급방침"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutLicense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#fff">
+
+        <TextView
+            android:id="@+id/txtLicense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OPEN SOURCE LICENSE"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+</LinearLayout>

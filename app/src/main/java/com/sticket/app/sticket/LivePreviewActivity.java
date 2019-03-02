@@ -14,7 +14,7 @@
 package com.sticket.app.sticket;
 
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -22,26 +22,20 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.common.annotation.KeepName;
 import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.util.CameraSettingDialog;
+import com.sticket.app.sticket.util.SettingActivity;
 import com.sticket.app.sticket.util.StickerDialog;
 
 import java.io.IOException;
@@ -300,6 +294,11 @@ public final class LivePreviewActivity extends AppCompatActivity
     public void btnCameraSetting(View v) {
         CameraSettingDialog cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
         cameraSettingDialog.openDialog();
+    }
+
+    public void btnSetting(View v) {
+        Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+        startActivity(intent);
     }
 
 }

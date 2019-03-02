@@ -3,7 +3,7 @@
     package="com.sticket.app.sticket">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -17,11 +17,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme">
-        <activity android:name=".LivePreviewActivity"
+        <activity android:name=".util.AccountActivity"></activity>
+        <activity android:name=".util.SettingActivity" />
+        <activity
+            android:name=".LivePreviewActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

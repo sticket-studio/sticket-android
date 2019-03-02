@@ -298,6 +298,24 @@ public class CameraSource {
     if (pictureSize != null) {
       parameters.setPictureSize(pictureSize.getWidth(), pictureSize.getHeight());
     }
+
+    List<Camera.Size> previewSizeList;
+
+    Camera.Parameters params = camera.getParameters();
+    previewSizeList = params.getSupportedPreviewSizes();
+    int previewW = params.getPreviewSize().width;
+    int previewH = params.getPreviewSize().height;
+    if(previewSizeList == null){
+      Log.d("PREVIEW_TEST","<<none get support preview Size>>");
+      return null;
+    }else{
+      for(int i=0; i<previewSizeList.size();i++){
+        Camera.Size size = previewSizeList.get(i);
+        Log.d("PREVIEW_TEST" , "ListPreviewSize("+i+"):"+size.width + ","+size.height);
+      }
+    }
+
+    Log.d("PREVIEW_TEST" , "previewSize.getWidth() : " + previewSize.getWidth() + ", " + previewSize.getHeight());
     parameters.setPreviewSize(previewSize.getWidth(), previewSize.getHeight());
     parameters.setPreviewFpsRange(
         previewFpsRange[Camera.Parameters.PREVIEW_FPS_MIN_INDEX],

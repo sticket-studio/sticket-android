@@ -16,25 +16,15 @@
         app:layout_constraintWidth_percent="0.9">
 
         <Button
-            android:id="@+id/btnSetting"
+            android:id="@+id/btnFlash"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:text="s"
-            app:layout_constraintBottom_toBottomOf="@+id/btnTimer"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="f"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnRatio"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/btnTimer"
-            app:layout_constraintTop_toTopOf="@+id/btnTimer" />
-
-        <Button
-            android:id="@+id/btnTimer"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="t"
-            app:layout_constraintBottom_toBottomOf="@+id/btnRatio"
-            app:layout_constraintEnd_toStartOf="@+id/btnSetting"
-            app:layout_constraintStart_toEndOf="@+id/btnRatio"
-            app:layout_constraintTop_toTopOf="@+id/btnRatio" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnRatio"
@@ -47,15 +37,26 @@
             app:layout_constraintTop_toTopOf="@+id/btnFlash" />
 
         <Button
-            android:id="@+id/btnFlash"
+            android:id="@+id/btnTimer"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:text="f"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnRatio"
+            android:text="t"
+            app:layout_constraintBottom_toBottomOf="@+id/btnRatio"
+            app:layout_constraintEnd_toStartOf="@+id/btnSetting"
+            app:layout_constraintStart_toEndOf="@+id/btnRatio"
+            app:layout_constraintTop_toTopOf="@+id/btnRatio" />
+
+        <Button
+            android:id="@+id/btnSetting"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="s"
+            app:layout_constraintBottom_toBottomOf="@+id/btnTimer"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/btnTimer"
+            app:layout_constraintTop_toTopOf="@+id/btnTimer"
+            android:onClick="btnSetting" />
 
     </android.support.constraint.ConstraintLayout>
 
