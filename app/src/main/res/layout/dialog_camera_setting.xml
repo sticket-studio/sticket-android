@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/dialog_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.constraint.ConstraintLayout
@@ -15,11 +16,13 @@
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.9">
 
-        <Button
-            android:id="@+id/btnFlash"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="f"
+        <ToggleButton
+            android:id="@+id/toggleFlash"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_flash"
+            android:textOn= ""
+            android:textOff= ""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnRatio"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -28,19 +31,19 @@
 
         <Button
             android:id="@+id/btnRatio"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="r"
-            app:layout_constraintBottom_toBottomOf="@+id/btnFlash"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/img_ratio_3_4"
+            app:layout_constraintBottom_toBottomOf="@+id/toggleFlash"
             app:layout_constraintEnd_toStartOf="@+id/btnTimer"
-            app:layout_constraintStart_toEndOf="@+id/btnFlash"
-            app:layout_constraintTop_toTopOf="@+id/btnFlash" />
+            app:layout_constraintStart_toEndOf="@+id/toggleFlash"
+            app:layout_constraintTop_toTopOf="@+id/toggleFlash" />
 
         <Button
             android:id="@+id/btnTimer"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="t"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/img_timer_none"
             app:layout_constraintBottom_toBottomOf="@+id/btnRatio"
             app:layout_constraintEnd_toStartOf="@+id/btnSetting"
             app:layout_constraintStart_toEndOf="@+id/btnRatio"
@@ -48,8 +51,8 @@
 
         <Button
             android:id="@+id/btnSetting"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:text="s"
             app:layout_constraintBottom_toBottomOf="@+id/btnTimer"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,6 +85,7 @@
         android:layout_marginBottom="8dp"
         android:padding="10dp"
         android:text="자동 저장"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/SwitchTouchCapture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -97,6 +101,7 @@
         android:layout_marginBottom="8dp"
         android:padding="10dp"
         android:text="터치 촬영"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/SwitchHD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -114,6 +119,7 @@
         android:layout_marginBottom="8dp"
         android:padding="10dp"
         android:text="고화질"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

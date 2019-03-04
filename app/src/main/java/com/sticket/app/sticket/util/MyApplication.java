@@ -10,5 +10,8 @@ public class MyApplication extends Application {
         // Required initialization logic here!
 
         MyBitmapFactory.getInstance().build(getApplicationContext());
+
+        Alert.build(getApplicationContext());
+        Preference.getInstance().build(getApplicationContext());
     }
 }

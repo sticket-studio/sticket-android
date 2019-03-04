@@ -293,7 +293,7 @@ public final class LivePreviewActivity extends AppCompatActivity
 
     public void btnCameraSetting(View v) {
         CameraSettingDialog cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
-        cameraSettingDialog.openDialog();
+        cameraSettingDialog.show();
     }
 
     public void btnSetting(View v) {
