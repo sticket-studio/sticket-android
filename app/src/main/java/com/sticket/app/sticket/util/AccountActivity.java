@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.sticket.app.sticket.R;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
