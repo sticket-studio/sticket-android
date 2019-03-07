@@ -264,66 +264,71 @@ public final class LivePreviewActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public void onTouchPreview(View v){
-        if(CameraOption.getInstance().isTouchCapture()){
+    public void onTouchPreview(View v) {
+        if (CameraOption.getInstance().isTouchCapture()) {
             btnCapture(null);
-        }else{
+        } else {
             // 머하징
         }
     }
 
+    boolean isCapturing;
+
     public void btnCapture(View v) {
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    super.run();
-                    int sec = 0;
-                    switch (CameraOption.getInstance().getTimer()) {
-                        case TIMER_NONE:
-                            break;
-                        case TIMER_SEC3:
-                            sec = 3;
-                            break;
-                        case TIMER_SEC5:
-                            sec = 5;
-                            break;
-                        case TIMER_SEC7:
-                            sec = 7;
-                            break;
-                    }
+        if (!isCapturing) {
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        super.run();
+                        isCapturing = true;
+                        int sec = 0;
+                        switch (CameraOption.getInstance().getTimer()) {
+                            case TIMER_NONE:
+                                break;
+                            case TIMER_SEC3:
+                                sec = 3;
+                                break;
+                            case TIMER_SEC5:
+                                sec = 5;
+                                break;
+                            case TIMER_SEC7:
+                                sec = 7;
+                                break;
+                        }
 
-                    for (int i = sec; i > 0; i--) {
-                        final int finalI = i;
+                        for (int i = sec; i > 0; i--) {
+                            final int finalI = i;
 
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    countDownTxt.setVisibility(View.VISIBLE);
+                                    countDownTxt.setText(String.valueOf(finalI));
+                                }
+                            });
+
+                            Thread.sleep(1000);
+                        }
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                countDownTxt.setVisibility(View.VISIBLE);
-                                countDownTxt.setText(String.valueOf(finalI));
+                                Alert.makeText("Cheeeeeze!");
+                                countDownTxt.setVisibility(View.GONE);
                             }
                         });
 
-                        Thread.sleep(1000);
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Alert.makeText("Cheeeeeze!");
-                            countDownTxt.setVisibility(View.GONE);
+                        if (CameraOption.getInstance().isAutoSave()) {
+                            faceContourDetectorProcessor.capture();
+                        } else {
+                            Alert.makeText("자동저장이 아님.나중에 처리할 예정");
                         }
-                    });
-
-                    if(CameraOption.getInstance().isAutoSave()) {
-                        faceContourDetectorProcessor.capture();
-                    }else{
-                        Alert.makeText("자동저장이 아님.나중에 처리할 예정");
+                        isCapturing = false;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
-            }
-        }.start();
+            }.start();
+        }
     }
 }
