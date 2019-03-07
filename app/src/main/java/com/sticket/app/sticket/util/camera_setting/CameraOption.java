@@ -78,4 +78,28 @@ public class CameraOption {
     public void setTimer(Timer timer) {
         this.timer = timer;
     }
+
+    public boolean isAutoSave() {
+        return autoSave;
+    }
+
+    public void setAutoSave(boolean autoSave) {
+        this.autoSave = autoSave;
+    }
+
+    public boolean isTouchCapture() {
+        return touchCapture;
+    }
+
+    public void setTouchCapture(boolean touchCapture) {
+        this.touchCapture = touchCapture;
+    }
+
+    public boolean isHighQuality() {
+        return highQuality;
+    }
+
+    public void setHighQuality(boolean highQuality) {
+        this.highQuality = highQuality;
+    }
 }

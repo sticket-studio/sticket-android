@@ -1,6 +1,9 @@
 package com.sticket.app.sticket.facedetection;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,7 +19,6 @@ import com.sticket.app.sticket.common.CameraImageGraphic;
 import com.sticket.app.sticket.common.FrameMetadata;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.util.ImageUtil;
-import com.sticket.app.sticket.util.MyBitmapFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,7 +36,11 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
 
     private final FirebaseVisionFaceDetector detector;
 
-    public FaceContourDetectorProcessor() {
+    private final Context context;
+
+    public FaceContourDetectorProcessor(Context context) {
+        this.context = context;
+
         FirebaseVisionFaceDetectorOptions options =
                 new FirebaseVisionFaceDetectorOptions.Builder()
                         .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
@@ -89,8 +95,6 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSSS");
         String imgName = IMG_NAME_PREFIX + sdf.format(new Date()) + IMG_FORMAT;
 
-//        this.graphicOverlay.setDrawingCacheEnabled(true);
-
         Bitmap b = ImageUtil.getBitmapFromView(graphicOverlay);
         try {
             b.compress(Bitmap.CompressFormat.JPEG, 95, new FileOutputStream(imgName));
@@ -98,6 +102,13 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
             Log.e("CAPTURE",e.getMessage());
             e.printStackTrace();
         }
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DATA,
+                imgName);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        context.getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
     }
 
     @Override

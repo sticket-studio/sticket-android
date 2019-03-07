@@ -17,8 +17,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -26,10 +24,7 @@ import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.SurfaceView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -40,14 +35,13 @@ import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.CameraSettingDialog;
+import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.SettingActivity;
 import com.sticket.app.sticket.util.StickerDialog;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
+import com.sticket.app.sticket.util.camera_setting.Direction;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,16 +72,16 @@ public final class LivePreviewActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_live_preview);
 
-        preview = (CameraSourcePreview) findViewById(R.id.firePreview);
+        preview = findViewById(R.id.firePreview);
         if (preview == null) {
             Log.d(TAG, "Preview is null");
         }
-        graphicOverlay = (GraphicOverlay) findViewById(R.id.fireFaceOverlay);
+        graphicOverlay = findViewById(R.id.fireFaceOverlay);
         if (graphicOverlay == null) {
             Log.d(TAG, "graphicOverlay is null");
         }
 
-        ToggleButton facingSwitch = (ToggleButton) findViewById(R.id.btnSwitch);
+        ToggleButton facingSwitch = findViewById(R.id.btnSwitch);
         facingSwitch.setOnCheckedChangeListener(this);
 
         // Hide the toggle button if there is only 1 camera
@@ -113,13 +107,19 @@ public final class LivePreviewActivity extends AppCompatActivity
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Log.d(TAG, "Set facing");
         if (cameraSource != null) {
+            Direction direction;
             if (isChecked) {
                 cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
+                direction = Direction.DIRECTION_FRONT;
             } else {
                 cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
+                direction = Direction.DIRECTION_BACK;
             }
+
+            CameraOption.getInstance().setDirection(direction);
+            Preference.getInstance().putInt(CameraOption.PREFERENCE_NAME_DIRECTION
+                    , direction.getVal());
         }
         preview.stop();
         startCameraSource();
@@ -129,10 +129,17 @@ public final class LivePreviewActivity extends AppCompatActivity
         // If there's no existing cameraSource, create one.
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
+            int directionInt = Preference.getInstance()
+                    .getInt(CameraOption.PREFERENCE_NAME_DIRECTION);
+            if (Direction.toMyEnum(directionInt) == Direction.DIRECTION_BACK) {
+                cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
+            } else {
+                cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
+            }
         }
 
         Log.i(TAG, "Using Face Contour Detector Processor");
-        faceContourDetectorProcessor = new FaceContourDetectorProcessor();
+        faceContourDetectorProcessor = new FaceContourDetectorProcessor(LivePreviewActivity.this);
         cameraSource.setMachineLearningFrameProcessor(faceContourDetectorProcessor);
     }
 
