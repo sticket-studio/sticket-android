@@ -46,8 +46,6 @@ public class MyBitmapFactory {
     }
 
     private void initBitmaps(Context context) {
-
-        Log.e("BITMAP", "INIT BITMAPS!");
         bitmaps = new Bitmap[LANDMARK_SIZE];
 
         for (int i = 0; i < LANDMARK_SIZE; i++) {

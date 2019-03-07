@@ -15,8 +15,14 @@ import com.sticket.app.sticket.VisionProcessorBase;
 import com.sticket.app.sticket.common.CameraImageGraphic;
 import com.sticket.app.sticket.common.FrameMetadata;
 import com.sticket.app.sticket.common.GraphicOverlay;
+import com.sticket.app.sticket.util.ImageUtil;
+import com.sticket.app.sticket.util.MyBitmapFactory;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,7 +38,7 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
         FirebaseVisionFaceDetectorOptions options =
                 new FirebaseVisionFaceDetectorOptions.Builder()
                         .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
-                        .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
+//                        .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
                         .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
                         .build();
 
@@ -70,6 +76,28 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
             graphicOverlay.add(faceGraphic);
         }
         graphicOverlay.postInvalidate();
+
+        this.graphicOverlay = graphicOverlay;
+    }
+
+    GraphicOverlay graphicOverlay;
+
+    public final String IMG_NAME_PREFIX = "/storage/emulated/0/sticket/";
+    public final String IMG_FORMAT = ".jpg";
+
+    public void capture() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSSS");
+        String imgName = IMG_NAME_PREFIX + sdf.format(new Date()) + IMG_FORMAT;
+
+//        this.graphicOverlay.setDrawingCacheEnabled(true);
+
+        Bitmap b = ImageUtil.getBitmapFromView(graphicOverlay);
+        try {
+            b.compress(Bitmap.CompressFormat.JPEG, 95, new FileOutputStream(imgName));
+        } catch (FileNotFoundException e) {
+            Log.e("CAPTURE",e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override

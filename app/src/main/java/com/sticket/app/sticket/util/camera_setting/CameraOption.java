@@ -9,9 +9,13 @@ import com.sticket.app.sticket.util.Preference;
  * - Timer
  */
 public class CameraOption {
+    public static final String PREFERENCE_NAME_DIRECTION = "DIRECTION";
     public static final String PREFERENCE_NAME_FLASH = "FLASH";
     public static final String PREFERENCE_NAME_RATIO = "RATIO";
     public static final String PREFERENCE_NAME_TIMER = "TIMER";
+    public static final String PREFERENCE_NAME_AUTO_SAVE = "AUTO_SAVE";
+    public static final String PREFERENCE_NAME_TOUCH_CAPTURE = "TOUCH_CAPTURE";
+    public static final String PREFERENCE_NAME_HIGH_QUALITY = "HIGH_QUALITY";
 
     public static final int[] RATIO_IMGS = new int[]{R.drawable.img_ratio_3_4
             , R.drawable.img_ratio_9_16, R.drawable.img_ratio_1_1};
@@ -21,11 +25,16 @@ public class CameraOption {
 
     private static CameraOption instance;
 
+    private Direction direction;
     private Flash flash;
     private Ratio ratio;
     private Timer timer;
+    private boolean autoSave;
+    private boolean touchCapture;
+    private boolean highQuality;
 
     private CameraOption() {
+        direction = Direction.toMyEnum(Preference.getInstance().getInt(PREFERENCE_NAME_DIRECTION));
         flash = Flash.toMyEnum(Preference.getInstance().getInt(PREFERENCE_NAME_FLASH));
         ratio = Ratio.toMyEnum(Preference.getInstance().getInt(PREFERENCE_NAME_RATIO));
         timer = Timer.toMyEnum(Preference.getInstance().getInt(PREFERENCE_NAME_TIMER));
@@ -36,6 +45,14 @@ public class CameraOption {
             instance = new CameraOption();
         }
         return instance;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     public Flash getFlash() {

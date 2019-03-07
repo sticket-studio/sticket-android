@@ -15,15 +15,28 @@ package com.sticket.app.sticket.common;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.hardware.Camera;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 
 import com.google.android.gms.common.images.Size;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /** Preview the camera image in the screen. */
@@ -176,5 +189,143 @@ public class CameraSourcePreview extends ViewGroup {
 
     Log.d(TAG, "isPortraitMode returning false by default");
     return false;
+  }
+
+  public void takePicture(){
+    cameraSource.getCamera().takePicture(shutterCallback, rawCallback, jpegCallback);
+  }
+
+
+  Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
+    public void onShutter() {
+
+    }
+  };
+
+  Camera.PictureCallback rawCallback = new Camera.PictureCallback() {
+    public void onPictureTaken(byte[] data, Camera camera) {
+
+    }
+  };
+
+
+  //참고 : http://stackoverflow.com/q/37135675
+  Camera.PictureCallback jpegCallback = new Camera.PictureCallback() {
+    public void onPictureTaken(byte[] data, Camera camera) {
+
+      //이미지의 너비와 높이 결정
+      int w = camera.getParameters().getPictureSize().width;
+      int h = camera.getParameters().getPictureSize().height;
+//      int orientation = calculatePreviewOrientation(cameraSource.getCamera()., mDisplayOrientation);
+
+
+      //byte array를 bitmap으로 변환
+      BitmapFactory.Options options = new BitmapFactory.Options();
+      options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+      Bitmap bitmap = BitmapFactory.decodeByteArray( data, 0, data.length, options);
+
+
+      //이미지를 디바이스 방향으로 회전
+      Matrix matrix = new Matrix();
+//      matrix.postRotate(orientation);
+      bitmap =  Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+
+      //bitmap을 byte array로 변환
+      ByteArrayOutputStream stream = new ByteArrayOutputStream();
+      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+      byte[] currentData = stream.toByteArray();
+
+      //파일로 저장
+      new SaveImageTask().execute(currentData);
+
+    }
+  };
+
+  /**
+   * 안드로이드 디바이스 방향에 맞는 카메라 프리뷰를 화면에 보여주기 위해 계산합니다.
+   */
+  public static int calculatePreviewOrientation(Camera.CameraInfo info, int rotation) {
+    int degrees = 0;
+
+    switch (rotation) {
+      case Surface.ROTATION_0:
+        degrees = 0;
+        break;
+      case Surface.ROTATION_90:
+        degrees = 90;
+        break;
+      case Surface.ROTATION_180:
+        degrees = 180;
+        break;
+      case Surface.ROTATION_270:
+        degrees = 270;
+        break;
+    }
+
+    int result;
+    if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+      result = (info.orientation + degrees) % 360;
+      result = (360 - result) % 360;  // compensate the mirror
+    } else {  // back-facing
+      result = (info.orientation - degrees + 360) % 360;
+    }
+
+    return result;
+  }
+
+  private class SaveImageTask extends AsyncTask<byte[], Void, Void> {
+
+    @Override
+    protected Void doInBackground(byte[]... data) {
+      FileOutputStream outStream = null;
+
+
+      try {
+
+        File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/camtest");
+        if (!path.exists()) {
+          path.mkdirs();
+        }
+
+        String fileName = String.format("%d.jpg", System.currentTimeMillis());
+        File outputFile = new File(path, fileName);
+
+        outStream = new FileOutputStream(outputFile);
+        outStream.write(data[0]);
+        outStream.flush();
+        outStream.close();
+
+        Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length + " to "
+                + outputFile.getAbsolutePath());
+
+
+        cameraSource.getCamera().startPreview();
+
+
+        // 갤러리에 반영
+        Intent mediaScanIntent = new Intent( Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(Uri.fromFile(outputFile));
+        getContext().sendBroadcast(mediaScanIntent);
+
+
+
+        try {
+          cameraSource.getCamera().setPreviewDisplay(surfaceView.getHolder());
+          cameraSource.getCamera().startPreview();
+          Log.d(TAG, "Camera preview started.");
+        } catch (Exception e) {
+          Log.d(TAG, "Error starting camera preview: " + e.getMessage());
+        }
+
+
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+      return null;
+    }
+
   }
 }

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Flash;
 import com.sticket.app.sticket.util.camera_setting.Ratio;
@@ -64,25 +66,28 @@ public class CameraSettingDialog extends Dialog {
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Camera camera = cameraSource.getCamera();
+                Camera.Parameters p = camera.getParameters();
+
                 switch (buttonView.getId()) {
                     case R.id.toggleFlash:
                         if (isChecked) {
                             // Flash 조작 불가능 하다면 다시 OFF 처리
-                            if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-                                Alert.makeText("플래시 조작이 불가능합니다");
+                            if (cameraSource.getCameraFacing() == CameraSource.CAMERA_FACING_FRONT) {
+                                Alert.makeText("전면 카메라에선 플래시 조작이 불가능합니다");
 
                                 buttonView.setChecked(false);
 
                                 // SharedPreference에 Flash값 저장 - FLASH_OFF
                                 CameraOption.getInstance().setFlash(Flash.FLASH_OFF);
-                            } else {
-                                Alert.makeText("플래시 On");
 
+                                break;
+                            } else {
+                                p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
                                 CameraOption.getInstance().setFlash(Flash.FLASH_ON);
                             }
                         } else {
-                            Alert.makeText("플래시 Off");
-
+                            p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                             CameraOption.getInstance().setFlash(Flash.FLASH_OFF);
                         }
 
@@ -90,6 +95,9 @@ public class CameraSettingDialog extends Dialog {
                                 , CameraOption.getInstance().getFlash().getVal());
                         break;
                 }
+
+                camera.setParameters(p);
+                camera.startPreview();
             }
         };
 
@@ -152,7 +160,11 @@ public class CameraSettingDialog extends Dialog {
         if (onCheckedChangeListener == null) {
             throw new RuntimeException("OnCheckedListener is NULL");
         } else {
-            flashToggleBtn.setOnCheckedChangeListener(onCheckedChangeListener);
+            if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+                flashToggleBtn.setEnabled(false);
+            } else {
+                flashToggleBtn.setOnCheckedChangeListener(onCheckedChangeListener);
+            }
         }
 
         if (onClickListener == null) {
@@ -161,5 +173,13 @@ public class CameraSettingDialog extends Dialog {
             ratioBtn.setOnClickListener(onClickListener);
             timerBtn.setOnClickListener(onClickListener);
         }
+
+
+    }
+
+    private CameraSource cameraSource;
+
+    public void setCamera(CameraSource cameraSource) {
+        this.cameraSource = cameraSource;
     }
 }

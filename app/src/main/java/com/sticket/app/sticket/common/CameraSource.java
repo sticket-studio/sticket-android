@@ -752,4 +752,8 @@ public class CameraSource {
   private void cleanScreen() {
     graphicOverlay.clear();
   }
+
+  public Camera getCamera() {
+    return camera;
+  }
 }

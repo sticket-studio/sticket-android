@@ -17,6 +17,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -24,21 +26,28 @@ import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
+import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.CameraSettingDialog;
 import com.sticket.app.sticket.util.SettingActivity;
 import com.sticket.app.sticket.util.StickerDialog;
+import com.sticket.app.sticket.util.camera_setting.CameraOption;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,14 +57,7 @@ import java.util.List;
  */
 public final class LivePreviewActivity extends AppCompatActivity
         implements OnRequestPermissionsResultCallback,
-        OnItemSelectedListener,
         CompoundButton.OnCheckedChangeListener {
-    private static final String FACE_DETECTION = "Face Detection";
-    private static final String TEXT_DETECTION = "Text Detection";
-    private static final String BARCODE_DETECTION = "Barcode Detection";
-    private static final String IMAGE_LABEL_DETECTION = "Label Detection";
-    private static final String CLASSIFICATION_QUANT = "Classification (quantized)";
-    private static final String CLASSIFICATION_FLOAT = "Classification (float)";
     private static final String FACE_CONTOUR = "Face Contour";
     private static final String TAG = "LivePreviewActivity";
     private static final int PERMISSION_REQUESTS = 1;
@@ -63,8 +65,11 @@ public final class LivePreviewActivity extends AppCompatActivity
     private CameraSource cameraSource = null;
     private CameraSourcePreview preview;
     private GraphicOverlay graphicOverlay;
-    private String selectedModel = FACE_CONTOUR;
     public static Context mContext;
+    private CameraSettingDialog cameraSettingDialog;
+
+    private TextView countDownTxt;
+    private FaceContourDetectorProcessor faceContourDetectorProcessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,32 +96,19 @@ public final class LivePreviewActivity extends AppCompatActivity
         }
 
         if (allPermissionsGranted()) {
-            createCameraSource(selectedModel);
+            createCameraSource();
         } else {
             getRuntimePermissions();
         }
 
         mContext = this;
+
+        initViews();
     }
 
-    @Override
-    public synchronized void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-        selectedModel = parent.getItemAtPosition(pos).toString();
-        Log.d(TAG, "Selected model: " + selectedModel);
-        preview.stop();
-        if (allPermissionsGranted()) {
-            createCameraSource(selectedModel);
-            startCameraSource();
-        } else {
-            getRuntimePermissions();
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Do nothing.
+    private void initViews() {
+        countDownTxt = findViewById(R.id.txtCountDown);
+        cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
     }
 
     @Override
@@ -133,51 +125,15 @@ public final class LivePreviewActivity extends AppCompatActivity
         startCameraSource();
     }
 
-    private void createCameraSource(String model) {
+    private void createCameraSource() {
         // If there's no existing cameraSource, create one.
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
         }
 
         Log.i(TAG, "Using Face Contour Detector Processor");
-        cameraSource.setMachineLearningFrameProcessor(new FaceContourDetectorProcessor());
-
-//    try {
-//      switch (model) {
-//        case CLASSIFICATION_QUANT:
-//          Log.i(TAG, "Using Custom Image Classifier (quant) Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new CustomImageClassifierProcessor(this, true));
-//          break;
-//        case CLASSIFICATION_FLOAT:
-//          Log.i(TAG, "Using Custom Image Classifier (float) Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new CustomImageClassifierProcessor(this, false));
-//          break;
-//        case TEXT_DETECTION:
-//          Log.i(TAG, "Using Text Detector Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new TextRecognitionProcessor());
-//          break;
-//        case FACE_DETECTION:
-//          Log.i(TAG, "Using Face Detector Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new FaceDetectionProcessor());
-//          break;
-//        case BARCODE_DETECTION:
-//          Log.i(TAG, "Using Barcode Detector Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new BarcodeScanningProcessor());
-//          break;
-//        case IMAGE_LABEL_DETECTION:
-//          Log.i(TAG, "Using Image Label Detector Processor");
-//          cameraSource.setMachineLearningFrameProcessor(new ImageLabelingProcessor());
-//          break;
-//        case FACE_CONTOUR:
-//        Log.i(TAG, "Using Face Contour Detector Processor");
-//        cameraSource.setMachineLearningFrameProcessor(new FaceContourDetectorProcessor());
-//          break;
-//        default:
-//          Log.e(TAG, "Unknown model: " + model);
-//      }
-//    } catch (FirebaseMLException e) {
-//      Log.e(TAG, "can not create camera source: " + model);
-//    }
+        faceContourDetectorProcessor = new FaceContourDetectorProcessor();
+        cameraSource.setMachineLearningFrameProcessor(faceContourDetectorProcessor);
     }
 
     /**
@@ -271,7 +227,7 @@ public final class LivePreviewActivity extends AppCompatActivity
             int requestCode, String[] permissions, int[] grantResults) {
         Log.i(TAG, "Permission granted!");
         if (allPermissionsGranted()) {
-            createCameraSource(selectedModel);
+            createCameraSource();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -292,7 +248,7 @@ public final class LivePreviewActivity extends AppCompatActivity
     }
 
     public void btnCameraSetting(View v) {
-        CameraSettingDialog cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
+        cameraSettingDialog.setCamera(cameraSource);
         cameraSettingDialog.show();
     }
 
@@ -301,4 +257,53 @@ public final class LivePreviewActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    public void btnCapture(View v) {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    super.run();
+                    int sec = 0;
+                    switch (CameraOption.getInstance().getTimer()) {
+                        case TIMER_NONE:
+                            break;
+                        case TIMER_SEC3:
+                            sec = 3;
+                            break;
+                        case TIMER_SEC5:
+                            sec = 5;
+                            break;
+                        case TIMER_SEC7:
+                            sec = 7;
+                            break;
+                    }
+
+                    for (int i = sec; i > 0; i--) {
+                        final int finalI = i;
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                countDownTxt.setVisibility(View.VISIBLE);
+                                countDownTxt.setText(String.valueOf(finalI));
+                            }
+                        });
+
+                        Thread.sleep(1000);
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Alert.makeText("Cheeeeeze!");
+                            countDownTxt.setVisibility(View.GONE);
+                        }
+                    });
+                    faceContourDetectorProcessor.capture();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
 }
