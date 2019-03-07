@@ -39,8 +39,8 @@ import java.nio.ByteBuffer;
  * @param <T> The type of the detected feature.
  */
 public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
-
-    // To keep the latest images and its metadata.
+    //
+    //    // To keep the latest images and its metadata.
     @GuardedBy("this")
     private ByteBuffer latestImage;
 

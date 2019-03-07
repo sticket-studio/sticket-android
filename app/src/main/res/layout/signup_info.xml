@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:weightSum="15"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:text="Sign up"
+            android:textSize="20dip"
+            android:gravity="bottom"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="25dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dip"
+            />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/btn_input"
+            android:text="Username or E-mail"
+            android:textAllCaps="false"
+            android:textColor="#333333"
+            android:textSize="13dip"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="25dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dip"
+            >
+        </EditText>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/btn_input"
+            android:text="Passward"
+            android:textAllCaps="false"
+            android:textColor="#333333"
+            android:textSize="13dip"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="25dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dip"
+            >
+        </EditText>
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/btn_input"
+            android:text="Passward"
+            android:textAllCaps="false"
+            android:textSize="13dip"
+            android:textColor="#333333"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="25dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dip"
+            >
+        </EditText>
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/btn_input"
+            android:text="Passward"
+            android:textAllCaps="false"
+            android:textSize="13dip"
+            android:textColor="#333333"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="25dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dip"
+            >
+        </EditText>
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/btn_pink"
+            android:text="로그인"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="25dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dip"
+            >
+        </EditText>
+
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
