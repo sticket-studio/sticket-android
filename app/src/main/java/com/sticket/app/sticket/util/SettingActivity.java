@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.sticket.app.sticket.LivePreviewActivity;
 import com.sticket.app.sticket.R;
 
 public class SettingActivity extends AppCompatActivity {
@@ -22,11 +21,11 @@ public class SettingActivity extends AppCompatActivity {
 //        ActionBar ab = getSupportActionBar() ;
 //        ab.show() ;     // 앱바(App Bar) 보이기.
 //        ActionBar ab = getSupportActionBar() ;
-
+//
 //        ab.setIcon(R.drawable.btn_switch) ;
 //        ab.setDisplayUseLogoEnabled(true) ;
 //        ab.setDisplayShowHomeEnabled(true) ;
-
+//
 //        ab.show();
     }
 
