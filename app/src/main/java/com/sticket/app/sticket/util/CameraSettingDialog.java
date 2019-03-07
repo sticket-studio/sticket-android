@@ -161,9 +161,14 @@ public class CameraSettingDialog extends Dialog {
         touchCaptureSwitch = findViewById(R.id.SwitchTouchCapture);
         hDSwitch = findViewById(R.id.SwitchHD);
 
-        int savedFlashVal = Preference.getInstance().getInt(CameraOption.PREFERENCE_NAME_FLASH);
-        int savedRatioVal = Preference.getInstance().getInt(CameraOption.PREFERENCE_NAME_RATIO);
-        int savedTimerVal = Preference.getInstance().getInt(CameraOption.PREFERENCE_NAME_TIMER);
+        Preference preference = Preference.getInstance();
+        
+        int savedFlashVal = preference.getInt(CameraOption.PREFERENCE_NAME_FLASH);
+        int savedRatioVal = preference.getInt(CameraOption.PREFERENCE_NAME_RATIO);
+        int savedTimerVal = preference.getInt(CameraOption.PREFERENCE_NAME_TIMER);
+        boolean savedAutoSavedVal = preference.getBoolean(CameraOption.PREFERENCE_NAME_AUTO_SAVE);
+        boolean savedTouchCaptureVal = preference.getBoolean(CameraOption.PREFERENCE_NAME_TOUCH_CAPTURE);
+        boolean savedHD = preference.getBoolean(CameraOption.PREFERENCE_NAME_HD);
 
         Flash savedFlash = Flash.toMyEnum(savedFlashVal);
 
@@ -172,6 +177,9 @@ public class CameraSettingDialog extends Dialog {
         flashToggleBtn.setChecked(flashOn);
         timerBtn.setBackgroundResource(CameraOption.TIMER_IMGS[savedTimerVal]);
         ratioBtn.setBackgroundResource(CameraOption.RATIO_IMGS[savedRatioVal]);
+        autoSaveSwitch.setChecked(savedAutoSavedVal);
+        touchCaptureSwitch.setChecked(savedTouchCaptureVal);
+        hDSwitch.setChecked(savedHD);
 
         if (onCheckedChangeListener == null) {
             throw new RuntimeException("OnCheckedListener is NULL");
