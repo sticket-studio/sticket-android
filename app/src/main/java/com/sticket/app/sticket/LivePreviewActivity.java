@@ -264,6 +264,14 @@ public final class LivePreviewActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    public void onTouchPreview(View v){
+        if(CameraOption.getInstance().isTouchCapture()){
+            btnCapture(null);
+        }else{
+            // 머하징
+        }
+    }
+
     public void btnCapture(View v) {
         new Thread() {
             @Override
@@ -305,7 +313,12 @@ public final class LivePreviewActivity extends AppCompatActivity
                             countDownTxt.setVisibility(View.GONE);
                         }
                     });
-                    faceContourDetectorProcessor.capture();
+
+                    if(CameraOption.getInstance().isAutoSave()) {
+                        faceContourDetectorProcessor.capture();
+                    }else{
+                        Alert.makeText("자동저장이 아님.나중에 처리할 예정");
+                    }
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();

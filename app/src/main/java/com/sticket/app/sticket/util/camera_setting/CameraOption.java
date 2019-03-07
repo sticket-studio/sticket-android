@@ -15,7 +15,7 @@ public class CameraOption {
     public static final String PREFERENCE_NAME_TIMER = "TIMER";
     public static final String PREFERENCE_NAME_AUTO_SAVE = "AUTO_SAVE";
     public static final String PREFERENCE_NAME_TOUCH_CAPTURE = "TOUCH_CAPTURE";
-    public static final String PREFERENCE_NAME_HIGH_QUALITY = "HIGH_QUALITY";
+    public static final String PREFERENCE_NAME_HD = "HIGH_QUALITY";
 
     public static final int[] RATIO_IMGS = new int[]{R.drawable.img_ratio_3_4
             , R.drawable.img_ratio_9_16, R.drawable.img_ratio_1_1};
@@ -31,13 +31,16 @@ public class CameraOption {
     private Timer timer;
     private boolean autoSave;
     private boolean touchCapture;
-    private boolean highQuality;
+    private boolean hD;
 
     private CameraOption() {
         direction = Direction.toMyEnum(Preference.getInstance().getInt(PREFERENCE_NAME_DIRECTION));
         flash = Flash.toMyEnum(Preference.getInstance().getInt(PREFERENCE_NAME_FLASH));
         ratio = Ratio.toMyEnum(Preference.getInstance().getInt(PREFERENCE_NAME_RATIO));
         timer = Timer.toMyEnum(Preference.getInstance().getInt(PREFERENCE_NAME_TIMER));
+        autoSave = Preference.getInstance().getBoolean(PREFERENCE_NAME_AUTO_SAVE);
+        touchCapture = Preference.getInstance().getBoolean(PREFERENCE_NAME_TOUCH_CAPTURE);
+        hD = Preference.getInstance().getBoolean(PREFERENCE_NAME_HD);
     }
 
     public static CameraOption getInstance() {
@@ -95,11 +98,11 @@ public class CameraOption {
         this.touchCapture = touchCapture;
     }
 
-    public boolean isHighQuality() {
-        return highQuality;
+    public boolean ishD() {
+        return hD;
     }
 
-    public void setHighQuality(boolean highQuality) {
-        this.highQuality = highQuality;
+    public void setHD(boolean highQuality) {
+        this.hD = highQuality;
     }
 }

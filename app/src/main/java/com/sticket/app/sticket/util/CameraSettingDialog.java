@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.ToggleButton;
 
 import com.sticket.app.sticket.R;
@@ -29,6 +30,7 @@ public class CameraSettingDialog extends Dialog {
 
     private ToggleButton flashToggleBtn;
     private Button timerBtn, ratioBtn;
+    private Switch autoSaveSwitch, touchCaptureSwitch, hDSwitch;
 
     private Context context;
 
@@ -94,6 +96,21 @@ public class CameraSettingDialog extends Dialog {
                         Preference.getInstance().putInt(PREFERENCE_NAME_FLASH
                                 , CameraOption.getInstance().getFlash().getVal());
                         break;
+                    case R.id.SwitchAutoSave:
+                        CameraOption.getInstance().setAutoSave(isChecked);
+                        Preference.getInstance().putBoolean(CameraOption.PREFERENCE_NAME_AUTO_SAVE
+                                , isChecked);
+                        break;
+                    case R.id.SwitchTouchCapture:
+                        CameraOption.getInstance().setTouchCapture(isChecked);
+                        Preference.getInstance().putBoolean(CameraOption.PREFERENCE_NAME_TOUCH_CAPTURE
+                                , isChecked);
+                        break;
+                    case R.id.SwitchHD:
+                        CameraOption.getInstance().setHD(isChecked);
+                        Preference.getInstance().putBoolean(CameraOption.PREFERENCE_NAME_HD
+                                , isChecked);
+                        break;
                 }
 
                 camera.setParameters(p);
@@ -116,8 +133,6 @@ public class CameraSettingDialog extends Dialog {
                         Preference.getInstance().putInt(PREFERENCE_NAME_TIMER
                                 , nextTimer.getVal());
                         timerBtn.setBackgroundResource(CameraOption.TIMER_IMGS[nextTimer.getVal()]);
-
-                        Alert.makeText(nextTimer.name());
                         break;
                 }
                 switch (v.getId()) {
@@ -132,8 +147,6 @@ public class CameraSettingDialog extends Dialog {
                         Preference.getInstance().putInt(PREFERENCE_NAME_RATIO
                                 , nextRatio.getVal());
                         ratioBtn.setBackgroundResource(CameraOption.RATIO_IMGS[nextRatio.getVal()]);
-
-                        Alert.makeText(nextRatio.name());
                         break;
                 }
             }
@@ -144,6 +157,9 @@ public class CameraSettingDialog extends Dialog {
         flashToggleBtn = findViewById(R.id.toggleFlash);
         ratioBtn = findViewById(R.id.btnRatio);
         timerBtn = findViewById(R.id.btnTimer);
+        autoSaveSwitch = findViewById(R.id.SwitchAutoSave);
+        touchCaptureSwitch = findViewById(R.id.SwitchTouchCapture);
+        hDSwitch = findViewById(R.id.SwitchHD);
 
         int savedFlashVal = Preference.getInstance().getInt(CameraOption.PREFERENCE_NAME_FLASH);
         int savedRatioVal = Preference.getInstance().getInt(CameraOption.PREFERENCE_NAME_RATIO);
@@ -164,6 +180,9 @@ public class CameraSettingDialog extends Dialog {
                 flashToggleBtn.setEnabled(false);
             } else {
                 flashToggleBtn.setOnCheckedChangeListener(onCheckedChangeListener);
+                autoSaveSwitch.setOnCheckedChangeListener(onCheckedChangeListener);
+                touchCaptureSwitch.setOnCheckedChangeListener(onCheckedChangeListener);
+                hDSwitch.setOnCheckedChangeListener(onCheckedChangeListener);
             }
         }
 
@@ -173,8 +192,6 @@ public class CameraSettingDialog extends Dialog {
             ratioBtn.setOnClickListener(onClickListener);
             timerBtn.setOnClickListener(onClickListener);
         }
-
-
     }
 
     private CameraSource cameraSource;
