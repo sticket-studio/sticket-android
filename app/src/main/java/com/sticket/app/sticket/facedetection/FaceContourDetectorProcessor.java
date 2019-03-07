@@ -19,6 +19,7 @@ import com.sticket.app.sticket.common.CameraImageGraphic;
 import com.sticket.app.sticket.common.FrameMetadata;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.util.ImageUtil;
+import com.sticket.app.sticket.util.camera_setting.CameraOption;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -96,10 +97,13 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
         String imgName = IMG_NAME_PREFIX + sdf.format(new Date()) + IMG_FORMAT;
 
         Bitmap b = ImageUtil.getBitmapFromView(graphicOverlay);
+
+        int quality = CameraOption.getInstance().ishD() ? 95 : 60;
+
         try {
-            b.compress(Bitmap.CompressFormat.JPEG, 95, new FileOutputStream(imgName));
+            b.compress(Bitmap.CompressFormat.JPEG, quality, new FileOutputStream(imgName));
         } catch (FileNotFoundException e) {
-            Log.e("CAPTURE",e.getMessage());
+            Log.e("CAPTURE", e.getMessage());
             e.printStackTrace();
         }
 
