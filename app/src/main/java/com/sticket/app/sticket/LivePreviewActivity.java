@@ -321,7 +321,12 @@ public final class LivePreviewActivity extends AppCompatActivity
                         if (CameraOption.getInstance().isAutoSave()) {
                             faceContourDetectorProcessor.capture();
                         } else {
-                            Alert.makeText("자동저장이 아님.나중에 처리할 예정");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Alert.makeText("자동저장이 아님.나중에 처리할 예정");
+                                }
+                            });
                         }
                         isCapturing = false;
                     } catch (InterruptedException e) {

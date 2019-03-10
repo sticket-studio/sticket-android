@@ -3,6 +3,7 @@ package com.sticket.app.sticket.facedetection;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -89,13 +90,13 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
 
     GraphicOverlay graphicOverlay;
 
-    public final String IMG_NAME_PREFIX = "/storage/emulated/0/sticket/";
+    public final String IMG_NAME_PREFIX = "/sticket/";
     public final String IMG_FORMAT = ".jpg";
 
     public void capture() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSSS");
-        String imgName = IMG_NAME_PREFIX + sdf.format(new Date()) + IMG_FORMAT;
-
+        String imgName = Environment.getExternalStorageDirectory().getAbsolutePath() + IMG_NAME_PREFIX + sdf.format(new Date()) + IMG_FORMAT;
+        Log.e("CAPTURE", imgName);
         Bitmap b = ImageUtil.getBitmapFromView(graphicOverlay);
 
         int quality = CameraOption.getInstance().ishD() ? 95 : 60;
