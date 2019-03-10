@@ -23,10 +23,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
-import com.sticket.app.sticket.common.BitmapUtils;
 import com.sticket.app.sticket.common.FrameMetadata;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.common.VisionImageProcessor;
+import com.sticket.app.sticket.util.BitmapUtils;
 
 import java.nio.ByteBuffer;
 

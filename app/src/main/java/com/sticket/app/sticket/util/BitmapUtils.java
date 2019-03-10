@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.common;
+package com.sticket.app.sticket.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
+import com.sticket.app.sticket.common.FrameMetadata;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
