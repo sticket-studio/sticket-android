@@ -7,6 +7,8 @@ import android.util.Log;
 import java.io.File;
 
 public class MyApplication extends Application {
+    private static final String TAG = "MyApplication";
+
     // Overriding this method is totally optional!
     @Override
     public void onCreate() {
@@ -22,17 +24,17 @@ public class MyApplication extends Application {
     }
 
     public void createDirectory() {
-        File dir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS), "testDir");
+        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/sticket");
+        Log.e(TAG,"dir name : " + dir.getName());
 
         if (!dir.exists()) {
             if(dir.mkdirs()){
-                Alert.makeText("폴더 생성 SUCCESS");
+                Log.e(TAG, "폴더 생성 SUCCESS");
             }else{
-                Alert.makeText("폴더 생성 FAIL");
+                Log.e(TAG, "폴더 생성 FAIL");
             }
         } else {
-            Alert.makeText("폴더 이미 있음");
+            Log.e(TAG, "폴더 이미 있음");
         }
     }
 }
