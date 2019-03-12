@@ -25,6 +25,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -250,8 +251,8 @@ public final class LivePreviewActivity extends AppCompatActivity
     }
 
     public void btnSticker(View v) {
-        StickerDialog stickerDialog = new StickerDialog(LivePreviewActivity.this);
-        stickerDialog.openDialog();
+        StickerDialog stickerDialog = new StickerDialog();
+        stickerDialog.show(getSupportFragmentManager(), "example Bottom Sheet");
     }
 
     public void btnCameraSetting(View v) {

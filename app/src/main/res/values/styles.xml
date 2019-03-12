@@ -2,4 +2,7 @@
     <style name="MaterialTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
     </style>
+    <style name="BottomSheetTheme" parent="android:Theme.Material">
+        <item name="android:colorPrimary">#ff6666</item>
+    </style>
 </resources>
