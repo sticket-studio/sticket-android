@@ -20,9 +20,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -103,7 +105,7 @@ public final class LivePreviewActivity extends AppCompatActivity
     }
 
     private void initViews() {
-        countDownTxt = findViewById(R.id.txtCountDown);
+//        countDownTxt = findViewById(R.id.txtCountDown);
         cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
     }
 
@@ -253,7 +255,7 @@ public final class LivePreviewActivity extends AppCompatActivity
 
     public void btnSticker(View v) {
         StickerDialog stickerDialog = new StickerDialog();
-        stickerDialog.show(getSupportFragmentManager(), "example Bottom Sheet");
+        stickerDialog.show(getSupportFragmentManager(), "BottomSheetDialog");
     }
 
     public void btnCameraSetting(View v) {
