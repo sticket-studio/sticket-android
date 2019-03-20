@@ -5,4 +5,9 @@
     <style name="BottomSheetTheme" parent="android:Theme.Material">
         <item name="android:colorPrimary">#ff6666</item>
     </style>
+
+    <style name="StickerDialogTab" parent="TextAppearance.Design.Tab">
+        <item name="android:colorPrimary">#ff6666</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

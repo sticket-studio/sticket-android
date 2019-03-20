@@ -20,6 +20,7 @@ public class GridFragment extends Fragment{
         // Required empty public constructor
     }
 
+//    // Q. Is it Redundant Code?
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
