@@ -29,16 +29,16 @@
 
     </com.sticket.app.sticket.common.CameraSourcePreview>
 
-    <!--<TextView-->
-        <!--android:id="@+id/txtCountDown"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:textSize="50sp"-->
-        <!--android:visibility="gone"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:gravity="center"-->
-        <!--/>-->
+    <TextView
+        android:id="@+id/txtCountDown"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:textSize="50sp"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:gravity="center"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"

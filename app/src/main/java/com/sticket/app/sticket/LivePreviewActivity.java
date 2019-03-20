@@ -105,7 +105,7 @@ public final class LivePreviewActivity extends AppCompatActivity
     }
 
     private void initViews() {
-//        countDownTxt = findViewById(R.id.txtCountDown);
+        countDownTxt = findViewById(R.id.txtCountDown);       // Annotation in activity_live_preview
         cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
     }
 
