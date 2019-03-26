@@ -2,4 +2,12 @@
     <style name="MaterialTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
     </style>
+    <style name="BottomSheetTheme" parent="android:Theme.Material">
+        <item name="android:colorPrimary">#ff6666</item>
+    </style>
+
+    <style name="StickerDialogTab" parent="TextAppearance.Design.Tab">
+        <item name="android:colorPrimary">#ff6666</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>
