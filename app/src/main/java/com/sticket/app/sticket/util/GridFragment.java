@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.sticket.app.sticket.R;
 
@@ -28,12 +30,13 @@ public class GridFragment extends Fragment{
 
         gridView.setAdapter(adapter);
 
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(context, "Clicked icon position:" + position, Toast.LENGTH_SHORT);
-//            }
-//        });
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO : Set Asset or Sticker on your face
+                Toast.makeText(getActivity(), "Clicked icon position:" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
