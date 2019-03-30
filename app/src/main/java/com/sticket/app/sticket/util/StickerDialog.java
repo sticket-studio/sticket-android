@@ -1,7 +1,5 @@
 package com.sticket.app.sticket.util;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -16,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.GridView;
 
 import com.sticket.app.sticket.R;
 
@@ -24,9 +23,15 @@ import java.util.List;
 
 public class StickerDialog extends BottomSheetDialogFragment {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private Button btnCapture;
+    private TabLayout stickerDialogTabLayout;
+    private ViewPager stickerDialogViewPager;
+    private Button btnCapture;      // TODO : Search Custom Listener
+
+    private GridView gridView;
+
+    int icons[] = {
+            R.drawable.btn_switch
+    };
 
     @Override public void onStart() {
         super.onStart();
@@ -45,11 +50,11 @@ public class StickerDialog extends BottomSheetDialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_sticker, container, false);
 
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+        stickerDialogViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        setupViewPager(stickerDialogViewPager);
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        stickerDialogTabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        stickerDialogTabLayout.setupWithViewPager(stickerDialogViewPager);
 
         btnCapture = (Button) view.findViewById(R.id.btnCapture);
 
