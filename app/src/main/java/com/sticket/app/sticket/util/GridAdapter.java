@@ -11,7 +11,7 @@ import com.sticket.app.sticket.R;
 
 public class GridAdapter extends BaseAdapter {
 
-    int icons[] = {
+    private int icons[] = {
             R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch,
             R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch,
             R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch,

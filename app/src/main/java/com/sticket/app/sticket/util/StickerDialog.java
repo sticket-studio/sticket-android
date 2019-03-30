@@ -23,15 +23,9 @@ import java.util.List;
 
 public class StickerDialog extends BottomSheetDialogFragment {
 
-    private TabLayout stickerDialogTabLayout;
-    private ViewPager stickerDialogViewPager;
     private Button btnCapture;      // TODO : Search Custom Listener
 
     private GridView gridView;
-
-    int icons[] = {
-            R.drawable.btn_switch
-    };
 
     @Override public void onStart() {
         super.onStart();
@@ -50,10 +44,10 @@ public class StickerDialog extends BottomSheetDialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_sticker, container, false);
 
-        stickerDialogViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        ViewPager stickerDialogViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         setupViewPager(stickerDialogViewPager);
 
-        stickerDialogTabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        TabLayout stickerDialogTabLayout = (TabLayout) view.findViewById(R.id.tabs);
         stickerDialogTabLayout.setupWithViewPager(stickerDialogViewPager);
 
         btnCapture = (Button) view.findViewById(R.id.btnCapture);

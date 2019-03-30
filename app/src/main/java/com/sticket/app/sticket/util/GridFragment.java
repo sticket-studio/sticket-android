@@ -13,8 +13,6 @@ import com.sticket.app.sticket.R;
 
 public class GridFragment extends Fragment{
 
-    private GridView gridView;
-
     public GridFragment() {
         // Required empty public constructor
     }
@@ -25,7 +23,7 @@ public class GridFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
 
-        gridView = (GridView) view.findViewById(R.id.gridView);
+        GridView gridView = (GridView) view.findViewById(R.id.gridView);
         GridAdapter adapter = new GridAdapter(getActivity());
 
         gridView.setAdapter(adapter);
