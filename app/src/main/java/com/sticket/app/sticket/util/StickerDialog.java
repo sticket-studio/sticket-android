@@ -1,6 +1,5 @@
 package com.sticket.app.sticket.util;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -57,8 +56,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
         TabLayout stickerDialogTabLayout = (TabLayout) view.findViewById(R.id.tabs);
         stickerDialogTabLayout.setupWithViewPager(stickerDialogViewPager);
 
-
-        // Dismiss
+        // OnClickListener for dismiss
         RelativeLayout layoutBtnEditor =  (RelativeLayout) view.findViewById(R.id.layoutBtnEditor);
         layoutBtnEditor.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -89,17 +87,10 @@ public class StickerDialog extends BottomSheetDialogFragment {
     @Override public void onStart() {
         super.onStart();
 
-        // Set Dialog without Dim
         Window window = getDialog().getWindow();
-//        WindowManager.LayoutParams windowParams = window.getAttributes();
-//        windowParams.dimAmount = 0;
-//        window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//        windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-//        window.setAttributes(windowParams);
         getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
-
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
@@ -112,7 +103,6 @@ public class StickerDialog extends BottomSheetDialogFragment {
         adapter.addFrag(new GridFragment(), "모션티콘");
         viewPager.setAdapter(adapter);
     }
-
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

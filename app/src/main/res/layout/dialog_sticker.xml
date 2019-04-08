@@ -55,7 +55,6 @@
             android:textOff="Editor"
             android:textOn="X" />
 
-
     </RelativeLayout>
 
     <android.support.design.widget.AppBarLayout
