@@ -374,6 +374,9 @@ public class CameraSource {
         return -1;
     }
 
+    private static final int HIGH_QUALITY_VALUE = 3;
+    private static final int LOW_QUALITY_VALUE = 5;
+
     /**
      * Selects the most suitable preview and picture size, given the desired width and height.
      *
@@ -390,6 +393,7 @@ public class CameraSource {
     private static SizePair selectSizePair(Camera camera, int ratioWidth, int ratioHeight) {
         List<SizePair> validPreviewSizes = generateValidPreviewSizeList(camera);
 
+        //TODO : Width, Height 바꿔야하는데 흠.... isPortrait() 을 살펴봐야함.
         float ratio = (float) ratioHeight / (float) ratioWidth;
 
         // The method for selecting the best size is to minimize the sum of the differences between
@@ -399,7 +403,7 @@ public class CameraSource {
         SizePair selectedPair = null;
         float minDiff = Float.MAX_VALUE;
         int cnt = 0;
-        int qualityVal = CameraOption.getInstance().ishD()?3:5;
+        int qualityVal = CameraOption.getInstance().ishD() ? HIGH_QUALITY_VALUE : LOW_QUALITY_VALUE;
 
         for (SizePair sizePair : validPreviewSizes) {
             Size size = sizePair.previewSize();
