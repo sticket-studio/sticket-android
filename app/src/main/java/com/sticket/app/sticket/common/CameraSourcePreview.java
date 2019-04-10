@@ -154,12 +154,11 @@ public class CameraSourcePreview extends ViewGroup {
 
         int marginTop = 0;
         if (ratio != Ratio.RATIO_9_16) {
-            marginTop = 180;
+            marginTop = 90;
         }
         RelativeLayout.LayoutParams layoutParams =
                 (RelativeLayout.LayoutParams) getLayoutParams();
         layoutParams.setMargins(0, (int) PxDpUtil.convertDpToPixel(marginTop, getContext()), 0, 0);
-        Log.e("PREVIEW", "PxDpUtil.convertDpToPixel(marginTop, getContext()) : " + PxDpUtil.convertDpToPixel(marginTop, getContext()));
         setLayoutParams(layoutParams);
 
         if (cameraSource != null) {

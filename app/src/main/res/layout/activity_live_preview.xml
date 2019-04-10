@@ -17,10 +17,7 @@
         <com.sticket.app.sticket.common.GraphicOverlay
             android:id="@+id/fireFaceOverlay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true" />
+            android:layout_height="match_parent"/>
 
     </com.sticket.app.sticket.common.CameraSourcePreview>
 
