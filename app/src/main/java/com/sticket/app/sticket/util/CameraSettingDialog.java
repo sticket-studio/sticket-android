@@ -24,6 +24,8 @@ import com.sticket.app.sticket.util.camera_setting.Timer;
 
 import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_FLASH;
 import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_RATIO;
+import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_RATIO_HEIGHT;
+import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_RATIO_WIDTH;
 import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_TIMER;
 
 public class CameraSettingDialog extends Dialog {
@@ -36,6 +38,9 @@ public class CameraSettingDialog extends Dialog {
 
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener = null;
     private View.OnClickListener onClickListener = null;
+
+    private OnRatioChangeListener onRatioChangeListener;
+    private OnQualityChangeListener onQualityChangeListener;
 
     public CameraSettingDialog(Context context) {
         super(context);
@@ -94,6 +99,9 @@ public class CameraSettingDialog extends Dialog {
 
                         Preference.getInstance().putInt(PREFERENCE_NAME_FLASH
                                 , CameraOption.getInstance().getFlash().getVal());
+
+                        camera.setParameters(p);
+                        camera.startPreview();
                         break;
                     case R.id.SwitchAutoSave:
                         CameraOption.getInstance().setAutoSave(isChecked);
@@ -109,11 +117,11 @@ public class CameraSettingDialog extends Dialog {
                         CameraOption.getInstance().setHD(isChecked);
                         Preference.getInstance().putBoolean(CameraOption.PREFERENCE_NAME_HD
                                 , isChecked);
+                        if (onQualityChangeListener != null) {
+                            onQualityChangeListener.onQualityChange(isChecked);
+                        }
                         break;
                 }
-
-                camera.setParameters(p);
-                camera.startPreview();
             }
         };
 
@@ -143,9 +151,17 @@ public class CameraSettingDialog extends Dialog {
                         Ratio nextRatio = Ratio.values()[nextRatioIdx];
                         CameraOption.getInstance().setRatio(nextRatio);
 
+                        Preference.getInstance().putInt(PREFERENCE_NAME_RATIO_WIDTH
+                                , nextRatio.getWidth());
+                        Preference.getInstance().putInt(PREFERENCE_NAME_RATIO_HEIGHT
+                                , nextRatio.getHeight());
                         Preference.getInstance().putInt(PREFERENCE_NAME_RATIO
-                                , nextRatio.getVal());
+                                , nextRatioIdx);
                         ratioBtn.setBackgroundResource(CameraOption.RATIO_IMGS[nextRatio.getVal()]);
+
+                        if (onRatioChangeListener != null) {
+                            onRatioChangeListener.onRatioChange(nextRatioIdx);
+                        }
                         break;
                 }
             }
@@ -160,14 +176,12 @@ public class CameraSettingDialog extends Dialog {
         touchCaptureSwitch = findViewById(R.id.SwitchTouchCapture);
         hDSwitch = findViewById(R.id.SwitchHD);
 
-        Preference preference = Preference.getInstance();
-        
-        int savedFlashVal = preference.getInt(CameraOption.PREFERENCE_NAME_FLASH);
-        int savedRatioVal = preference.getInt(CameraOption.PREFERENCE_NAME_RATIO);
-        int savedTimerVal = preference.getInt(CameraOption.PREFERENCE_NAME_TIMER);
-        boolean savedAutoSavedVal = preference.getBoolean(CameraOption.PREFERENCE_NAME_AUTO_SAVE);
-        boolean savedTouchCaptureVal = preference.getBoolean(CameraOption.PREFERENCE_NAME_TOUCH_CAPTURE);
-        boolean savedHD = preference.getBoolean(CameraOption.PREFERENCE_NAME_HD);
+        int savedFlashVal = CameraOption.getInstance().getFlash().getVal();
+        int savedRatioVal = CameraOption.getInstance().getRatio().getVal();
+        int savedTimerVal = CameraOption.getInstance().getTimer().getVal();
+        boolean savedAutoSavedVal = CameraOption.getInstance().isAutoSave();
+        boolean savedTouchCaptureVal = CameraOption.getInstance().isTouchCapture();
+        boolean savedHD = CameraOption.getInstance().ishD();
 
         Flash savedFlash = Flash.toMyEnum(savedFlashVal);
 
@@ -205,5 +219,21 @@ public class CameraSettingDialog extends Dialog {
 
     public void setCamera(CameraSource cameraSource) {
         this.cameraSource = cameraSource;
+    }
+
+    public void setOnRatioChangeListener(OnRatioChangeListener onRatioChangeListener) {
+        this.onRatioChangeListener = onRatioChangeListener;
+    }
+
+    public void setOnQualityChangeListener(OnQualityChangeListener onQualityChangeListener) {
+        this.onQualityChangeListener = onQualityChangeListener;
+    }
+
+    public interface OnRatioChangeListener {
+        public void onRatioChange(int ratioVal);
+    }
+
+    public interface OnQualityChangeListener {
+        public void onQualityChange(boolean isHighQuality);
     }
 }
