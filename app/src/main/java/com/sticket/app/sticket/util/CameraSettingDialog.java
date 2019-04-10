@@ -58,7 +58,6 @@ public class CameraSettingDialog extends Dialog {
 
         window.setAttributes(params);
 
-
         initListeners();
         initViews();
     }
