@@ -104,9 +104,17 @@ public final class LivePreviewActivity extends AppCompatActivity
     private void initViews() {
         countDownTxt = findViewById(R.id.txtCountDown);       // Annotation in activity_live_preview
         cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
-        cameraSettingDialog.setRatioChangeListener(new CameraSettingDialog.RatioChangeListener() {
+        cameraSettingDialog.setOnRatioChangeListener(new CameraSettingDialog.OnRatioChangeListener() {
             @Override
             public void onRatioChange(int ratioVal) {
+                preview.release();
+                preview.setRatio();
+                startCameraSource();
+            }
+        });
+        cameraSettingDialog.setOnQualityChangeListener(new CameraSettingDialog.OnQualityChangeListener() {
+            @Override
+            public void onQualityChange(boolean isHighQuality) {
                 preview.release();
                 preview.setRatio();
                 startCameraSource();

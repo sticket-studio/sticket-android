@@ -63,8 +63,6 @@ public class FaceContourGraphic extends GraphicOverlay.Graphic {
         // Draws a circle at the position of the detected face, with the face's track id below.
         float x = translateX(face.getBoundingBox().centerX());
         float y = translateY(face.getBoundingBox().centerY());
-        canvas.drawCircle(x, y, FACE_POSITION_RADIUS, facePositionPaint);
-        canvas.drawText("id: " + face.getTrackingId(), x + ID_X_OFFSET, y + ID_Y_OFFSET, idPaint);
 
         // Draws a bounding box around the face.
         float xOffset = scaleX(face.getBoundingBox().width() / 2.0f);
@@ -84,52 +82,6 @@ public class FaceContourGraphic extends GraphicOverlay.Graphic {
 
         }
 
-        if (face.getSmilingProbability() >= 0) {
-            canvas.drawText(
-                    "happiness: " + String.format("%.2f", face.getSmilingProbability()),
-                    x + ID_X_OFFSET * 3,
-                    y - ID_Y_OFFSET,
-                    idPaint);
-        }
-
-        if (face.getRightEyeOpenProbability() >= 0) {
-            canvas.drawText(
-                    "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
-                    x - ID_X_OFFSET,
-                    y,
-                    idPaint);
-        }
-        if (face.getLeftEyeOpenProbability() >= 0) {
-            canvas.drawText(
-                    "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),
-                    x + ID_X_OFFSET * 6,
-                    y,
-                    idPaint);
-        }
-//
-//        FirebaseVisionFaceLandmark leftEye = face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EYE);
-//        if (leftEye != null && leftEye.getPosition() != null) {
-//            Bitmap bitmap = MyBitmapFactory.getInstance().getBitmap(FirebaseVisionFaceLandmark.LEFT_EYE);
-//
-//            final int cx = (int) translateX(leftEye.getPosition().getX());
-//            final int cy = (int) translateY(leftEye.getPosition().getY());
-//
-//            canvas.drawBitmap(bitmap, null, getRect(ratio, cx, cy, bitmap, F_CENTER, F_CENTER), facePositionPaint);
-////            canvas.drawCircle(
-////                    translateX(leftEye.getPosition().getX()),
-////                    translateY(leftEye.getPosition().getY()),
-////                    FACE_POSITION_RADIUS,
-////                    facePositionPaint);
-//        }
-//        FirebaseVisionFaceLandmark rightEye = face.getLandmark(FirebaseVisionFaceLandmark.RIGHT_EYE);
-//        if (rightEye != null && rightEye.getPosition() != null) {
-//            canvas.drawCircle(
-//                    translateX(rightEye.getPosition().getX()),
-//                    translateY(rightEye.getPosition().getY()),
-//                    FACE_POSITION_RADIUS,
-//                    facePositionPaint);
-//        }
-
         for (int type : MyBitmapFactory.getInstance().getLandmarkIdxList()) {
             FirebaseVisionFaceLandmark landmark = face.getLandmark(type);
             if (landmark != null && landmark.getPosition() != null) {
@@ -148,11 +100,11 @@ public class FaceContourGraphic extends GraphicOverlay.Graphic {
                         drawLandMark(ratio, canvas, bitmap, cx, cy);
                     }
                 } else {
-                    canvas.drawCircle(
-                            translateX(cx),
-                            translateY(cy),
-                            FACE_POSITION_RADIUS,
-                            facePositionPaint);
+//                    canvas.drawCircle(
+//                            translateX(cx),
+//                            translateY(cy),
+//                            FACE_POSITION_RADIUS,
+//                            facePositionPaint);
                 }
             }
         }

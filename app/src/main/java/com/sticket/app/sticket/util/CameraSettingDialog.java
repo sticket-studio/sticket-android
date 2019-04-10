@@ -39,7 +39,8 @@ public class CameraSettingDialog extends Dialog {
     private CompoundButton.OnCheckedChangeListener onCheckedChangeListener = null;
     private View.OnClickListener onClickListener = null;
 
-    private RatioChangeListener ratioChangeListener;
+    private OnRatioChangeListener onRatioChangeListener;
+    private OnQualityChangeListener onQualityChangeListener;
 
     public CameraSettingDialog(Context context) {
         super(context);
@@ -99,6 +100,9 @@ public class CameraSettingDialog extends Dialog {
 
                         Preference.getInstance().putInt(PREFERENCE_NAME_FLASH
                                 , CameraOption.getInstance().getFlash().getVal());
+
+                        camera.setParameters(p);
+                        camera.startPreview();
                         break;
                     case R.id.SwitchAutoSave:
                         CameraOption.getInstance().setAutoSave(isChecked);
@@ -114,11 +118,11 @@ public class CameraSettingDialog extends Dialog {
                         CameraOption.getInstance().setHD(isChecked);
                         Preference.getInstance().putBoolean(CameraOption.PREFERENCE_NAME_HD
                                 , isChecked);
+                        if (onQualityChangeListener != null) {
+                            onQualityChangeListener.onQualityChange(isChecked);
+                        }
                         break;
                 }
-
-                camera.setParameters(p);
-                camera.startPreview();
             }
         };
 
@@ -156,10 +160,9 @@ public class CameraSettingDialog extends Dialog {
                                 , nextRatioIdx);
                         ratioBtn.setBackgroundResource(CameraOption.RATIO_IMGS[nextRatio.getVal()]);
 
-                        if (ratioChangeListener != null) {
-                            ratioChangeListener.onRatioChange(nextRatioIdx);
+                        if (onRatioChangeListener != null) {
+                            onRatioChangeListener.onRatioChange(nextRatioIdx);
                         }
-
                         break;
                 }
             }
@@ -219,11 +222,19 @@ public class CameraSettingDialog extends Dialog {
         this.cameraSource = cameraSource;
     }
 
-    public void setRatioChangeListener(RatioChangeListener ratioChangeListener) {
-        this.ratioChangeListener = ratioChangeListener;
+    public void setOnRatioChangeListener(OnRatioChangeListener onRatioChangeListener) {
+        this.onRatioChangeListener = onRatioChangeListener;
     }
 
-    public interface RatioChangeListener {
+    public void setOnQualityChangeListener(OnQualityChangeListener onQualityChangeListener) {
+        this.onQualityChangeListener = onQualityChangeListener;
+    }
+
+    public interface OnRatioChangeListener {
         public void onRatioChange(int ratioVal);
+    }
+
+    public interface OnQualityChangeListener {
+        public void onQualityChange(boolean isHighQuality);
     }
 }
