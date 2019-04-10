@@ -14,21 +14,17 @@
 package com.sticket.app.sticket;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -80,6 +76,7 @@ public final class LivePreviewActivity extends AppCompatActivity
         if (preview == null) {
             Log.d(TAG, "Preview is null");
         }
+        preview.setRatio();
         graphicOverlay = findViewById(R.id.fireFaceOverlay);
         if (graphicOverlay == null) {
             Log.d(TAG, "graphicOverlay is null");
@@ -107,6 +104,14 @@ public final class LivePreviewActivity extends AppCompatActivity
     private void initViews() {
         countDownTxt = findViewById(R.id.txtCountDown);       // Annotation in activity_live_preview
         cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
+        cameraSettingDialog.setRatioChangeListener(new CameraSettingDialog.RatioChangeListener() {
+            @Override
+            public void onRatioChange(int ratioVal) {
+                preview.release();
+                preview.setRatio();
+                startCameraSource();
+            }
+        });
     }
 
     @Override
