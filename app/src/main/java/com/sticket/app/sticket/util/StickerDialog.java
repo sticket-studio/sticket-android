@@ -15,17 +15,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
-import android.widget.ToggleButton;
+import android.widget.LinearLayout;
 
 import com.sticket.app.sticket.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 public class StickerDialog extends BottomSheetDialogFragment {
 
@@ -46,8 +42,6 @@ public class StickerDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @android.support.annotation.Nullable ViewGroup container, @android.support.annotation.Nullable Bundle savedInstanceState) {
 
-//        new UserLockBottomSheetBehavior();
-
         View view = inflater.inflate(R.layout.dialog_sticker, container, false);
 
         ViewPager stickerDialogViewPager = (ViewPager) view.findViewById(R.id.viewpager);
@@ -57,7 +51,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
         stickerDialogTabLayout.setupWithViewPager(stickerDialogViewPager);
 
         // OnClickListener for dismiss
-        RelativeLayout layoutBtnEditor =  (RelativeLayout) view.findViewById(R.id.layoutBtnEditor);
+        LinearLayout layoutBtnEditor =  (LinearLayout) view.findViewById(R.id.layoutStickerEditor);
         layoutBtnEditor.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -65,22 +59,6 @@ public class StickerDialog extends BottomSheetDialogFragment {
             }
         });
 
-        // Editor Toggle Button
-        ToggleButton btnEditor = (ToggleButton) view.findViewById(R.id.btnEditor);
-        final RelativeLayout layoutStickerEditor = (RelativeLayout) view.findViewById(R.id.layoutStickerEditor);
-
-        btnEditor.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener(){
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-
-                if(isChecked){
-                    layoutStickerEditor.setVisibility(VISIBLE);
-
-                } else{
-                    layoutStickerEditor.setVisibility(GONE);
-                }
-            }
-        });
         return view;
     }
 

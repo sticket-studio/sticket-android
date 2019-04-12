@@ -13,49 +13,35 @@
     tools:context=".util.StickerDialog"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:id="@+id/layoutBtnEditor"
+    <LinearLayout
+        android:id="@+id/layoutStickerEditor"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_appbar"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
-            android:id="@+id/layoutStickerEditor"
-            android:layout_width="wrap_content"
-            android:layout_height="98dp"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/btnMotionEditor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:text="Motion" />
-
-            <Button
-                android:id="@+id/btnSticonEditor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:text="Sticon" />
-
-        </RelativeLayout>
-
-        <ToggleButton
-            android:id="@+id/btnEditor"
+        <Button
+            android:id="@+id/btnAsset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:textOff="Editor"
-            android:textOn="X" />
+            android:text="Asset" />
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/btnSticonEditor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sticon" />
+
+        <Button
+            android:id="@+id/btnMotionEditor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Motion" />
+
+    </LinearLayout>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/bottom_sheet_appbar"
