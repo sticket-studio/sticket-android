@@ -43,10 +43,10 @@ public class StickerDialog extends BottomSheetDialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_sticker, container, false);
 
-        ViewPager stickerDialogViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        ViewPager stickerDialogViewPager = (ViewPager) view.findViewById(R.id.sticker_dialog_viewpager);
         setupViewPager(stickerDialogViewPager);
 
-        TabLayout stickerDialogTabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        TabLayout stickerDialogTabLayout = (TabLayout) view.findViewById(R.id.sticker_dialog_tab);
         stickerDialogTabLayout.setupWithViewPager(stickerDialogViewPager);
 
         // OnClickListener for dismiss
@@ -70,13 +70,13 @@ public class StickerDialog extends BottomSheetDialogFragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
-        adapter.addFrag(new GridFragment(), "눈");
-        adapter.addFrag(new GridFragment(), "코");
-        adapter.addFrag(new GridFragment(), "입");
-        adapter.addFrag(new GridFragment(), "볼");
-        adapter.addFrag(new GridFragment(), "귀걸이");
-        adapter.addFrag(new GridFragment(), "스티커");
-        adapter.addFrag(new GridFragment(), "모션티콘");
+        adapter.addFrag(new StickerGridFragment(), "눈");
+        adapter.addFrag(new StickerGridFragment(), "코");
+        adapter.addFrag(new StickerGridFragment(), "입");
+        adapter.addFrag(new StickerGridFragment(), "볼");
+        adapter.addFrag(new StickerGridFragment(), "귀걸이");
+        adapter.addFrag(new StickerGridFragment(), "스티커");
+        adapter.addFrag(new StickerGridFragment(), "모션티콘");
         viewPager.setAdapter(adapter);
     }
 
