@@ -95,9 +95,6 @@ public final class LivePreviewActivity extends AppCompatActivity
             getRuntimePermissions();
         }
 
-
-
-
         mContext = this;
 
         initViews();
