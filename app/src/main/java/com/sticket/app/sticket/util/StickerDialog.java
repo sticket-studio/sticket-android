@@ -31,6 +31,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
         super();
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
