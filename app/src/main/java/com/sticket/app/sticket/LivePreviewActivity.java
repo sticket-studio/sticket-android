@@ -33,13 +33,12 @@ import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
-import com.sticket.app.sticket.util.AccountActivity;
 import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.CameraSettingDialog;
 import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.SettingActivity;
 import com.sticket.app.sticket.util.StickerDialog;
-import com.sticket.app.sticket.util.StoreActivity;
+import com.sticket.app.sticket.util.store.StoreActivity;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
 

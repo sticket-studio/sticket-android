@@ -32,7 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".util.StoreActivity"/>
+        <activity android:name=".util.store.StoreActivity"/>
 
     </application>
 
