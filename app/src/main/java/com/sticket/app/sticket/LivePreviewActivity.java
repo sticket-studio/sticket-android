@@ -29,6 +29,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.sticket.app.sticket.activities.SelectedPictureActivity;
 import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
@@ -281,11 +282,35 @@ public final class LivePreviewActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    public void btnOpenGallery(View v) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Get Album"), SelectedPictureActivity.REQUEST_CODE_FOR_GALLERY);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SelectedPictureActivity.REQUEST_CODE_FOR_GALLERY) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    Intent in1 = new Intent(this, SelectedPictureActivity.class);
+                    in1.putExtra(SelectedPictureActivity.SELECTED_IMAGE_NAME, data.getData());
+                    startActivity(in1);
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void onTouchPreview(View v) {
         if (CameraOption.getInstance().isTouchCapture()) {
             btnCapture(null);
         } else {
-            // 머하징
+            // TODO: 초점맞추기
         }
     }
 
