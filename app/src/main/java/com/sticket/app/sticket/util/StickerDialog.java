@@ -12,20 +12,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
-import android.widget.ToggleButton;
+import android.widget.LinearLayout;
 
 import com.sticket.app.sticket.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 public class StickerDialog extends BottomSheetDialogFragment {
 
@@ -35,6 +30,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
     public StickerDialog() {
         super();
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,18 +42,17 @@ public class StickerDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @android.support.annotation.Nullable ViewGroup container, @android.support.annotation.Nullable Bundle savedInstanceState) {
 
-//        new UserLockBottomSheetBehavior();
-
         View view = inflater.inflate(R.layout.dialog_sticker, container, false);
 
-        ViewPager stickerDialogViewPager = (ViewPager) view.findViewById(R.id.storeHomeViewpager);
+        ViewPager stickerDialogViewPager = (ViewPager) view.findViewById(R.id.sticker_dialog_viewpager);
+
         setupViewPager(stickerDialogViewPager);
 
-        TabLayout stickerDialogTabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        TabLayout stickerDialogTabLayout = (TabLayout) view.findViewById(R.id.sticker_dialog_tab);
         stickerDialogTabLayout.setupWithViewPager(stickerDialogViewPager);
 
         // OnClickListener for dismiss
-        RelativeLayout layoutBtnEditor =  (RelativeLayout) view.findViewById(R.id.layoutBtnEditor);
+        LinearLayout layoutBtnEditor =  (LinearLayout) view.findViewById(R.id.layoutStickerEditor);
         layoutBtnEditor.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -65,42 +60,25 @@ public class StickerDialog extends BottomSheetDialogFragment {
             }
         });
 
-        // Editor Toggle Button
-        ToggleButton btnEditor = (ToggleButton) view.findViewById(R.id.btnEditor);
-        final RelativeLayout layoutStickerEditor = (RelativeLayout) view.findViewById(R.id.layoutStickerEditor);
-
-        btnEditor.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener(){
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-
-                if(isChecked){
-                    layoutStickerEditor.setVisibility(VISIBLE);
-
-                } else{
-                    layoutStickerEditor.setVisibility(GONE);
-                }
-            }
-        });
         return view;
     }
 
     @Override public void onStart() {
         super.onStart();
 
-        Window window = getDialog().getWindow();
         getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
-        adapter.addFrag(new GridFragment(), "눈");
-        adapter.addFrag(new GridFragment(), "코");
-        adapter.addFrag(new GridFragment(), "입");
-        adapter.addFrag(new GridFragment(), "볼");
-        adapter.addFrag(new GridFragment(), "귀걸이");
-        adapter.addFrag(new GridFragment(), "스티커");
-        adapter.addFrag(new GridFragment(), "모션티콘");
+        adapter.addFrag(new StickerGridFragment(), "눈");
+        adapter.addFrag(new StickerGridFragment(), "코");
+        adapter.addFrag(new StickerGridFragment(), "입");
+        adapter.addFrag(new StickerGridFragment(), "볼");
+        adapter.addFrag(new StickerGridFragment(), "귀걸이");
+        adapter.addFrag(new StickerGridFragment(), "스티커");
+        adapter.addFrag(new StickerGridFragment(), "모션티콘");
         viewPager.setAdapter(adapter);
     }
 

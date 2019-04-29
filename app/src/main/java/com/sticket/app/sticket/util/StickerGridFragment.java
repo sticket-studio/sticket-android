@@ -11,9 +11,9 @@ import android.widget.Toast;
 
 import com.sticket.app.sticket.R;
 
-public class GridFragment extends Fragment{
+public class StickerGridFragment extends Fragment{
 
-    public GridFragment() {
+    public StickerGridFragment() {
         // Required empty public constructor
     }
 
@@ -22,13 +22,13 @@ public class GridFragment extends Fragment{
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_grid, container, false);
+        View view = inflater.inflate(R.layout.fragment_sticker_grid, container, false);
 
-        GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        GridAdapter adapter = new GridAdapter(getActivity());
-        gridView.setAdapter(adapter);
+        GridView stickerGridView = (GridView) view.findViewById(R.id.stickerGridView);
+        StickerGridAdapter adapter = new StickerGridAdapter(getActivity());
+        stickerGridView.setAdapter(adapter);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        stickerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO : Set Asset or Sticker on your face

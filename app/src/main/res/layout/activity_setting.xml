@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eee"
+    android:background="@color/primary_background_grey"
     android:keepScreenOn="false"
     tools:context=".util.SettingActivity">
 
@@ -56,7 +56,7 @@
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
             android:text="계정 관리"
-            android:background="#eee"/>
+            android:background="@color/primary_background_grey"/>
 
     </LinearLayout>
 
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#fff" >
+            android:background="@color/white" >
 
             <TextView
                 android:id="@+id/txtAccountManagement"
@@ -89,7 +89,7 @@
                 android:scaleType="fitCenter"
                 android:layout_gravity="center"
                 android:src="@drawable/btn_next"
-                android:background="#fff"
+                android:background="@color/white"
                 android:layout_margin="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/txtAccountManagement"
@@ -98,23 +98,6 @@
                 android:onClick="btnToAccountManagement"/>
 
     </android.support.constraint.ConstraintLayout>
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/txtAccountManagement"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical"-->
-        <!--android:background="#fff">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/text2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="계정관리"-->
-            <!--android:padding="10dp"-->
-            <!--android:textColor="#000" />-->
-
-    <!--</LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/txtCameraSetting"
@@ -131,7 +114,7 @@
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
             android:text="카메라 설정"
-            android:background="#eee"/>
+            android:background="@color/primary_background_grey"/>
 
     </LinearLayout>
 
@@ -140,7 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <Switch
             android:id="@+id/switchGrid"
@@ -157,7 +140,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <Switch
             android:id="@+id/switchWaterMark"
@@ -174,7 +157,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <Switch
             android:id="@+id/switchMirror"
@@ -191,7 +174,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <Switch
             android:id="@+id/switchLocation"
@@ -208,7 +191,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/txtSavePath"
@@ -249,7 +232,7 @@
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
             android:text="앱 정보"
-            android:background="#eee"/>
+            android:background="@color/primary_background_grey"/>
 
     </LinearLayout>
 
@@ -258,7 +241,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#fff">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/txtVersion"
@@ -295,7 +278,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/txtReview"
@@ -312,7 +295,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/txtContact"
@@ -329,7 +312,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/txtTermsOfService"
@@ -346,7 +329,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/txtPrivacyStatement"
@@ -363,7 +346,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/txtLicense"

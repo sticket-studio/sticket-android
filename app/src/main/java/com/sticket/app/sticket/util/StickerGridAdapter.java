@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.sticket.app.sticket.R;
 
-public class GridAdapter extends BaseAdapter {
+public class StickerGridAdapter extends BaseAdapter {
 
     private int icons[] = {
             R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch,
@@ -21,7 +21,7 @@ public class GridAdapter extends BaseAdapter {
 
     private Context mContext;
 
-    public GridAdapter(Context context) {
+    public StickerGridAdapter(Context context) {
         this.mContext =context;
     }
 
@@ -43,18 +43,18 @@ public class GridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View gridView;
+        View stickerGridView;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            gridView = inflater.inflate(R.layout.grid_image, null);
-            ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_img);
+            stickerGridView = inflater.inflate(R.layout.sticker_grid_image, null);
+            ImageView imageView = (ImageView) stickerGridView.findViewById(R.id.sticker_grid_img);
             imageView.setImageResource(icons[position]);
         }
         else {
-            gridView = (View) convertView;
+            stickerGridView = (View) convertView;
         }
 
-        return gridView;
+        return stickerGridView;
     }
 }
