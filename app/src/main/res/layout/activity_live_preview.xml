@@ -4,9 +4,8 @@
     android:id="@+id/fireTopLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    android:keepScreenOn="true"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:keepScreenOn="true">
 
     <com.sticket.app.sticket.common.CameraSourcePreview
         android:id="@+id/firePreview"
