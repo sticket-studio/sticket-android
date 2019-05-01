@@ -23,7 +23,8 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_store);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);         // Delete Sticket Title
+        toolbar.setTitle(null);
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);

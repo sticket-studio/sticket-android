@@ -17,7 +17,7 @@ public class AssetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_store_start, container, false);
+        View view = inflater.inflate(R.layout.fragment_asset, container, false);
 
         return view;
     }
