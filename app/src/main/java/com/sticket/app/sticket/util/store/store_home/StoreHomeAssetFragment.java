@@ -8,17 +8,18 @@ import android.view.ViewGroup;
 
 import com.sticket.app.sticket.R;
 
-public class StickerFragment extends Fragment {
+public class StoreHomeAssetFragment extends Fragment {
 
-    public StickerFragment(){
+    public StoreHomeAssetFragment(){
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_sticker, container, false);
+        View view = inflater.inflate(R.layout.fragment_asset, container, false);
 
         return view;
     }
+
 }

@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util.store;
+package com.sticket.app.sticket.util.store.store_home;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,10 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.util.store.store_home.AssetFragment;
-import com.sticket.app.sticket.util.store.store_home.StartFragment;
-import com.sticket.app.sticket.util.store.store_home.MotionFragment;
-import com.sticket.app.sticket.util.store.store_home.StickerFragment;
+import com.sticket.app.sticket.util.store.store_home.StoreHomeAssetFragment;
+import com.sticket.app.sticket.util.store.store_home.StoreHomeHomeFragment;
+import com.sticket.app.sticket.util.store.store_home.StoreHomeMotionFragment;
+import com.sticket.app.sticket.util.store.store_home.StoreHomeStickerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +40,10 @@ public class StoreHomeFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
-        adapter.addFrag(new StartFragment(), "홈");
-        adapter.addFrag(new AssetFragment(), "애셋");
-        adapter.addFrag(new StickerFragment(), "스티커");
-        adapter.addFrag(new MotionFragment(), "모션티콘");
+        adapter.addFrag(new StoreHomeHomeFragment(), "홈");
+        adapter.addFrag(new StoreHomeAssetFragment(), "애셋");
+        adapter.addFrag(new StoreHomeStickerFragment(), "스티커");
+        adapter.addFrag(new StoreHomeMotionFragment(), "모션티콘");
         viewPager.setAdapter(adapter);
     }
 

@@ -8,18 +8,17 @@ import android.view.ViewGroup;
 
 import com.sticket.app.sticket.R;
 
-public class StartFragment extends Fragment {
+public class StoreHomeMotionFragment extends Fragment {
 
-    public StartFragment(){
+    public StoreHomeMotionFragment(){
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_store_start, container, false);
+        View view = inflater.inflate(R.layout.fragment_motion, container, false);
 
         return view;
     }
-
 }
