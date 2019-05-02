@@ -16,7 +16,7 @@
         <com.sticket.app.sticket.common.GraphicOverlay
             android:id="@+id/fireFaceOverlay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </com.sticket.app.sticket.common.CameraSourcePreview>
 
@@ -36,12 +36,17 @@
         android:layout_alignParentTop="true"
         android:padding="20dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnCameraSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
             android:onClick="btnCameraSetting"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_camera_setting"
             android:text="Setting" />
 
         <ToggleButton
@@ -58,6 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
             android:text="Store" />
 
     </RelativeLayout>
@@ -68,13 +74,17 @@
         android:layout_alignParentBottom="true"
         android:padding="20dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSticker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
             android:onClick="btnSticker"
-            android:text="STICKER" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_sticker_btn" />
 
         <Button
             android:id="@+id/btnCapture"
@@ -84,12 +94,16 @@
             android:onClick="btnCapture"
             android:text="CAPTURE" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnGallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
-            android:text="GALLERY" />
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_gallery_btn" />
 
     </RelativeLayout>
 
