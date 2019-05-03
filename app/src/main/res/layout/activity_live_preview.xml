@@ -118,6 +118,7 @@
             android:adjustViewBounds="true"
             android:background="@color/transparent"
             android:scaleType="fitCenter"
+             android:onClick="btnOpenGallery"
             android:src="@drawable/img_gallery_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

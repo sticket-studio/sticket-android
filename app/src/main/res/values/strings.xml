@@ -41,4 +41,6 @@
     <string name="toggle_turn_off">Back</string>
     <string name="desc_camera_source_activity">Vision detectors demo with live camera preview</string>
     <string name="desc_still_image_activity">Vision detectors demo with a still image</string>
+    <string name="back">&lt;</string>
+
 </resources>
