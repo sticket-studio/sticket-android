@@ -45,6 +45,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.dialog_sticker, container, false);
 
         ViewPager stickerDialogViewPager = (ViewPager) view.findViewById(R.id.sticker_dialog_viewpager);
+
         setupViewPager(stickerDialogViewPager);
 
         TabLayout stickerDialogTabLayout = (TabLayout) view.findViewById(R.id.sticker_dialog_tab);

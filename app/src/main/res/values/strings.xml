@@ -43,4 +43,7 @@
     <string name="desc_still_image_activity">Vision detectors demo with a still image</string>
     <string name="back">&lt;</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

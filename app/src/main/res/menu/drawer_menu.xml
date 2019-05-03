@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single" >
+        <item android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="홈" />
+        <item android:id="@+id/nav_my_item"
+            android:icon="@drawable/ic_home"
+            android:title="내 아이템" />
+        <item android:id="@+id/nav_my_page"
+            android:icon="@drawable/ic_home"
+            android:title="마이 페이지" />
+        <item android:id="@+id/nav_like"
+            android:icon="@drawable/ic_home"
+            android:title="좋아요" />
+        <item android:id="@+id/nav_gift_box"
+            android:icon="@drawable/ic_home"
+            android:title="선물함" />
+        <item android:id="@+id/nav_charge"
+            android:icon="@drawable/ic_home"
+            android:title="스틱 충전" />
+    </group>
+
+</menu>

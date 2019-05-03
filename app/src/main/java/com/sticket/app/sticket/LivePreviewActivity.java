@@ -39,6 +39,7 @@ import com.sticket.app.sticket.util.CameraSettingDialog;
 import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.SettingActivity;
 import com.sticket.app.sticket.util.StickerDialog;
+import com.sticket.app.sticket.util.store.StoreActivity;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
 
@@ -279,6 +280,11 @@ public final class LivePreviewActivity extends AppCompatActivity
 
     public void btnSetting(View v) {
         Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+        startActivity(intent);
+    }
+
+    public void btnStore(View view) {
+        Intent intent = new Intent(getApplicationContext(), StoreActivity.class);
         startActivity(intent);
     }
 
