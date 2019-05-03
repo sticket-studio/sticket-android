@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="130dip"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:weightSum="11"
+    android:padding="20dip">
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+        <com.sticket.app.sticket.util.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/yeoni"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+
+    </LinearLayout>
+
+   <LinearLayout
+       android:layout_width="0dip"
+       android:layout_height="match_parent"
+       android:layout_weight="6"
+       android:orientation="vertical"
+       android:gravity="center_vertical">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="여니여니"
+           android:textSize="20dip"
+           android:id="@+id/textName"
+           android:textStyle="bold"
+           android:paddingBottom="8dip"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Work 13"
+           android:id="@+id/work"
+           android:paddingBottom="3dip"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="이거슨 칭호이니라~~~~"
+           android:id="@+id/prizeName"/>
+   </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <ImageView
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:src="@drawable/ic_heart"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="324"
+            android:textAlignment="center"
+            android:id="@+id/like"/>
+    </LinearLayout>
+
+</LinearLayout>
