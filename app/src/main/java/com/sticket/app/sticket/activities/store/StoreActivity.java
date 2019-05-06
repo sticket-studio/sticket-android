@@ -10,25 +10,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.store.store_charge.StoreChargeFragment;
 import com.sticket.app.sticket.activities.store.store_gift.StoreGiftFragment;
 import com.sticket.app.sticket.activities.store.store_home.StoreHomeFragment;
-import com.sticket.app.sticket.activities.store.store_like.StoreLikeFragment;
+import com.sticket.app.sticket.activities.store.store_like.LikeFagement;
 import com.sticket.app.sticket.activities.store.store_myitem.StoreMyItemFragment;
 import com.sticket.app.sticket.activities.store.store_mypage.StoreMyPageFragment;
 
 public class StoreActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);         // Delete Sticket Title
         toolbar.setTitle(null);
 
@@ -64,7 +65,9 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_like:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreLikeFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LikeFagement()).commit();
+                TextView tv = (TextView)findViewById(R.id.toolbar_title);
+                tv.setText("좋아요");
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_gift_box:
