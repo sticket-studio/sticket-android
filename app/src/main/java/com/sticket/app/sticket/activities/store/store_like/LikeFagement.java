@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.activities.store.store_home;
+package com.sticket.app.sticket.activities.store.store_like;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,8 +17,7 @@ import com.sticket.app.sticket.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreHomeFragment extends Fragment {
-
+public class LikeFagement extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,15 +34,15 @@ public class StoreHomeFragment extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
-        adapter.addFrag(new StoreHomeHomeFragment(), "홈");
-        adapter.addFrag(new StoreHomeAssetFragment(), "애셋");
-        adapter.addFrag(new StoreHomeStickerFragment(), "스티커");
-        adapter.addFrag(new StoreHomeMotionFragment(), "모션티콘");
+        LikeFagement.ViewPagerAdapter adapter = new LikeFagement.ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
+        adapter.addFrag(new LikeAuthorFragment(), "작가");
+        adapter.addFrag(new LikeAssetFragment(), "애셋");
+        adapter.addFrag(new LikeSticonFragment(), "스티커");
+        adapter.addFrag(new LikeMotionticonFragment(), "모션티콘");
         viewPager.setAdapter(adapter);
     }
 
-    public class ViewPagerAdapter extends FragmentPagerAdapter {
+    class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -71,5 +70,4 @@ public class StoreHomeFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
-
 }
