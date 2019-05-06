@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.util.ItemAdapter;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class StoreHomeHomeFragment extends Fragment {
 

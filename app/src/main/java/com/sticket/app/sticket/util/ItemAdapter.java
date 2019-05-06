@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util.store.store_home;
+package com.sticket.app.sticket.util;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -33,7 +33,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
     }
 
     // Get Data list in Constructor
-    ItemAdapter(ArrayList<String> list) {
+    public ItemAdapter(ArrayList<String> list) {
         mData = list;
     }
 
