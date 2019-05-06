@@ -46,4 +46,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="mypage_works">Works</string>
+    <string name="mypage_follower">Follower</string>
+    <string name="mypage_following">Following</string>
+
 </resources>
