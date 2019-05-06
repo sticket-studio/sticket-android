@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class ItemAdapter extends RecyclerView.Adapter {
 
     private ArrayList<String> mData = null;
-    ImageView itemImage;
-    TextView itemThemeText;
+    private ImageView itemImage;
+    private TextView itemThemeText;
 
 
     // ViewHolder Class to store ItemView
@@ -26,7 +26,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
         ViewHolder(View itemView) {
             super(itemView);
 
-            // 뷰 객체에 대한 참조. (hold strong reference)
+            // Reference for View Object (hold strong reference)
             itemImage = itemView.findViewById(R.id.item_image);
             itemThemeText = itemView.findViewById(R.id.item_theme_text);
         }
@@ -37,7 +37,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
         mData = list;
     }
 
-    // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
+    // Create & Return ViewHolder Object for ItemView
     @NonNull
     @Override
     public ItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,7 +50,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
         return vh;
     }
 
-    // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
+    // Display data corresponding to the position in the ItemView of the ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         String text = mData.get(position);

@@ -20,24 +20,23 @@ public class StoreHomeHomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_store_start, container, false);
 
-        // 리사이클러뷰에 표시할 데이터 리스트 생성.
+        // Create dummy data displayed in RecyclerView
         ArrayList<String> list = new ArrayList<>();
         for (int i=0; i<4; i++) {
             list.add("귀염뽀짝");
             list.add("섹시도발");
         }
 
-        // 리사이클러뷰에 LinearLayoutManager 객체 지정.
+        // Set RecyclerView to LinearLayout
         RecyclerView recyclerView = view.findViewById(R.id.today_item_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));     // fragment이므로 this -> getActivity()
 
-        // 리사이클러뷰에 ItemAdapter 객체 지정.
+        // Set RecyclerView to ItemAdapter
         ItemAdapter adapter = new ItemAdapter(list);
         recyclerView.setAdapter(adapter);
 
