@@ -1,13 +1,12 @@
-package com.sticket.app.sticket.util;
+package com.sticket.app.sticket.activities.setting;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.setting.AccountActivity;
 
 public class SettingActivity extends AppCompatActivity {
 

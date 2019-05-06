@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util.store.store_mypage;
+package com.sticket.app.sticket.activities.store.store_myitem;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 
 import com.sticket.app.sticket.R;
 
-public class StoreMyPageFragment extends Fragment {
+public class StoreMyItemFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_store_my_page, container, false);
+        return inflater.inflate(R.layout.fragment_store_my_item, container, false);
     }
 
 }

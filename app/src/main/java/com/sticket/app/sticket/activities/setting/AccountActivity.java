@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util;
+package com.sticket.app.sticket.activities.setting;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

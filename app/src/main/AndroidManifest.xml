@@ -21,11 +21,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme">
-        <activity android:name=".util.AccountActivity"></activity>
-        <activity android:name=".activities.SelectedPictureActivity" />
-        <activity android:name=".util.SettingActivity" />
+        <activity android:name=".activities.setting.AccountActivity"></activity>
+        <activity android:name=".activities.gallery.SelectedPictureActivity" />
+        <activity android:name=".activities.setting.SettingActivity" />
         <activity
-            android:name=".LivePreviewActivity"
+            android:name=".activities.camera.LivePreviewActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -34,7 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".util.store.StoreActivity"/>
+        <activity android:name=".activities.store.StoreActivity"/>
 
     </application>
 

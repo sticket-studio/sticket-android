@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util.store.store_gift;
+package com.sticket.app.sticket.activities.store.store_gift;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

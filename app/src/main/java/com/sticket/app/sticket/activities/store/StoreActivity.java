@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util.store;
+package com.sticket.app.sticket.activities.store;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,12 +12,12 @@ import android.view.Gravity;
 import android.view.MenuItem;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.util.store.store_charge.StoreChargeFragment;
-import com.sticket.app.sticket.util.store.store_gift.StoreGiftFragment;
-import com.sticket.app.sticket.util.store.store_home.StoreHomeFragment;
-import com.sticket.app.sticket.util.store.store_like.StoreLikeFragment;
-import com.sticket.app.sticket.util.store.store_myitem.StoreMyItemFragment;
-import com.sticket.app.sticket.util.store.store_mypage.StoreMyPageFragment;
+import com.sticket.app.sticket.activities.store.store_charge.StoreChargeFragment;
+import com.sticket.app.sticket.activities.store.store_gift.StoreGiftFragment;
+import com.sticket.app.sticket.activities.store.store_home.StoreHomeFragment;
+import com.sticket.app.sticket.activities.store.store_like.StoreLikeFragment;
+import com.sticket.app.sticket.activities.store.store_myitem.StoreMyItemFragment;
+import com.sticket.app.sticket.activities.store.store_mypage.StoreMyPageFragment;
 
 public class StoreActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

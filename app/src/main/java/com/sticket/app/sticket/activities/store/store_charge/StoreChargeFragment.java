@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util.store.store_charge;
+package com.sticket.app.sticket.activities.store.store_charge;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

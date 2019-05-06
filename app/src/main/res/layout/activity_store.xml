@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".util.store.StoreActivity"
+    tools:context=".activities.store.StoreActivity"
     tools:openDrawer="start">
 
     <LinearLayout

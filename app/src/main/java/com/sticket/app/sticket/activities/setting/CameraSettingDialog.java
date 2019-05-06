@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util;
+package com.sticket.app.sticket.activities.setting;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -17,6 +17,8 @@ import android.widget.ToggleButton;
 
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.common.CameraSource;
+import com.sticket.app.sticket.util.Alert;
+import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Flash;
 import com.sticket.app.sticket.util.camera_setting.Ratio;

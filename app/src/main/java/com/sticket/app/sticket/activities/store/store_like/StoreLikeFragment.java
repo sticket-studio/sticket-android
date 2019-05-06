@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util.store.store_like;
+package com.sticket.app.sticket.activities.store.store_like;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

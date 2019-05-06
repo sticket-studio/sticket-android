@@ -10,7 +10,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="@color/primary_background_grey"
 android:keepScreenOn="false"
-tools:context=".util.AccountActivity">
+tools:context=".activities.setting.AccountActivity">
 
     <RelativeLayout
         android:id="@+id/app_toolbar"

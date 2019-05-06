@@ -11,7 +11,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     app:layout_behavior="package com.sticket.app.sticket.util.UserLockBottomSheetBehavior"
-    tools:context=".util.StickerDialog"
+    tools:context=".activities.sticker.StickerDialog"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout

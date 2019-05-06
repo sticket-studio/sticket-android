@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util;
+package com.sticket.app.sticket.activities.sticker;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

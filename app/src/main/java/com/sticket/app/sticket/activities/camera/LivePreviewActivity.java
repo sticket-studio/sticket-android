@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package com.sticket.app.sticket;
+package com.sticket.app.sticket.activities.camera;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,17 +29,18 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.sticket.app.sticket.activities.SelectedPictureActivity;
+import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.gallery.SelectedPictureActivity;
 import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.util.Alert;
-import com.sticket.app.sticket.util.CameraSettingDialog;
+import com.sticket.app.sticket.activities.setting.CameraSettingDialog;
 import com.sticket.app.sticket.util.Preference;
-import com.sticket.app.sticket.util.SettingActivity;
-import com.sticket.app.sticket.util.StickerDialog;
-import com.sticket.app.sticket.util.store.StoreActivity;
+import com.sticket.app.sticket.activities.setting.SettingActivity;
+import com.sticket.app.sticket.activities.sticker.StickerDialog;
+import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
 

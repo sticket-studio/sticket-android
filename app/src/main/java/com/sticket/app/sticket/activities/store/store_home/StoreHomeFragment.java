@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.util.store.store_home;
+package com.sticket.app.sticket.activities.store.store_home;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,10 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.util.store.store_home.StoreHomeAssetFragment;
-import com.sticket.app.sticket.util.store.store_home.StoreHomeHomeFragment;
-import com.sticket.app.sticket.util.store.store_home.StoreHomeMotionFragment;
-import com.sticket.app.sticket.util.store.store_home.StoreHomeStickerFragment;
 
 import java.util.ArrayList;
 import java.util.List;

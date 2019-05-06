@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.activities;
+package com.sticket.app.sticket.activities.gallery;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
