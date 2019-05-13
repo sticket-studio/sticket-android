@@ -192,7 +192,7 @@ public class CameraSourcePreview extends ViewGroup {
         Log.e("PREVIEW", "childWidth : " + childWidth);
 
         // If height is too tall using fit width, does fit height instead.
-        if (ratio != Ratio.RATIO_9_16 || childHeight > layoutHeight) {
+        if (ratio == Ratio.RATIO_9_16 || childHeight > layoutHeight) {
             Log.e("PREVIEW", "childHeight > layoutHeight ");
             childHeight = layoutHeight;
             childWidth = (int) ((float) layoutHeight / ratioVal);
