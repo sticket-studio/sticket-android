@@ -1,5 +1,6 @@
 package com.sticket.app.sticket.activities.sticker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.sticker.sticon_editor.SticonEditorActivity;
 import com.sticket.app.sticket.util.ViewPagerAdapter;
 
 
@@ -78,7 +80,8 @@ public class StickerDialog extends BottomSheetDialogFragment {
 
                         break;
                     case R.id.btnSticonEditor:
-
+                        Intent sticonEditorIntent = new Intent(getContext(), SticonEditorActivity.class);
+                        startActivity(sticonEditorIntent);
                         break;
                     case R.id.btnMotionEditor:
 
