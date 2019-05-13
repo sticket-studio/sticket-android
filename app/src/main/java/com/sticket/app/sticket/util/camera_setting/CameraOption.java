@@ -12,6 +12,8 @@ public class CameraOption {
     public static final String PREFERENCE_NAME_DIRECTION = "DIRECTION";
     public static final String PREFERENCE_NAME_FLASH = "FLASH";
     public static final String PREFERENCE_NAME_RATIO = "RATIO";
+    public static final String PREFERENCE_NAME_RATIO_WIDTH = "RATIO_WIDTH";
+    public static final String PREFERENCE_NAME_RATIO_HEIGHT = "RATIO_HEIGHT";
     public static final String PREFERENCE_NAME_TIMER = "TIMER";
     public static final String PREFERENCE_NAME_AUTO_SAVE = "AUTO_SAVE";
     public static final String PREFERENCE_NAME_TOUCH_CAPTURE = "TOUCH_CAPTURE";

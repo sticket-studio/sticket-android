@@ -3,8 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/dialog_background"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/camera_setting_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/setBtn"
@@ -21,8 +23,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/selector_flash"
-            android:textOn= ""
-            android:textOff= ""
+            android:textOff=""
+            android:textOn=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnRatio"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -49,11 +51,14 @@
             app:layout_constraintStart_toEndOf="@+id/btnRatio"
             app:layout_constraintTop_toTopOf="@+id/btnRatio" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSetting"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:text="s"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_setting"
+            android:background="@color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/btnTimer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -66,9 +71,10 @@
     <View
         android:id="@+id/hr"
         android:layout_width="0dp"
-        android:layout_height="3dp"
-        android:layout_marginBottom="8dp"
-        android:background="#cccccc"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="18dp"
+        android:background="#66CCCCCC"
         app:layout_constraintBottom_toTopOf="@+id/SwitchAutoSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

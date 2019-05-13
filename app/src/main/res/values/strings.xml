@@ -41,4 +41,13 @@
     <string name="toggle_turn_off">Back</string>
     <string name="desc_camera_source_activity">Vision detectors demo with live camera preview</string>
     <string name="desc_still_image_activity">Vision detectors demo with a still image</string>
+    <string name="back">&lt;</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="mypage_works">Works</string>
+    <string name="mypage_follower">Follower</string>
+    <string name="mypage_following">Following</string>
+
 </resources>

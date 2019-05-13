@@ -6,15 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
-    tools:context=".util.GridFragment">
+    tools:context=".activities.sticker.StickerGridFragment">
 
     <GridView
-        android:id="@+id/gridView"
+        android:id="@+id/stickerGridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:clickable="true"
-        android:columnWidth="80dp"
+        android:columnWidth="60dp"
         android:drawSelectorOnTop="true"
         android:focusable="true"
         android:gravity="center"
@@ -22,12 +22,5 @@
         android:scrollbars="vertical"
         android:stretchMode="columnWidth"
         android:verticalSpacing="5dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test txt"
-        android:layout_centerVertical="true"
-        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

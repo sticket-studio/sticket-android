@@ -11,37 +11,36 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package com.sticket.app.sticket;
+package com.sticket.app.sticket.activities.camera;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.gallery.SelectedPictureActivity;
 import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.util.Alert;
-import com.sticket.app.sticket.util.CameraSettingDialog;
+import com.sticket.app.sticket.activities.setting.CameraSettingDialog;
 import com.sticket.app.sticket.util.Preference;
-import com.sticket.app.sticket.util.SettingActivity;
-import com.sticket.app.sticket.util.StickerDialog;
+import com.sticket.app.sticket.activities.setting.SettingActivity;
+import com.sticket.app.sticket.activities.sticker.StickerDialog;
+import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
 
@@ -80,6 +79,7 @@ public final class LivePreviewActivity extends AppCompatActivity
         if (preview == null) {
             Log.d(TAG, "Preview is null");
         }
+        preview.setRatio();
         graphicOverlay = findViewById(R.id.fireFaceOverlay);
         if (graphicOverlay == null) {
             Log.d(TAG, "graphicOverlay is null");
@@ -107,6 +107,22 @@ public final class LivePreviewActivity extends AppCompatActivity
     private void initViews() {
         countDownTxt = findViewById(R.id.txtCountDown);       // Annotation in activity_live_preview
         cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
+        cameraSettingDialog.setOnRatioChangeListener(new CameraSettingDialog.OnRatioChangeListener() {
+            @Override
+            public void onRatioChange(int ratioVal) {
+                preview.release();
+                preview.setRatio();
+                startCameraSource();
+            }
+        });
+        cameraSettingDialog.setOnQualityChangeListener(new CameraSettingDialog.OnQualityChangeListener() {
+            @Override
+            public void onQualityChange(boolean isHighQuality) {
+                preview.release();
+                preview.setRatio();
+                startCameraSource();
+            }
+        });
     }
 
     @Override
@@ -268,11 +284,40 @@ public final class LivePreviewActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    public void btnStore(View view) {
+        Intent intent = new Intent(getApplicationContext(), StoreActivity.class);
+        startActivity(intent);
+    }
+
+    public void btnOpenGallery(View v) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Get Album"), SelectedPictureActivity.REQUEST_CODE_FOR_GALLERY);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SelectedPictureActivity.REQUEST_CODE_FOR_GALLERY) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    Intent in1 = new Intent(this, SelectedPictureActivity.class);
+                    in1.putExtra(SelectedPictureActivity.SELECTED_IMAGE_NAME, data.getData());
+                    startActivity(in1);
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void onTouchPreview(View v) {
         if (CameraOption.getInstance().isTouchCapture()) {
             btnCapture(null);
         } else {
-            // 머하징
+            // TODO: 초점맞추기
         }
     }
 
@@ -340,4 +385,5 @@ public final class LivePreviewActivity extends AppCompatActivity
             }.start();
         }
     }
+
 }

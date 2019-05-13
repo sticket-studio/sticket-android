@@ -1,47 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:id="@+id/dialogSticker"
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/dialogSticker"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:background="#eeeeee"
+    android:background="@color/transparent"
     android:visibility="visible"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    >
+    app:layout_behavior="package com.sticket.app.sticket.util.UserLockBottomSheetBehavior"
+    tools:context=".activities.sticker.StickerDialog"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/layoutStickerEditor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_appbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnAssetImporter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Asset" />
+
+        <Button
+            android:id="@+id/btnSticonEditor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sticon" />
+
+        <Button
+            android:id="@+id/btnMotionEditor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Motion" />
+
+    </LinearLayout>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/bottom_sheet_appbar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:elevation="1dp">
+        android:background="@color/camera_sticker_dialog_background"
+        app:elevation="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/sticker_dialog_viewpager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread">
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/sticker_dialog_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            app:tabIndicatorColor="@color/grey"
             app:tabMinWidth="55dp"
-            android:background="#eeeeee"
-            app:tabTextAppearance="@style/StickerDialogTab"
-            app:tabIndicatorColor="@color/black"
-            app:tabMode="scrollable" />
+            app:tabMode="scrollable"
+            app:tabTextAppearance="@style/StickerDialogTab" />
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+        android:id="@+id/sticker_dialog_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/bottom_sheet_appbar"/>
+        android:layout_height="210dp"
+        android:background="@color/camera_sticker_dialog_tab"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_sheet_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_appbar" />
 
     <Button
         android:id="@+id/btnCapture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/viewpager"
-        android:layout_centerInParent="true"
+        android:layout_alignBottom="@+id/sticker_dialog_viewpager"
+        android:text="CAPTURE"
         android:layout_margin="20dp"
-        android:text="CAPTURE" />
+        app:layout_constraintBottom_toBottomOf="@+id/sticker_dialog_viewpager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
