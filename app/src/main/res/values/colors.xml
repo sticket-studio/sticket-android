@@ -10,7 +10,11 @@
     <color name="camera_sticker_dialog_background">#99000000</color>
     <color name="camera_sticker_dialog_tab">#777</color>
 
+    <!-- Sticon Editor -->
+    <color name="sticon_editor_background">#FFECE1</color>
+
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="grey">#DDDDDD</color>
+    <color name="dark_grey">#555555</color>
 </resources>

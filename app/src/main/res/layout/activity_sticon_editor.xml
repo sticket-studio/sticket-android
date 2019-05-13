@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:elevation="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        >
+
+        <Button
+            android:layout_width="0dp"
+            android:text="촬영"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:onClick="btnGoToTakePicture"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="(스티커)에디터"
+            android:textSize="22sp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="완료"
+            android:onClick="btnFinished"
+            android:layout_weight="2" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/sticon_editor_background"
+        android:layout_weight="3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="프리뷰 화면?"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sticket Studio(워터마크)"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        >
+
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/camera_sticker_dialog_background"
+            app:elevation="1dp"
+            app:layout_constraintBottom_toTopOf="@+id/sticker_dialog_viewpager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_sticon_editor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/grey"
+                app:tabMinWidth="55dp"
+                app:tabMode="scrollable"
+                android:background="@color/white"
+                app:tabTextAppearance="@style/MyPageTab" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/grey"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_sticon_editor"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

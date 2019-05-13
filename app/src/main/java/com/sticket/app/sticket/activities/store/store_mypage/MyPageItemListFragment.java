@@ -25,7 +25,7 @@ public class MyPageItemListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_mypage_viewpager, container, false);
+        View view = inflater.inflate(R.layout.fragment_store_mypage_viewpager, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_item_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));     // fragment이므로 this -> getActivity()
