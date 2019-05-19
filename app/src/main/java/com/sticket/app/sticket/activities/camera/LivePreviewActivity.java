@@ -25,6 +25,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -362,8 +364,29 @@ public final class LivePreviewActivity extends AppCompatActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Alert.makeText("Cheeeeeze!");
+//                                Alert.makeText("Cheeeeeze!");
                                 countDownTxt.setVisibility(View.GONE);
+
+                                final View viewShutterEffect = findViewById(R.id.viewShutterEffect);
+                                Animation shutterAnimation = AnimationUtils.loadAnimation(mContext, R.anim.shutter_effect);
+                                shutterAnimation.setAnimationListener(new Animation.AnimationListener() {
+                                    @Override
+                                    public void onAnimationStart(Animation animation) {
+                                        viewShutterEffect.setVisibility(View.VISIBLE);
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animation animation) {
+                                        viewShutterEffect.setVisibility(View.GONE);
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animation animation) {
+
+                                    }
+                                });
+                                shutterAnimation.setFillEnabled(false);
+                                viewShutterEffect.startAnimation(shutterAnimation);
                             }
                         });
 
