@@ -213,6 +213,10 @@ public class CameraSourcePreview extends ViewGroup {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
     private boolean isPortraitMode() {
         int orientation = context.getResources().getConfiguration().orientation;

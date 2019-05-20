@@ -19,28 +19,31 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.gallery.SelectedPictureActivity;
+import com.sticket.app.sticket.activities.setting.CameraSettingDialog;
+import com.sticket.app.sticket.activities.setting.SettingActivity;
+import com.sticket.app.sticket.activities.sticker.StickerDialog;
+import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.util.Alert;
-import com.sticket.app.sticket.activities.setting.CameraSettingDialog;
 import com.sticket.app.sticket.util.Preference;
-import com.sticket.app.sticket.activities.setting.SettingActivity;
-import com.sticket.app.sticket.activities.sticker.StickerDialog;
-import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
 
@@ -55,7 +58,6 @@ import java.util.List;
 public final class LivePreviewActivity extends AppCompatActivity
         implements OnRequestPermissionsResultCallback,
         CompoundButton.OnCheckedChangeListener {
-    private static final String FACE_CONTOUR = "Face Contour";
     private static final String TAG = "LivePreviewActivity";
     private static final int PERMISSION_REQUESTS = 1;
 
@@ -74,6 +76,8 @@ public final class LivePreviewActivity extends AppCompatActivity
         Log.d(TAG, "onCreate");
 
         setContentView(R.layout.activity_live_preview);
+
+        Log.e(TAG, "getExternalStorageDirectory : " + Environment.getExternalStorageDirectory().getAbsolutePath());
 
         preview = findViewById(R.id.firePreview);
         if (preview == null) {
@@ -249,6 +253,7 @@ public final class LivePreviewActivity extends AppCompatActivity
         }
     }
 
+    //TODO : PermissionUtil로 따로 빼자
     @Override
     public void onRequestPermissionsResult(
             int requestCode, String[] permissions, int[] grantResults) {
@@ -302,7 +307,7 @@ public final class LivePreviewActivity extends AppCompatActivity
             if (resultCode == RESULT_OK) {
                 try {
                     Intent in1 = new Intent(this, SelectedPictureActivity.class);
-                    in1.putExtra(SelectedPictureActivity.SELECTED_IMAGE_NAME, data.getData());
+                    in1.putExtra(SelectedPictureActivity.SELECTED_IMAGE_PATH, data.getData());
                     startActivity(in1);
 
                 } catch (Exception e) {
@@ -362,8 +367,29 @@ public final class LivePreviewActivity extends AppCompatActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Alert.makeText("Cheeeeeze!");
+//                                Alert.makeText("Cheeeeeze!");
                                 countDownTxt.setVisibility(View.GONE);
+
+                                final View viewShutterEffect = findViewById(R.id.viewShutterEffect);
+                                Animation shutterAnimation = AnimationUtils.loadAnimation(mContext, R.anim.shutter_effect);
+                                shutterAnimation.setAnimationListener(new Animation.AnimationListener() {
+                                    @Override
+                                    public void onAnimationStart(Animation animation) {
+                                        viewShutterEffect.setVisibility(View.VISIBLE);
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animation animation) {
+                                        viewShutterEffect.setVisibility(View.GONE);
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animation animation) {
+
+                                    }
+                                });
+                                shutterAnimation.setFillEnabled(false);
+                                viewShutterEffect.startAnimation(shutterAnimation);
                             }
                         });
 

@@ -17,7 +17,7 @@ import java.io.InputStream;
 public class SelectedPictureActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_FOR_GALLERY = 1;
-    public static final String SELECTED_IMAGE_NAME = "selectedImgName";
+    public static final String SELECTED_IMAGE_PATH = "selectedImgName";
 
     private ImageView selectedPicture;
 
@@ -28,7 +28,7 @@ public class SelectedPictureActivity extends AppCompatActivity {
 
         selectedPicture = findViewById(R.id.imgSelectedPicture);
 
-        Uri data = getIntent().getParcelableExtra(SELECTED_IMAGE_NAME);
+        Uri data = getIntent().getParcelableExtra(SELECTED_IMAGE_PATH);
 
         try(InputStream in = getContentResolver().openInputStream(data)) {
             Bitmap bitmap = BitmapFactory.decodeStream(in);

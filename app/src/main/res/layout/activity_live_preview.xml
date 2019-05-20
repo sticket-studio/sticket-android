@@ -32,6 +32,13 @@
         android:textSize="80sp"
         android:visibility="gone" />
 
+    <View
+        android:id="@+id/viewShutterEffect"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,13 +66,17 @@
             android:textOff=""
             android:textOn="" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnStore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            android:onClick="btnStore" />
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
+            android:onClick="btnStore"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_store2" />
 
     </RelativeLayout>
 
@@ -94,14 +105,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnCapture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_centerInParent="true"
             android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
             android:onClick="btnCapture"
-            android:text="CAPTURE"
+            android:src="@drawable/img_capture3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnGallery"
             app:layout_constraintStart_toEndOf="@+id/btnSticker"
@@ -118,7 +132,7 @@
             android:adjustViewBounds="true"
             android:background="@color/transparent"
             android:scaleType="fitCenter"
-             android:onClick="btnOpenGallery"
+            android:onClick="btnOpenGallery"
             android:src="@drawable/img_gallery_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -126,5 +140,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
+
 
 </RelativeLayout>
