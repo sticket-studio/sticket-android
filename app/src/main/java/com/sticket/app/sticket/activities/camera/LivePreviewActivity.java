@@ -19,6 +19,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
@@ -31,16 +32,16 @@ import android.widget.ToggleButton;
 
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.gallery.SelectedPictureActivity;
+import com.sticket.app.sticket.activities.setting.CameraSettingDialog;
+import com.sticket.app.sticket.activities.setting.SettingActivity;
+import com.sticket.app.sticket.activities.sticker.StickerDialog;
+import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.util.Alert;
-import com.sticket.app.sticket.activities.setting.CameraSettingDialog;
 import com.sticket.app.sticket.util.Preference;
-import com.sticket.app.sticket.activities.setting.SettingActivity;
-import com.sticket.app.sticket.activities.sticker.StickerDialog;
-import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
 
@@ -74,6 +75,8 @@ public final class LivePreviewActivity extends AppCompatActivity
         Log.d(TAG, "onCreate");
 
         setContentView(R.layout.activity_live_preview);
+
+        Log.e(TAG, "getExternalStorageDirectory : " +         Environment.getExternalStorageDirectory().getAbsolutePath());
 
         preview = findViewById(R.id.firePreview);
         if (preview == null) {
