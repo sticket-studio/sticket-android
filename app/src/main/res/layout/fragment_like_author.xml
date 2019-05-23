@@ -3,9 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="작가페이지"
-        android:gravity="center"/>
+        android:id="@+id/authorItemListView"></ListView>
 </android.support.constraint.ConstraintLayout>
