@@ -7,7 +7,7 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
 
-@Entity(tableName = "asset_sticon", foreignKeys = {
+@Entity(tableName = "sticon_asset", foreignKeys = {
                                         @ForeignKey(entity = Asset.class,
                                             parentColumns ="idx",
                                             childColumns = "asst_idx"),
@@ -15,7 +15,7 @@ import android.arch.persistence.room.PrimaryKey;
                                             parentColumns = "idx",
                                             childColumns = "sticon_idx")
                                                                         })
-public class Asset_sticon {
+public class Sticon_asset {
 
     @PrimaryKey
     private int idx;
