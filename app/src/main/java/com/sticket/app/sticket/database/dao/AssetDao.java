@@ -20,11 +20,11 @@ public interface AssetDao {
     List<Asset> loadAllByIds(int[] idx);
 
     @Insert
-    void insert(Asset asset);
+    void insert(Asset... asset);
 
     @Update
-    void update(Asset asset);
+    void update(Asset... asset);
 
     @Delete
-    void delete(Asset asset);
+    void delete(Asset... asset);
 }

@@ -21,13 +21,13 @@ public interface SticonDao {
     List<Sticon> loadAllByIds(int[] idx);
 
     @Insert
-    void insert(Sticon sticon);
+    void insert(Sticon... sticon);
 
     @Delete
-    void delete(Sticon sticon);
+    void delete(Sticon... sticon);
 
     @Update
-    void update(Sticon sticon);
+    void update(Sticon... sticon);
 
 
 }

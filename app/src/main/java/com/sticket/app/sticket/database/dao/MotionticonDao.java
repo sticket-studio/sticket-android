@@ -19,11 +19,11 @@ public interface MotionticonDao {
     List<Motionticon> loadAllByIds(int[] idx);
 
     @Insert
-    void insert(Motionticon motionticon);
+    void insert(Motionticon... motionticon);
 
     @Update
-    void update(Motionticon motionticon);
+    void update(Motionticon... motionticon);
 
     @Delete
-    void delete(Motionticon motionticon);
+    void delete(Motionticon... motionticon);
 }

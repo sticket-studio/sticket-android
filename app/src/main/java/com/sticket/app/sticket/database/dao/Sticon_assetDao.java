@@ -19,11 +19,11 @@ public interface Sticon_assetDao {
     List<Sticon_asset> loadAllByIds(int[] idx);
 
     @Insert
-    void insert(Sticon_asset sticon_asset);
+    void insert(Sticon_asset... sticon_asset);
 
     @Update
-    void update(Sticon_asset sticon_asset);
+    void update(Sticon_asset... sticon_asset);
 
     @Delete
-    void delete(Sticon_asset sticon_asset);
+    void delete(Sticon_asset... sticon_asset);
 }
