@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "sticon")
 public class Sticon {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int idx;
 
     @ColumnInfo(name="img_url")

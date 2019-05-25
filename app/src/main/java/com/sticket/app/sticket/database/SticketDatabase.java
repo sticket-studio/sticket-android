@@ -11,6 +11,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.sticket.app.sticket.database.dao.AssetDao;
+import com.sticket.app.sticket.database.dao.LandmarkDao;
 import com.sticket.app.sticket.database.dao.MotionticonDao;
 import com.sticket.app.sticket.database.dao.Motionticon_sticonDao;
 import com.sticket.app.sticket.database.dao.SticonDao;
@@ -23,7 +24,7 @@ import com.sticket.app.sticket.database.entity.Motionticon_sticon;
 import com.sticket.app.sticket.database.entity.Sticon;
 
 @android.arch.persistence.room.Database(entities = {Asset.class, Sticon_asset.class,
-        Landmark.class, Motionticon.class, Motionticon_sticon.class, Sticon.class}, version = 1)
+        Landmark.class, Motionticon.class, Motionticon_sticon.class, Sticon.class}, version = 3)
 public abstract  class SticketDatabase extends RoomDatabase {
 
     private static SticketDatabase INSTANCE;
@@ -33,12 +34,14 @@ public abstract  class SticketDatabase extends RoomDatabase {
     public abstract MotionticonDao motionticonDao();
     public abstract Sticon_assetDao sticon_assetDao();
     public abstract Motionticon_sticonDao motionticon_sticonDao();
+    public abstract LandmarkDao landmarkDao();
 
 
     public static SticketDatabase getDatabase(Context context){
         if(INSTANCE == null){
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), SticketDatabase.class,"sticket_db")
-                             .allowMainThreadQueries().build();
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries().build();
         }
         return INSTANCE;
     }

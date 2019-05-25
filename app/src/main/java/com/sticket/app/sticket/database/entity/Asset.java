@@ -6,13 +6,16 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
 @Entity(tableName = "asset",
         foreignKeys = @ForeignKey(entity = Landmark.class,
-                        parentColumns = "landmark",
-                        childColumns = "landmark"))
+                        parentColumns = "idx",
+                        childColumns = "landmark",
+                        onDelete = CASCADE))
 
 public class Asset {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private  int idx;
 
     @ColumnInfo(name="local_url")
@@ -34,7 +37,7 @@ public class Asset {
     private int flip;
 
     @ColumnInfo(name="landmark")
-    private int lanmark;
+    private int landmark;
 
     public int getIdx() {
         return idx;
@@ -92,11 +95,11 @@ public class Asset {
         this.flip = flip;
     }
 
-    public int getLanmark() {
-        return lanmark;
+    public int getLandmark() {
+        return landmark;
     }
 
-    public void setLanmark(int lanmark) {
-        this.lanmark = lanmark;
+    public void setLandmark(int landmark) {
+        this.landmark = landmark;
     }
 }

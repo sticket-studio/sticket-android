@@ -6,7 +6,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "landmark")
 public class Landmark {
-    @PrimaryKey
+
+    @PrimaryKey(autoGenerate = true)
     private  int idx;
 
     @ColumnInfo(name="landmark")

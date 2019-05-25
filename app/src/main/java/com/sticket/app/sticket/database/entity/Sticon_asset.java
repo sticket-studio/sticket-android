@@ -6,18 +6,21 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
 
 @Entity(tableName = "sticon_asset", foreignKeys = {
                                         @ForeignKey(entity = Asset.class,
                                             parentColumns ="idx",
-                                            childColumns = "asst_idx"),
+                                            childColumns = "asset_idx",
+                                            onDelete = CASCADE),
                                         @ForeignKey(entity = Sticon.class,
                                             parentColumns = "idx",
-                                            childColumns = "sticon_idx")
-                                                                        })
+                                            childColumns = "sticon_idx",
+                                            onDelete = CASCADE)})
 public class Sticon_asset {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int idx;
 
     @ColumnInfo(name="sticon_idx")

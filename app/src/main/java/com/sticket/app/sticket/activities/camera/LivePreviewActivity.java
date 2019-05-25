@@ -41,6 +41,9 @@ import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
+import com.sticket.app.sticket.database.SticketDatabase;
+import com.sticket.app.sticket.database.entity.Asset;
+import com.sticket.app.sticket.database.entity.Landmark;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.Preference;
@@ -70,9 +73,15 @@ public final class LivePreviewActivity extends AppCompatActivity
     private TextView countDownTxt;
     private FaceContourDetectorProcessor faceContourDetectorProcessor;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+
         Log.d(TAG, "onCreate");
 
         setContentView(R.layout.activity_live_preview);
