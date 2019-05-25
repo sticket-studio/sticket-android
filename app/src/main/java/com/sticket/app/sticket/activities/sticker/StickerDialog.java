@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.sticket.app.sticket.R;
@@ -22,7 +23,8 @@ import com.sticket.app.sticket.util.ViewPagerAdapter;
 public class StickerDialog extends BottomSheetDialogFragment {
 
     private Button btnCapture;      // TODO : Search Custom Listener
-    private Button assetImporterBtn, sticonEditorBtn, motionticonEditorBtn;
+    private ImageButton assetImporterBtn, sticonEditorBtn;
+    private Button motionticonEditorBtn;
     private View view;
 
     public StickerDialog() {
@@ -56,7 +58,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
         stickerDialogTabLayout.setupWithViewPager(stickerDialogViewPager);
 
         // OnClickListener for dismiss
-        LinearLayout layoutBtnEditor = (LinearLayout) view.findViewById(R.id.layoutStickerEditor);
+        LinearLayout layoutBtnEditor = (LinearLayout) view.findViewById(R.id.layout_sticker_editor);
         layoutBtnEditor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,9 +66,9 @@ public class StickerDialog extends BottomSheetDialogFragment {
             }
         });
 
-        assetImporterBtn = view.findViewById(R.id.btnAssetImporter);
-        sticonEditorBtn = view.findViewById(R.id.btnSticonEditor);
-        motionticonEditorBtn = view.findViewById(R.id.btnMotionEditor);
+        assetImporterBtn = view.findViewById(R.id.btn_asset_Importer);
+        sticonEditorBtn = view.findViewById(R.id.btn_sticon_editor);
+        motionticonEditorBtn = view.findViewById(R.id.btn_motion_editor);
 
         initListener();
     }
@@ -76,14 +78,14 @@ public class StickerDialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.btnAssetImporter:
+                    case R.id.btn_asset_Importer:
 
                         break;
-                    case R.id.btnSticonEditor:
+                    case R.id.btn_sticon_editor:
                         Intent sticonEditorIntent = new Intent(getContext(), SticonEditorActivity.class);
                         startActivity(sticonEditorIntent);
                         break;
-                    case R.id.btnMotionEditor:
+                    case R.id.btn_motion_editor:
 
                         break;
                 }
