@@ -73,10 +73,27 @@ public final class LivePreviewActivity extends AppCompatActivity
     private TextView countDownTxt;
     private FaceContourDetectorProcessor faceContourDetectorProcessor;
 
-
+    private SticketDatabase sticketDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sticketDatabase = SticketDatabase.getDatabase(getApplicationContext());
+
+        Landmark landmark = new Landmark();
+
+        Log.d("landmakr check",String.valueOf(sticketDatabase.landmarkDao().getAlllandmarks().size()));
+        Asset asset = new Asset();
+        asset.setLandmark(1);
+        asset.setLocal_url("test");
+        asset.setImg_url("test");
+        asset.setFlip(1);
+        asset.setOffset_x(1);
+        asset.setOffset_y(1);
+        sticketDatabase.assetDao().insert(asset);
+        Log.d("asset check",String.valueOf(sticketDatabase.assetDao().getAllassets().size()));
+
+
 
 
 
