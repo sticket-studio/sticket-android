@@ -49,7 +49,7 @@ public class StickerGridAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            stickerGridView = inflater.inflate(R.layout.item_sticker, null);
+            stickerGridView = inflater.inflate(R.layout.item_grid_sticker, null);
             ImageView imageView = (ImageView) stickerGridView.findViewById(R.id.item_sticker_image);
             imageView.setImageResource(icons[position]);
         }
