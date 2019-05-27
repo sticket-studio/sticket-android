@@ -3,21 +3,20 @@ package com.sticket.app.sticket.util.camera_setting;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.util.Preference;
 
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_AUTO_SAVE;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_DIRECTION;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_FLASH;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_HD;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_RATIO;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_TIMER;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_TOUCH_CAPTURE;
+
 /**
  * 카메라 세팅값을 위한 Class
  * - Flash
  * - Timer
  */
 public class CameraOption {
-    public static final String PREFERENCE_NAME_DIRECTION = "DIRECTION";
-    public static final String PREFERENCE_NAME_FLASH = "FLASH";
-    public static final String PREFERENCE_NAME_RATIO = "RATIO";
-    public static final String PREFERENCE_NAME_RATIO_WIDTH = "RATIO_WIDTH";
-    public static final String PREFERENCE_NAME_RATIO_HEIGHT = "RATIO_HEIGHT";
-    public static final String PREFERENCE_NAME_TIMER = "TIMER";
-    public static final String PREFERENCE_NAME_AUTO_SAVE = "AUTO_SAVE";
-    public static final String PREFERENCE_NAME_TOUCH_CAPTURE = "TOUCH_CAPTURE";
-    public static final String PREFERENCE_NAME_HD = "HIGH_QUALITY";
 
     public static final int[] RATIO_IMGS = new int[]{R.drawable.img_ratio_3_4
             , R.drawable.img_ratio_9_16, R.drawable.img_ratio_1_1};

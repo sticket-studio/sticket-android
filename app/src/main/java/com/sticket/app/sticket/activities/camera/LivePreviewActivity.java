@@ -54,6 +54,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_DIRECTION;
+
 /**
  * Demo app showing the various features of ML Kit for Firebase. This class is used to
  * set up continuous frame processing on frames from a camera source.
@@ -149,7 +151,7 @@ public final class LivePreviewActivity extends AppCompatActivity
             }
 
             CameraOption.getInstance().setDirection(direction);
-            Preference.getInstance().putInt(CameraOption.PREFERENCE_NAME_DIRECTION
+            Preference.getInstance().putInt(PREFERENCE_NAME_DIRECTION
                     , direction.getVal());
         }
         preview.stop();
@@ -161,7 +163,7 @@ public final class LivePreviewActivity extends AppCompatActivity
         if (cameraSource == null) {
             cameraSource = new CameraSource(this, graphicOverlay);
             int directionInt = Preference.getInstance()
-                    .getInt(CameraOption.PREFERENCE_NAME_DIRECTION);
+                    .getInt(PREFERENCE_NAME_DIRECTION);
             if (Direction.toMyEnum(directionInt) == Direction.DIRECTION_BACK) {
                 cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
             } else {
@@ -418,5 +420,4 @@ public final class LivePreviewActivity extends AppCompatActivity
             }.start();
         }
     }
-
 }
