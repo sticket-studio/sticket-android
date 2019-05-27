@@ -18,19 +18,34 @@ import java.util.List;
 
 public class FileUtil {
     private static final String TAG = FileUtil.class.getSimpleName();
-    private static final String EXTERNAL_STORAGE_DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath();
-    private static final String APPLICATION_DIRECTORY_PATH = EXTERNAL_STORAGE_DIRECTORY + "/sticket";
+    public static String EXTERNAL_STORAGE_DIRECTORY;
+    public static String APPLICATION_DIRECTORY_PATH;
 
-    public static final String DATA_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/data";
-    public static final String THUMBNAIL_DIR_PATH = APPLICATION_DIRECTORY_PATH + "/data/thumbnail";
-    public static final String THUMBNAIL_ASSET_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/thumbnail/asset";
-    public static final String THUMBNAIL_STICON_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/thumbnail/sticon";
-    public static final String THUMBNAIL_MOTIONTICON_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/thumbnail/motionticon";
-    public static final String IMAGE_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/image";
-    public static final String IMAGE_ASSET_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/image/asset";
-    public static final String ALBUM_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/album";
+    public static String DATA_DIRECTORY_PATH;
+    public static String THUMBNAIL_DIR_PATH;
+    public static String THUMBNAIL_ASSET_DIRECTORY_PATH;
+    public static String THUMBNAIL_STICON_DIRECTORY_PATH;
+    public static String THUMBNAIL_MOTIONTICON_DIRECTORY_PATH;
+    public static String IMAGE_DIRECTORY_PATH;
+    public static String IMAGE_ASSET_DIRECTORY_PATH;
+    public static String ALBUM_DIRECTORY_PATH;
+
+    public static void buildPaths() {
+        EXTERNAL_STORAGE_DIRECTORY = Preference.getInstance().getString(Preference.PREFERENCE_NAME_SAVE_LOCATION);
+        APPLICATION_DIRECTORY_PATH = EXTERNAL_STORAGE_DIRECTORY + "/sticket";
+        DATA_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/data";
+        THUMBNAIL_DIR_PATH = APPLICATION_DIRECTORY_PATH + "/data/thumbnail";
+        THUMBNAIL_ASSET_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/thumbnail/asset";
+        THUMBNAIL_STICON_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/thumbnail/sticon";
+        THUMBNAIL_MOTIONTICON_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/thumbnail/motionticon";
+        IMAGE_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/image";
+        IMAGE_ASSET_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/image/asset";
+        ALBUM_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/album";
+    }
 
     public static void structDirectories() {
+        buildPaths();
+
         File dataDir = new File(DATA_DIRECTORY_PATH);
         File thumbnailDir = new File(THUMBNAIL_DIR_PATH);
         File assetThumbnailDir = new File(THUMBNAIL_ASSET_DIRECTORY_PATH);
@@ -108,7 +123,7 @@ public class FileUtil {
     }
     */
     public static boolean copyFile(Context context, Uri sourceUri,
-                                     String destDirPath, String destFileName) {
+                                   String destDirPath, String destFileName) {
         return copyFile(getRealPathFromURI(context, sourceUri),
                 destDirPath, destFileName);
     }
