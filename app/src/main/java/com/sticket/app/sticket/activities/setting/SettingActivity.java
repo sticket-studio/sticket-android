@@ -60,12 +60,13 @@ public class SettingActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == FOLDERPICKER_CODE && resultCode == Activity.RESULT_OK) {
 
-            String folderLocation = intent.getExtras().getString("data");
-            Preference.getInstance().putString(Preference.PREFERENCE_NAME_SAVE_LOCATION, folderLocation);
+            String directoryLocation = intent.getExtras().getString("data");
+            Preference.getInstance().putString(Preference.PREFERENCE_NAME_SAVE_LOCATION, directoryLocation);
+            pathTxt.setText(directoryLocation);
 
             FileUtil.structDirectories();
 
-            Log.i( "folderLocation", folderLocation );
+            Log.i( "folderLocation", directoryLocation );
 
         }
     }

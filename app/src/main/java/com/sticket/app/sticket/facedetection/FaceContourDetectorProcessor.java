@@ -98,7 +98,7 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
     public void capture() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSSS");
         String albumPath = FileUtil.ALBUM_DIRECTORY_PATH;
-        String imgName = albumPath + File.pathSeparator + sdf.format(new Date()) + IMG_FORMAT;
+        String imgName = albumPath + "/" + sdf.format(new Date()) + IMG_FORMAT;
         Log.e("CAPTURE", imgName);
         Bitmap b = ImageUtil.getBitmapFromView(graphicOverlay);
 
