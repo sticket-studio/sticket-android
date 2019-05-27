@@ -1,7 +1,6 @@
 package com.sticket.app.sticket.util;
 
 import android.app.Application;
-import android.os.Environment;
 
 public class MyApplication extends Application {
     private static final String TAG = "MyApplication";
@@ -12,16 +11,11 @@ public class MyApplication extends Application {
         super.onCreate();
         // Required initialization logic here!
 
+        FileUtil.structDirectories();
+
         MyBitmapFactory.getInstance().build(getApplicationContext());
 
         Alert.build(getApplicationContext());
         Preference.getInstance().build(getApplicationContext());
-
-        if(Preference.getInstance().getBoolean(Preference.PREFERENCE_NAME_FIRST_LAUNCH)){
-            Preference.getInstance().putString(Preference.PREFERENCE_NAME_SAVE_LOCATION,
-                    Environment.getExternalStorageDirectory().getAbsolutePath());
-        }
-
-        FileUtil.structDirectories();
     }
 }
