@@ -24,11 +24,14 @@ import com.sticket.app.sticket.util.camera_setting.Flash;
 import com.sticket.app.sticket.util.camera_setting.Ratio;
 import com.sticket.app.sticket.util.camera_setting.Timer;
 
-import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_FLASH;
-import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_RATIO;
-import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_RATIO_HEIGHT;
-import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_RATIO_WIDTH;
-import static com.sticket.app.sticket.util.camera_setting.CameraOption.PREFERENCE_NAME_TIMER;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_AUTO_SAVE;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_FLASH;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_HD;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_RATIO;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_RATIO_HEIGHT;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_RATIO_WIDTH;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_TIMER;
+import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_TOUCH_CAPTURE;
 
 public class CameraSettingDialog extends Dialog {
 
@@ -107,17 +110,17 @@ public class CameraSettingDialog extends Dialog {
                         break;
                     case R.id.SwitchAutoSave:
                         CameraOption.getInstance().setAutoSave(isChecked);
-                        Preference.getInstance().putBoolean(CameraOption.PREFERENCE_NAME_AUTO_SAVE
+                        Preference.getInstance().putBoolean(PREFERENCE_NAME_AUTO_SAVE
                                 , isChecked);
                         break;
                     case R.id.SwitchTouchCapture:
                         CameraOption.getInstance().setTouchCapture(isChecked);
-                        Preference.getInstance().putBoolean(CameraOption.PREFERENCE_NAME_TOUCH_CAPTURE
+                        Preference.getInstance().putBoolean(PREFERENCE_NAME_TOUCH_CAPTURE
                                 , isChecked);
                         break;
                     case R.id.SwitchHD:
                         CameraOption.getInstance().setHD(isChecked);
-                        Preference.getInstance().putBoolean(CameraOption.PREFERENCE_NAME_HD
+                        Preference.getInstance().putBoolean(PREFERENCE_NAME_HD
                                 , isChecked);
                         if (onQualityChangeListener != null) {
                             onQualityChangeListener.onQualityChange(isChecked);

@@ -19,9 +19,12 @@ import com.sticket.app.sticket.VisionProcessorBase;
 import com.sticket.app.sticket.common.CameraImageGraphic;
 import com.sticket.app.sticket.common.FrameMetadata;
 import com.sticket.app.sticket.common.GraphicOverlay;
+import com.sticket.app.sticket.util.FileUtil;
 import com.sticket.app.sticket.util.ImageUtil;
+import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -90,12 +93,12 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
 
     GraphicOverlay graphicOverlay;
 
-    public final String IMG_NAME_PREFIX = "/sticket/";
     public final String IMG_FORMAT = ".jpg";
 
     public void capture() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSSS");
-        String imgName = Environment.getExternalStorageDirectory().getAbsolutePath() + IMG_NAME_PREFIX + sdf.format(new Date()) + IMG_FORMAT;
+        String albumPath = FileUtil.ALBUM_DIRECTORY_PATH;
+        String imgName = albumPath + File.pathSeparator + sdf.format(new Date()) + IMG_FORMAT;
         Log.e("CAPTURE", imgName);
         Bitmap b = ImageUtil.getBitmapFromView(graphicOverlay);
 
