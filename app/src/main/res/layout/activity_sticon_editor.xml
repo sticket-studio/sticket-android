@@ -6,13 +6,13 @@
     android:orientation="vertical">
 
     <RelativeLayout
-    android:id="@+id/app_toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@color/white">
+        android:id="@+id/layout_editor_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
 
         <ImageButton
-            android:id="@+id/btnBack"
+            android:id="@+id/btn_sticon_editor_back"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:adjustViewBounds="true"
@@ -21,11 +21,11 @@
             android:layout_centerVertical="true"
             android:background="@color/transparent"
             android:onClick="btnGoToTakePicture"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:src="@drawable/img_back" />
 
         <TextView
-            android:id="@+id/AppCompatTextView"
+            android:id="@+id/app_compat_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -33,18 +33,18 @@
             android:textSize="21sp"
             android:textColor="@color/black"/>
 
-            <ImageButton
-                android:id="@+id/btnNext"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@color/transparent"
-                android:onClick="btnFinished"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/btn_finish" />
+        <ImageButton
+            android:id="@+id/btn_sticon_editor_finish"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:onClick="btnFinished"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/btn_finish" />
     </RelativeLayout>
 
     <RelativeLayout

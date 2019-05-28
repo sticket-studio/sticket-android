@@ -66,7 +66,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
             }
         });
 
-        assetImporterBtn = view.findViewById(R.id.btn_asset_Importer);
+        assetImporterBtn = view.findViewById(R.id.btn_asset_importer);
         sticonEditorBtn = view.findViewById(R.id.btn_sticon_editor);
         motionticonEditorBtn = view.findViewById(R.id.btn_motion_editor);
 
@@ -78,7 +78,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.btn_asset_Importer:
+                    case R.id.btn_asset_importer:
 
                         break;
                     case R.id.btn_sticon_editor:

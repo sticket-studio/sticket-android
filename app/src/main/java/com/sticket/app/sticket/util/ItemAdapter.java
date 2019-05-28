@@ -44,7 +44,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.item, parent, false);
+        View view = inflater.inflate(R.layout.item_store_sticker, parent, false);
         ItemAdapter.ViewHolder vh = new ItemAdapter.ViewHolder(view);
 
         return vh;

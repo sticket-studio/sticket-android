@@ -59,10 +59,10 @@
 
         <ToggleButton
             android:id="@+id/btnSwitch"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/btn_switch"
+            android:background="@drawable/btn_switch2"
             android:textOff=""
             android:textOn="" />
 
@@ -76,7 +76,7 @@
             android:background="@color/transparent"
             android:onClick="btnStore"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_store2" />
+            android:src="@drawable/img_store4" />
 
     </RelativeLayout>
 
@@ -98,7 +98,7 @@
             android:background="@color/transparent"
             android:onClick="btnSticker"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_sticker_btn"
+            android:src="@drawable/img_sticker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnCapture"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -115,7 +115,7 @@
             android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:onClick="btnCapture"
-            android:src="@drawable/img_capture3"
+            android:src="@drawable/img_capture4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnGallery"
             app:layout_constraintStart_toEndOf="@+id/btnSticker"
@@ -133,7 +133,7 @@
             android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:onClick="btnOpenGallery"
-            android:src="@drawable/img_gallery_btn"
+            android:src="@drawable/img_gallery"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnCapture"
