@@ -55,14 +55,14 @@
             android:background="@color/transparent"
             android:onClick="btnCameraSetting"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_camera_setting2" />
+            android:src="@drawable/img_camera_setting3" />
 
         <ToggleButton
             android:id="@+id/btnSwitch"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/img_switch"
+            android:background="@drawable/img_switch2"
             android:textOff=""
             android:textOn="" />
 
@@ -76,7 +76,7 @@
             android:background="@color/transparent"
             android:onClick="btnStore"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_store2" />
+            android:src="@drawable/img_store3" />
 
     </RelativeLayout>
 
@@ -97,7 +97,7 @@
             android:background="@color/transparent"
             android:onClick="btnSticker"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_sticker2"
+            android:src="@drawable/img_sticker3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnCapture"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -114,7 +114,7 @@
             android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:onClick="btnCapture"
-            android:src="@drawable/img_capture"
+            android:src="@drawable/img_capture2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnGallery"
             app:layout_constraintStart_toEndOf="@+id/btnSticker"
@@ -131,7 +131,7 @@
             android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:onClick="btnOpenGallery"
-            android:src="@drawable/img_gallery2"
+            android:src="@drawable/img_gallery3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnCapture"
