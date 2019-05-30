@@ -42,13 +42,14 @@ tools:context=".activities.setting.AccountActivity">
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/layoutAccountManagement"
+        android:id="@+id/layoutAccountManagement2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/text1"
+            android:onClick="btnAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
