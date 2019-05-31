@@ -3,14 +3,15 @@
     android:layout_height="130dip"
     android:orientation="horizontal"
     android:weightSum="11"
-    android:padding="20dip">
+    android:padding="20dip"
+    android:id="@+id/likeItemListView">
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:layout_weight="3">
         <de.hdodenhof.circleimageview.CircleImageView
             android:padding="5dip"
-            android:id="@+id/profile_image"
+            android:id="@+id/img_like_author_userImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/yeoni"
@@ -30,20 +31,28 @@
            android:layout_height="wrap_content"
            android:text="여니여니"
            android:textSize="20dip"
-           android:id="@+id/textName"
+           android:id="@+id/txt_like_author_userName"
            android:textStyle="bold"
            android:paddingBottom="8dip"/>
-       <TextView
+       <LinearLayout
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Work 13"
-           android:id="@+id/work"
-           android:paddingBottom="3dip"/>
+           android:paddingBottom="3dip">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="work "/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/txt_like_author_workCount"
+               android:text="13"/>
+       </LinearLayout>
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="이거슨 칭호이니라~~~~"
-           android:id="@+id/prizeName"/>
+           android:id="@+id/txt_like_author_title"/>
    </LinearLayout>
     <LinearLayout
         android:layout_width="0dp"
@@ -63,7 +72,7 @@
             android:layout_height="wrap_content"
             android:text="324"
             android:textAlignment="center"
-            android:id="@+id/like"/>
+            android:id="@+id/txt_like_author_likeNum"/>
     </LinearLayout>
 
 </LinearLayout>
