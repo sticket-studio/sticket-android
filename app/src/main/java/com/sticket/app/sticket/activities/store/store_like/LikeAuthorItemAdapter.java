@@ -24,7 +24,7 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return itemList.size();
+        return this.itemList.size();
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
@@ -34,7 +34,7 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_author_like,parent,false);
         }
-        ImageView img = (ImageView)convertView.findViewById(R.id.profile_image);
+        ImageView userImg = (ImageView)convertView.findViewById(R.id.profile_image);
         TextView userName = (TextView)convertView.findViewById(R.id.userName);
         TextView workNum = (TextView)convertView.findViewById(R.id.workNum);
         TextView title = (TextView)convertView.findViewById(R.id.title);
@@ -42,9 +42,9 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
 
         LikeAuthorItem likeAuthorItem = itemList.get(position);
 
-        img.setImageDrawable(likeAuthorItem.getImg());
+        userImg.setImageResource(likeAuthorItem.getUserImg());
         userName.setText(likeAuthorItem.getUserName());
-        workNum.setText(likeAuthorItem.getWorkNum());
+        workNum.setText(likeAuthorItem.getWorkCount());
         title.setText(likeAuthorItem.getTitle());
         likeNum.setText(likeAuthorItem.getLikeNum());
 
@@ -60,6 +60,8 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
         return convertView;
     }
 
+
+
     @Override
     public long getItemId(int position) {
       return position;
@@ -70,8 +72,8 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
         return itemList.get(position);
     }
 
-    public void addItem(Drawable drawable, String userName, String workNum, String title, String likeNum){
-        LikeAuthorItem likeAuthorItem = new LikeAuthorItem(drawable,userName,workNum,title,likeNum);
+    public void addItem(int resourse, String userName, int workCount, String title, String likeNum){
+        LikeAuthorItem likeAuthorItem = new LikeAuthorItem(resourse,userName,workCount ,title,likeNum);
         itemList.add(likeAuthorItem);
     }
 

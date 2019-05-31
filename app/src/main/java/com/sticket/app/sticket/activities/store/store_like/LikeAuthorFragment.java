@@ -1,6 +1,5 @@
 package com.sticket.app.sticket.activities.store.store_like;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -14,8 +13,8 @@ import com.sticket.app.sticket.R;
 
 
 public class LikeAuthorFragment extends Fragment {
-    private ListView listView;
-    private LikeAuthorItemAdapter adapter;
+    private ListView likeAuthorListView;
+    private LikeAuthorItemAdapter likeAuthorAdapter;
 
     public LikeAuthorFragment() {
 
@@ -26,11 +25,11 @@ public class LikeAuthorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_like_author, container, false);
-        adapter = new LikeAuthorItemAdapter();
-        listView= (ListView)view.findViewById(R.id.authorItemListView);
-        listView.setAdapter(adapter);
+        likeAuthorAdapter = new LikeAuthorItemAdapter();
+        likeAuthorListView = (ListView)view.findViewById(R.id.layout_authorItemView_listView);
+        likeAuthorListView.setAdapter(likeAuthorAdapter);
 
-        adapter.addItem(ContextCompat.getDrawable(getContext(),R.drawable.yeoni),"yeoni","13","칭호 뭘로하지?","111");
+        likeAuthorAdapter.addItem(R.drawable.yeoni,"yeoni",13,"칭호 뭘로하지?","111");
 
         return view;
     }
