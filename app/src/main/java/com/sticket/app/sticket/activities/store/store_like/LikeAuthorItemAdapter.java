@@ -15,7 +15,25 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+
+
 public class LikeAuthorItemAdapter extends BaseAdapter {
+    private class LikeAuthorItemViewHolder {
+        public LikeAuthorItemViewHolder(ImageView userImge, TextView userName, TextView workCount, TextView title, TextView likeNum) {
+            this.userImge = userImge;
+            this.userName = userName;
+            this.workCount = workCount;
+            this.title = title;
+            this.likeNum = likeNum;
+        }
+
+        ImageView userImge;
+        TextView userName;
+        TextView workCount;
+        TextView title;
+        TextView likeNum;
+    }
+
     private ArrayList<LikeAuthorItem> itemList = new ArrayList<LikeAuthorItem>();
 
     public LikeAuthorItemAdapter() {
@@ -27,19 +45,18 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
         return this.itemList.size();
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
-        final int pos = position;
-        final Context context = parent.getContext();
+    public View getView(final int position, View convertView, ViewGroup parent){
+        int pos = position;
         LikeAuthorItemViewHolder likeAuthorItemViewHolder;
         if(convertView == null){
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater)parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_author_like,parent,false);
-            likeAuthorItemViewHolder = new LikeAuthorItemViewHolder();
-            likeAuthorItemViewHolder.userImge = (ImageView)convertView.findViewById(R.id.profile_image);
-            likeAuthorItemViewHolder.userName = (TextView)convertView.findViewById(R.id.userName);
-            likeAuthorItemViewHolder.workCount = (TextView)convertView.findViewById(R.id.workNum);
-            likeAuthorItemViewHolder.title = (TextView)convertView.findViewById(R.id.title);
-            likeAuthorItemViewHolder.likeNum= (TextView)convertView.findViewById(R.id.likeNum);
+            ImageView userImg = (ImageView)convertView.findViewById(R.id.img_like_author_userImg);
+            TextView userName = (TextView)convertView.findViewById(R.id.txt_like_author_userName);
+            TextView workCount = (TextView)convertView.findViewById(R.id.txt_like_author_workCount);
+            TextView title = (TextView)convertView.findViewById(R.id.txt_like_author_title);
+            TextView likeNum= (TextView)convertView.findViewById(R.id.txt_like_author_likeNum);
+            likeAuthorItemViewHolder = new LikeAuthorItemViewHolder(userImg,userName,workCount,title,likeNum);
         }else{
             likeAuthorItemViewHolder= (LikeAuthorItemViewHolder)convertView.getTag();
         }
@@ -81,5 +98,7 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
         LikeAuthorItem likeAuthorItem = new LikeAuthorItem(resourse,userName,workCount ,title,likeNum);
         itemList.add(likeAuthorItem);
     }
+
+
 
 }
