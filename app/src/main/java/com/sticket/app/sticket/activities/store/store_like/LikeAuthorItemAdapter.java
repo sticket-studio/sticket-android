@@ -30,23 +30,28 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
         final int pos = position;
         final Context context = parent.getContext();
+        LikeAuthorItemViewHolder likeAuthorItemViewHolder;
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_author_like,parent,false);
+            likeAuthorItemViewHolder = new LikeAuthorItemViewHolder();
+            likeAuthorItemViewHolder.userImge = (ImageView)convertView.findViewById(R.id.profile_image);
+            likeAuthorItemViewHolder.userName = (TextView)convertView.findViewById(R.id.userName);
+            likeAuthorItemViewHolder.workCount = (TextView)convertView.findViewById(R.id.workNum);
+            likeAuthorItemViewHolder.title = (TextView)convertView.findViewById(R.id.title);
+            likeAuthorItemViewHolder.likeNum= (TextView)convertView.findViewById(R.id.likeNum);
+        }else{
+            likeAuthorItemViewHolder= (LikeAuthorItemViewHolder)convertView.getTag();
         }
-        ImageView userImg = (ImageView)convertView.findViewById(R.id.profile_image);
-        TextView userName = (TextView)convertView.findViewById(R.id.userName);
-        TextView workNum = (TextView)convertView.findViewById(R.id.workNum);
-        TextView title = (TextView)convertView.findViewById(R.id.title);
-        TextView likeNum= (TextView)convertView.findViewById(R.id.likeNum);
+
 
         LikeAuthorItem likeAuthorItem = itemList.get(position);
 
-        userImg.setImageResource(likeAuthorItem.getUserImg());
-        userName.setText(likeAuthorItem.getUserName());
-        workNum.setText(likeAuthorItem.getWorkCount());
-        title.setText(likeAuthorItem.getTitle());
-        likeNum.setText(likeAuthorItem.getLikeNum());
+        likeAuthorItemViewHolder.userImge.setImageResource(likeAuthorItem.getUserImg());
+        likeAuthorItemViewHolder.userName.setText(likeAuthorItem.getUserName());
+        likeAuthorItemViewHolder.workCount.setText(String.valueOf(likeAuthorItem.getWorkCount()));
+        likeAuthorItemViewHolder.title.setText(likeAuthorItem.getTitle());
+        likeAuthorItemViewHolder.likeNum.setText(likeAuthorItem.getLikeNum());
 
 
         //클릭하면 어쪌껀가~~~~~~ 여기다 정의하기
