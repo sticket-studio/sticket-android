@@ -5,6 +5,7 @@
         <attr name="civ_border_color" format="color" />
         <attr name="civ_border_overlay" format="boolean" />
         <attr name="civ_fill_color" format="color" />
+        <attr name="android:galleryItemBackground"/>
     </declare-styleable>
 </resources>
 
