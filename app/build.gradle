@@ -65,5 +65,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+
+    // Image
+    implementation group: 'com.flying.xiaopo', name: 'sticker', version: '1.4.0'
 }
 apply plugin: 'com.google.gms.google-services'

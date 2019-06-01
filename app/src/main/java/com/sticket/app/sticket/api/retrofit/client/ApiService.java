@@ -30,7 +30,7 @@ public interface ApiService {
 //    @POST("/beongae/api/{version}/profile/upload/company/{userIdx}")
 //    Call<ApiMessasge> uploadCompanyDocs(@Path("userIdx") int userIdx
 //            , @Part MultipartBody.Part doc1, @Part MultipartBody.Part doc2);
-    @POST("sticket/api/normal/users/signup")
+    @POST("sticket/api/normal/users/user")
     Call<ApiMessasge> userSignUp(@Body SignupRequest request);
 
     @POST("sticket/oauth/token")

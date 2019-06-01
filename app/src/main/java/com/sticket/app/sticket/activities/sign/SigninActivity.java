@@ -19,7 +19,6 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,24 +41,24 @@ public class SigninActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_signin_submit)
-    void signinSubmit(View view){
+    void signinSubmit(View view) {
         final SignInRequest request = new SignInRequest();
         request.setUsername(emailEdit.getText().toString());
         request.setPassword(passwordEdit.getText().toString());
         request.setGrantType("password");
 
         ApiClient.getInstance().getApiService()
-                .getToken(ApiClient.createBasicToken(),"password"
-                        ,request.getUsername(),request.getPassword())
+                .getToken(ApiClient.createBasicToken(), "password"
+                        , request.getUsername(), request.getPassword())
                 .enqueue(new Callback<SignInResponse>() {
                     @Override
                     public void onResponse(Call<SignInResponse> call, Response<SignInResponse> response) {
-                        if(response.body()!=null) {
+                        if (response.body() != null) {
                             Intent intent = new Intent(SigninActivity.this, LivePreviewActivity.class);
                             startActivity(intent);
-                        }else{
+                        } else {
                             try {
-                                Log.e("SIGNIN","errorBody : " + response.errorBody().string());
+                                Log.e("SIGNIN", "errorBody : " + response.errorBody().string());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -70,13 +69,13 @@ public class SigninActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<SignInResponse> call, Throwable t) {
                         Alert.makeText("로그인 중 네트워크 에러 발생");
-                        Log.e("SIGNIN","host : " + call.request().url().toString());
+                        Log.e("SIGNIN", "host : " + call.request().url().toString());
                     }
                 });
     }
 
     @OnClick(R.id.btn_signin_signup)
-    void signupSubmit(View view){
+    void signupSubmit(View view) {
         Intent intent = new Intent(SigninActivity.this, SignupActivity.class);
         startActivity(intent);
     }

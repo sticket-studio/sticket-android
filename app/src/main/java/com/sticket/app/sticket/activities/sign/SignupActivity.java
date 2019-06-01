@@ -19,6 +19,8 @@ import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.FileUtil;
 import com.sticket.app.sticket.util.Preference;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,8 +51,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_signup_submit)
-    void signupSubmit(View view){
-        if(!passwordEdit.getText().toString().equals(passwordConfirmEdit.getText().toString())){
+    void signupSubmit(View view) {
+        if (!passwordEdit.getText().toString().equals(passwordConfirmEdit.getText().toString())) {
             Alert.makeText("두 비밀번호가 일치하지 않습니다");
             return;
         }
@@ -64,7 +66,16 @@ public class SignupActivity extends AppCompatActivity {
                 .enqueue(new Callback<ApiMessasge>() {
                     @Override
                     public void onResponse(Call<ApiMessasge> call, Response<ApiMessasge> response) {
-                        finish();
+                        if (response.body() != null) {
+                            finish();
+                        } else {
+                            try {
+                                Log.e("SIGNUP", "errorBody : " + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Alert.makeText("회원가입 중 에러 발생");
+                        }
                     }
 
                     @Override
