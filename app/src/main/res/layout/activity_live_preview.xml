@@ -55,14 +55,14 @@
             android:background="@color/transparent"
             android:onClick="btnCameraSetting"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_camera_setting" />
+            android:src="@drawable/img_camera_setting3" />
 
         <ToggleButton
             android:id="@+id/btnSwitch"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/btn_switch"
+            android:background="@drawable/img_switch2"
             android:textOff=""
             android:textOn="" />
 
@@ -76,7 +76,7 @@
             android:background="@color/transparent"
             android:onClick="btnStore"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_store2" />
+            android:src="@drawable/img_store3" />
 
     </RelativeLayout>
 
@@ -93,12 +93,11 @@
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
             android:background="@color/transparent"
             android:onClick="btnSticker"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_sticker_btn"
+            android:src="@drawable/img_sticker3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnCapture"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -107,15 +106,15 @@
 
         <ImageButton
             android:id="@+id/btnCapture"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_centerInParent="true"
             android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
             android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:onClick="btnCapture"
-            android:src="@drawable/img_capture3"
+            android:src="@drawable/img_capture2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnGallery"
             app:layout_constraintStart_toEndOf="@+id/btnSticker"
@@ -128,12 +127,11 @@
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
             android:background="@color/transparent"
             android:scaleType="fitCenter"
             android:onClick="btnOpenGallery"
-            android:src="@drawable/img_gallery_btn"
+            android:src="@drawable/img_gallery3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnCapture"

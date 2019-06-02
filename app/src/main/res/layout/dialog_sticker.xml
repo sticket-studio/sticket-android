@@ -15,32 +15,49 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:id="@+id/layoutStickerEditor"
+        android:id="@+id/layout_sticker_editor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
+        android:padding="8dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_appbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnAssetImporter"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/btn_asset_importer"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
-            android:text="Asset" />
+            android:layout_margin="4dp"
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_asset" />
+
+        <ImageButton
+            android:id="@+id/btn_sticon_editor"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_sticon" />
 
         <Button
-            android:id="@+id/btnSticonEditor"
+            android:id="@+id/btn_motion_editor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sticon" />
+            android:text="Motion"
+            android:visibility="gone"/>
 
         <Button
-            android:id="@+id/btnMotionEditor"
+            android:id="@+id/btnCloud"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Motion" />
+            android:text="Cloud"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

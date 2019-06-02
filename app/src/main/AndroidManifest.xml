@@ -21,10 +21,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme">
+        <activity android:name=".activities.sign.SignupActivity"></activity>
+        <activity android:name=".activities.sign.SigninActivity"></activity>
         <activity android:name=".activities.setting.AccountActivity"></activity>
         <activity android:name=".activities.gallery.SelectedPictureActivity" />
         <activity android:name=".activities.setting.SettingActivity" />
         <activity android:name=".activities.sticker.sticon_editor.SticonEditorActivity" />
+        <activity android:name=".activities.sticker.asset_importer.AssetImporter" />
         <activity
             android:name=".activities.camera.LivePreviewActivity"
             android:exported="true"

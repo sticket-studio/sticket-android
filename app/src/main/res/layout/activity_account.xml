@@ -19,7 +19,7 @@ tools:context=".activities.setting.AccountActivity">
         android:background="@color/white">
 
         <ImageButton
-            android:id="@+id/btnBack"
+            android:id="@+id/btn_back"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:adjustViewBounds="true"
@@ -32,7 +32,7 @@ tools:context=".activities.setting.AccountActivity">
             android:src="@drawable/img_back" />
 
         <TextView
-            android:id="@+id/AppCompatTextView"
+            android:id="@+id/app_compat_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -42,13 +42,14 @@ tools:context=".activities.setting.AccountActivity">
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/layoutAccountManagement"
+        android:id="@+id/layoutAccountManagement2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/text1"
+            android:onClick="btnAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"

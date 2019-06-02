@@ -5,72 +5,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/layout_editor_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        android:elevation="5dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        >
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
 
-        <Button
-            android:layout_width="0dp"
-            android:text="촬영"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:onClick="btnGoToTakePicture"
-            />
+        <ImageButton
+            android:id="@+id/btn_sticon_editor_back"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/img_back" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:text="(스티커)에디터"
-            android:textSize="22sp" />
+            android:id="@+id/app_compat_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="스티콘 에디터"
+            android:textSize="21sp"
+            android:textColor="@color/black"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="완료"
+        <ImageButton
+            android:id="@+id/btn_sticon_editor_finish"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
             android:onClick="btnFinished"
-            android:layout_weight="2" />
-    </LinearLayout>
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/btn_finish" />
+    </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_sticon_editor_editor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/sticon_editor_background"
         android:layout_weight="3">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="프리뷰 화면?"
-            android:layout_centerHorizontal="true"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sticket Studio(워터마크)"
-            android:layout_marginTop="50dp"
-            android:layout_centerHorizontal="true"
-            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_dummy_avatar2" />
 
+
+        <com.xiaopo.flying.sticker.StickerView
+            android:id="@+id/svEditor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:orientation="vertical"
-        >
-
+        android:orientation="vertical" >
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -104,8 +106,7 @@
             android:id="@+id/viewpager_sticon_editor"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
