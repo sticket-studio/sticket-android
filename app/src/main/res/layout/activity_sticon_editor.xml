@@ -20,7 +20,6 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:background="@color/transparent"
-            android:onClick="btnGoToTakePicture"
             android:layout_marginStart="16dp"
             android:src="@drawable/img_back" />
 
@@ -48,118 +47,25 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_sticon_editor_editor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/sticon_editor_background"
         android:layout_weight="3">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/img_dummy_avatar2" />
 
-        <Button
-            android:id="@+id/btn_reset"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="R" />
 
-        <android.support.constraint.ConstraintLayout
+        <com.xiaopo.flying.sticker.StickerView
+            android:id="@+id/svEditor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp">
-
-            <Button
-                android:id="@+id/btn_move_up"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="상"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_move_down"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btn_move_down"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="하"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btn_move_left"
-                app:layout_constraintStart_toEndOf="@+id/btn_move_up"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btn_move_left"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="좌"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_move_right"
-                app:layout_constraintStart_toEndOf="@+id/btn_move_down"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btn_move_right"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="우"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_rotate_left"
-                app:layout_constraintStart_toEndOf="@+id/btn_move_left"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btn_rotate_left"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="좧"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_rotate_right"
-                app:layout_constraintStart_toEndOf="@+id/btn_move_right"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btn_rotate_right"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="웋"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_scale_up"
-                app:layout_constraintStart_toEndOf="@+id/btn_rotate_left"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btn_scale_up"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="확"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_scale_down"
-                app:layout_constraintStart_toEndOf="@+id/btn_rotate_right"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btn_scale_down"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="축"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_scale_up"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
-
+            android:layout_height="match_parent"/>
     </RelativeLayout>
 
     <LinearLayout

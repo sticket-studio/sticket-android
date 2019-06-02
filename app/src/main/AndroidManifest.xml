@@ -21,6 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme">
+        <activity android:name=".activities.sign.SignupActivity"></activity>
+        <activity android:name=".activities.sign.SigninActivity"></activity>
         <activity android:name=".activities.setting.AccountActivity"></activity>
         <activity android:name=".activities.gallery.SelectedPictureActivity" />
         <activity android:name=".activities.setting.SettingActivity" />
