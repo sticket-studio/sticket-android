@@ -2,7 +2,6 @@ package com.sticket.app.sticket.database;
 
 
 import android.arch.persistence.db.SupportSQLiteOpenHelper;
-import android.arch.persistence.room.Database;
 import android.arch.persistence.room.DatabaseConfiguration;
 import android.arch.persistence.room.InvalidationTracker;
 import android.arch.persistence.room.Room;
@@ -17,13 +16,13 @@ import com.sticket.app.sticket.database.dao.Motionticon_sticonDao;
 import com.sticket.app.sticket.database.dao.SticonDao;
 import com.sticket.app.sticket.database.dao.Sticon_assetDao;
 import com.sticket.app.sticket.database.entity.Asset;
-import com.sticket.app.sticket.database.entity.Sticon_asset;
+import com.sticket.app.sticket.database.entity.SticonAsset;
 import com.sticket.app.sticket.database.entity.Landmark;
 import com.sticket.app.sticket.database.entity.Motionticon;
 import com.sticket.app.sticket.database.entity.Motionticon_sticon;
 import com.sticket.app.sticket.database.entity.Sticon;
 
-@android.arch.persistence.room.Database(entities = {Asset.class, Sticon_asset.class,
+@android.arch.persistence.room.Database(entities = {Asset.class, SticonAsset.class,
         Landmark.class, Motionticon.class, Motionticon_sticon.class, Sticon.class}, version = 3)
 public abstract  class SticketDatabase extends RoomDatabase {
 
@@ -49,9 +48,6 @@ public abstract  class SticketDatabase extends RoomDatabase {
     public static void destroyInstance(){
         INSTANCE= null;
     }
-
-
-
 
     @NonNull
     @Override

@@ -21,7 +21,7 @@ public interface SticonDao {
     List<Sticon> loadAllByIds(int[] idx);
 
     @Insert
-    void insert(Sticon... sticon);
+    long insert(Sticon sticon);
 
     @Delete
     void delete(Sticon... sticon);

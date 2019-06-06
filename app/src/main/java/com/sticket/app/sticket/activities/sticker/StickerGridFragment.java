@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import com.sticket.app.sticket.R;
 
-public class StickerGridFragment extends Fragment{
+public class StickerGridFragment extends Fragment {
 
-    public StickerGridFragment() {
-        // Required empty public constructor
+    private AdapterView.OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -32,6 +34,9 @@ public class StickerGridFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO : Set Asset or Sticker on your face
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(parent, view, position, id);
+                }
                 Toast.makeText(getActivity(), "Clicked icon position:" + position, Toast.LENGTH_SHORT).show();
             }
         });

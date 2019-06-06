@@ -6,24 +6,24 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.sticket.app.sticket.database.entity.Sticon_asset;
+import com.sticket.app.sticket.database.entity.SticonAsset;
 
 import java.util.List;
 
 @Dao
 public interface Sticon_assetDao {
-    @Query("SELECT * FROM sticon_asset")
-    List<Sticon_asset> getAllSticon_assets();
+    @Query("SELECT * FROM Sticon_asset")
+    List<SticonAsset> getAllSticon_assets();
 
-    @Query("SELECT * FROM sticon_asset WHERE idx IN (:idx)")
-    List<Sticon_asset> loadAllByIds(int[] idx);
+    @Query("SELECT * FROM Sticon_asset WHERE idx IN (:idx)")
+    List<SticonAsset> loadAllByIds(int[] idx);
 
     @Insert
-    void insert(Sticon_asset... sticon_asset);
+    void insert(SticonAsset... sticon_asset);
 
     @Update
-    void update(Sticon_asset... sticon_asset);
+    void update(SticonAsset... sticon_asset);
 
     @Delete
-    void delete(Sticon_asset... sticon_asset);
+    void delete(SticonAsset... sticon_asset);
 }
