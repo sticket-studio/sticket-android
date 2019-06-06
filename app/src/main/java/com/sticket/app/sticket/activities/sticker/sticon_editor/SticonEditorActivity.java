@@ -2,14 +2,12 @@ package com.sticket.app.sticket.activities.sticker.sticon_editor;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,12 +15,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.database.SticketDatabase;
+import com.sticket.app.sticket.database.entity.Asset;
+import com.sticket.app.sticket.database.entity.Sticon;
+import com.sticket.app.sticket.database.entity.SticonAsset;
 import com.sticket.app.sticket.util.ImageViewUtil;
 import com.sticket.app.sticket.util.Landmark;
 import com.sticket.app.sticket.util.ViewPagerAdapter;
 import com.xiaopo.flying.sticker.DrawableSticker;
 import com.xiaopo.flying.sticker.Sticker;
-import com.xiaopo.flying.sticker.StickerIconEvent;
 import com.xiaopo.flying.sticker.StickerView;
 
 import java.util.HashMap;
@@ -65,7 +66,10 @@ public class SticonEditorActivity extends AppCompatActivity {
     private ViewPagerAdapter adapter;
 
     private Map<Landmark, Sticker> stickerMap;
+    private Map<Sticker, Landmark> landmarkMap;
     private Map<Landmark, Button> buttonMap;
+    private Map<Landmark, Asset> assetMap;
+    private Map<Landmark, SticonAsset> sticonAssetMap;
     private Landmark currentLandmark = Landmark.EYE_LEFT;
 
     @Override
@@ -75,8 +79,11 @@ public class SticonEditorActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        landmarkMap = new HashMap<>();
         stickerMap = new HashMap<>();
         buttonMap = new HashMap<>();
+        assetMap = new HashMap<>();
+        sticonAssetMap = new HashMap<>();
 
         initViews();
         initListener();
@@ -94,37 +101,37 @@ public class SticonEditorActivity extends AppCompatActivity {
         stickerView.setOnStickerOperationListener(new StickerView.OnStickerOperationListener() {
             @Override
             public void onStickerClicked(Sticker sticker) {
-                for (Landmark key : stickerMap.keySet()) {
-                    if (sticker.equals(stickerMap.get(key))) {
-                        if (!stickerMap.containsKey(currentLandmark)) {
-                            currentBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                        } else {
-                            currentBtn.setBackground(getDrawable(R.drawable.btn_green));
-                        }
+                Landmark landmark = landmarkMap.get(sticker);
 
-                        currentBtn = buttonMap.get(key);
-                        currentBtn.setBackground(getDrawable(R.drawable.btn_pink));
-                        break;
+                if (sticker.equals(stickerMap.get(landmark))) {
+                    if (!stickerMap.containsKey(currentLandmark)) {
+                        currentBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                    } else {
+                        currentBtn.setBackground(getDrawable(R.drawable.btn_green));
                     }
+
+                    currentBtn = buttonMap.get(landmark);
+                    currentBtn.setBackground(getDrawable(R.drawable.btn_pink));
                 }
             }
 
             @Override
             public void onStickerDeleted(Sticker sticker) {
-                for (Landmark key : stickerMap.keySet()) {
-                    if (sticker.equals(stickerMap.get(key))) {
-                        if(!currentBtn.equals(buttonMap.get(key))) {
-                            buttonMap.get(key).setBackground(getDrawable(R.drawable.btn_gray));
-                        }
-                        stickerMap.remove(key);
-                        break;
+                Landmark landmark = landmarkMap.get(sticker);
+                if (sticker.equals(stickerMap.get(landmark))) {
+                    if (!currentBtn.equals(buttonMap.get(landmark))) {
+                        buttonMap.get(landmark).setBackground(getDrawable(R.drawable.btn_gray));
                     }
+
+                    stickerMap.remove(landmark);
+                    sticonAssetMap.remove(landmark);
+                    assetMap.remove(landmark);
+                    landmarkMap.remove(sticker);
                 }
             }
 
             @Override
             public void onStickerDragFinished(Sticker sticker) {
-
             }
 
             @Override
@@ -201,10 +208,12 @@ public class SticonEditorActivity extends AppCompatActivity {
         }
 
         Sticker sticker = new DrawableSticker(new BitmapDrawable(getResources(), bitmap));
-
         stickerMap.put(landmark, sticker);
+        landmarkMap.put(sticker, landmark);
 
-        Matrix matrix = sticker.getMatrix();
+        // TODO: 미리 저장된 Asset이 필요함. (= 먼저 Asset Importer에서 Asset을 저장해줘야함)
+        Asset asset = new Asset();
+        assetMap.put(landmark, asset);
 
         stickerView.addSticker(sticker);
 
@@ -214,16 +223,39 @@ public class SticonEditorActivity extends AppCompatActivity {
                 + ImageViewUtil.getAbstractYByPercent(avartarImg, yPercent);
         float xScaleOffset = (float) bitmap.getWidth() / (float) sticker.getWidth();
         float yScaleOffset = (float) bitmap.getHeight() / (float) sticker.getHeight();
-
-        matrix.postScale(0.3f, 0.3f, xOffset, yOffset);
-
-        sticker.setMatrix(matrix);
+        sticker.getMatrix().postScale(0.3f, 0.3f, xOffset, yOffset);
 
         stickerView.invalidate();
+
+        SticonAsset sticonAsset = new SticonAsset();
+        sticonAsset.setAssetIdx(asset.getIdx());
+        sticonAsset.setOffsetX(sticker.getMappedCenterPoint().x);
+        sticonAsset.setOffsetY(sticker.getMappedCenterPoint().y);
+        sticonAssetMap.put(landmark, sticonAsset);
     }
 
     @OnClick(R.id.btn_sticon_editor_finish)
     public void btnFinished(View view) {
+        Sticon sticon = new Sticon();
+        sticon.setImg_url("");
+        sticon.setLocal_url("");
+        SticketDatabase database = SticketDatabase.getDatabase(this);
+
+        long newSticonId = database.sticonDao().insert(sticon);
+
+        for (Sticker sticker : landmarkMap.keySet()) {
+            SticonAsset sticonAsset = sticonAssetMap.get(landmarkMap.get(sticker));
+            int isFlipped = sticker.isFlippedHorizontally() ? 1 : 0;
+            int rotate = (int) sticker.getCurrentAngle();
+
+            sticonAsset.setSticonIdx((int) newSticonId);
+            // TODO: 퍼센트로 바꿔줘야함
+            sticonAsset.setOffsetX(sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX());
+            sticonAsset.setOffsetY(sticker.getMappedCenterPoint().y - sticonAsset.getOffsetY());
+            sticonAsset.setFlip(isFlipped);
+            sticonAsset.setRotate(rotate);
+        }
+
         finish();
     }
 
