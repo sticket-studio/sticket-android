@@ -14,8 +14,8 @@ public class StickerGridAdapter extends BaseAdapter {
     /* CAMERA Adapter*/
 
     private int icons[] = {
-            R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch,
-            R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch,
+            R.drawable.left_eye_small, R.drawable.right_eye_small, R.drawable.nose_small, R.drawable.nose2_small,
+            R.drawable.cheek, R.drawable.mouth_bottom_small, R.drawable.left_eye2, R.drawable.btn_switch,
             R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch,
             R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch
     };
@@ -41,6 +41,7 @@ public class StickerGridAdapter extends BaseAdapter {
         return position;
     }
 
+    // Holder를 만들자
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
