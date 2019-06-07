@@ -19,9 +19,9 @@ import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.Sticon;
 import com.sticket.app.sticket.database.entity.SticonAsset;
+import com.sticket.app.sticket.util.FileUtil;
 import com.sticket.app.sticket.util.ImageViewUtil;
 import com.sticket.app.sticket.util.Landmark;
-import com.sticket.app.sticket.util.ViewPagerAdapter;
 import com.xiaopo.flying.sticker.DrawableSticker;
 import com.xiaopo.flying.sticker.Sticker;
 import com.xiaopo.flying.sticker.StickerView;
@@ -63,7 +63,7 @@ public class SticonEditorActivity extends AppCompatActivity {
 
     Button currentBtn;
 
-    private ViewPagerAdapter adapter;
+    private SticonEditorViewPagerAdapter adapter;
 
     private Map<Landmark, Sticker> stickerMap;
     private Map<Sticker, Landmark> landmarkMap;
@@ -71,6 +71,7 @@ public class SticonEditorActivity extends AppCompatActivity {
     private Map<Landmark, Asset> assetMap;
     private Map<Landmark, SticonAsset> sticonAssetMap;
     private Landmark currentLandmark = Landmark.EYE_LEFT;
+    private SticketDatabase database;
 
     @Override
     protected void onCreate(@android.support.annotation.Nullable Bundle savedInstanceState) {
@@ -78,6 +79,8 @@ public class SticonEditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sticon_editor);
 
         ButterKnife.bind(this);
+
+        database = SticketDatabase.getDatabase(this);
 
         landmarkMap = new HashMap<>();
         stickerMap = new HashMap<>();
@@ -123,6 +126,7 @@ public class SticonEditorActivity extends AppCompatActivity {
                         buttonMap.get(landmark).setBackground(getDrawable(R.drawable.btn_gray));
                     }
 
+                    Log.e(TAG, "onStickerDeleted");
                     stickerMap.remove(landmark);
                     sticonAssetMap.remove(landmark);
                     assetMap.remove(landmark);
@@ -147,52 +151,6 @@ public class SticonEditorActivity extends AppCompatActivity {
             }
         });
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!stickerMap.containsKey(currentLandmark)) {
-                    currentBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                } else {
-                    currentBtn.setBackground(getDrawable(R.drawable.btn_green));
-                }
-
-                currentBtn = (Button) v;
-                currentBtn.setBackground(getDrawable(R.drawable.btn_pink));
-
-                switch (v.getId()) {
-                    case R.id.btn_sticon_editor_left_eye:
-                        currentLandmark = Landmark.EYE_LEFT;
-                        break;
-                    case R.id.btn_sticon_editor_right_eye:
-                        currentLandmark = Landmark.EYE_RIGHT;
-                        break;
-                    case R.id.btn_sticon_editor_glasses:
-                        currentLandmark = Landmark.GLASSES;
-                        break;
-                    case R.id.btn_sticon_editor_left_cheek:
-                        currentLandmark = Landmark.CHEEK_LEFT;
-                        break;
-                    case R.id.btn_sticon_editor_right_cheek:
-                        currentLandmark = Landmark.CHEEK_RIGHT;
-                        break;
-                    case R.id.btn_sticon_editor_nose:
-                        currentLandmark = Landmark.NOSE;
-                        break;
-                    case R.id.btn_sticon_editor_mouth:
-                        currentLandmark = Landmark.MOUTH;
-                        break;
-                }
-            }
-        };
-
-        leftEyeBtn.setOnClickListener(onClickListener);
-        rightEyeBtn.setOnClickListener(onClickListener);
-        GlassesBtn.setOnClickListener(onClickListener);
-        leftCheekBtn.setOnClickListener(onClickListener);
-        rightCheekBtn.setOnClickListener(onClickListener);
-        noseBtn.setOnClickListener(onClickListener);
-        mouthBtn.setOnClickListener(onClickListener);
-
         buttonMap.put(Landmark.EYE_LEFT, leftEyeBtn);
         buttonMap.put(Landmark.EYE_RIGHT, rightEyeBtn);
         buttonMap.put(Landmark.GLASSES, GlassesBtn);
@@ -202,20 +160,60 @@ public class SticonEditorActivity extends AppCompatActivity {
         buttonMap.put(Landmark.MOUTH, mouthBtn);
     }
 
-    private void addAsset(final Bitmap bitmap, float xPercent, float yPercent, Landmark landmark) {
+    @OnClick({R.id.btn_sticon_editor_left_eye, R.id.btn_sticon_editor_right_eye,
+            R.id.btn_sticon_editor_glasses, R.id.btn_sticon_editor_nose,
+            R.id.btn_sticon_editor_left_cheek, R.id.btn_sticon_editor_right_cheek
+            , R.id.btn_sticon_editor_mouth})
+    public void onClick(View v) {
+        if (!stickerMap.containsKey(currentLandmark)) {
+            currentBtn.setBackground(getDrawable(R.drawable.btn_gray));
+        } else {
+            currentBtn.setBackground(getDrawable(R.drawable.btn_green));
+        }
+
+        currentBtn = (Button) v;
+        currentBtn.setBackground(getDrawable(R.drawable.btn_pink));
+
+        switch (v.getId()) {
+            case R.id.btn_sticon_editor_left_eye:
+                currentLandmark = Landmark.EYE_LEFT;
+                break;
+            case R.id.btn_sticon_editor_right_eye:
+                currentLandmark = Landmark.EYE_RIGHT;
+                break;
+            case R.id.btn_sticon_editor_glasses:
+                currentLandmark = Landmark.GLASSES;
+                break;
+            case R.id.btn_sticon_editor_left_cheek:
+                currentLandmark = Landmark.CHEEK_LEFT;
+                break;
+            case R.id.btn_sticon_editor_right_cheek:
+                currentLandmark = Landmark.CHEEK_RIGHT;
+                break;
+            case R.id.btn_sticon_editor_nose:
+                currentLandmark = Landmark.NOSE;
+                break;
+            case R.id.btn_sticon_editor_mouth:
+                currentLandmark = Landmark.MOUTH;
+                break;
+        }
+    }
+
+    private void postAsset(final Asset asset, Landmark landmark) {
         if (stickerMap.get(landmark) != null) {
             stickerView.remove(stickerMap.get(landmark));
         }
 
+        Bitmap bitmap = BitmapFactory.decodeFile(asset.getLocal_url());
+
         Sticker sticker = new DrawableSticker(new BitmapDrawable(getResources(), bitmap));
         stickerMap.put(landmark, sticker);
-        landmarkMap.put(sticker, landmark);
-
-        // TODO: 미리 저장된 Asset이 필요함. (= 먼저 Asset Importer에서 Asset을 저장해줘야함)
-        Asset asset = new Asset();
         assetMap.put(landmark, asset);
-
+        landmarkMap.put(sticker, landmark);
         stickerView.addSticker(sticker);
+
+        float xPercent = landmark.getX();
+        float yPercent = landmark.getY();
 
         float xOffset = (stickerView.getWidth() - avartarImg.getDrawable().getIntrinsicWidth()) / 2f
                 + ImageViewUtil.getAbstractXByPercent(avartarImg, xPercent);
@@ -238,13 +236,20 @@ public class SticonEditorActivity extends AppCompatActivity {
     public void btnFinished(View view) {
         Sticon sticon = new Sticon();
         sticon.setImg_url("");
-        sticon.setLocal_url("");
-        SticketDatabase database = SticketDatabase.getDatabase(this);
+        Bitmap thumbnail = stickerView.createBitmap();
 
         long newSticonId = database.sticonDao().insert(sticon);
 
+        String fileName = "thumbnail" + newSticonId;
+        FileUtil.saveBitmapToFile(thumbnail, FileUtil.THUMBNAIL_STICON_DIRECTORY_PATH, fileName);
+
+        sticon.setIdx((int)newSticonId);
+        sticon.setLocal_url(FileUtil.THUMBNAIL_STICON_DIRECTORY_PATH + "/" + fileName + ".png");
+        database.sticonDao().update(sticon);
+
         for (Sticker sticker : landmarkMap.keySet()) {
-            SticonAsset sticonAsset = sticonAssetMap.get(landmarkMap.get(sticker));
+            Landmark landmark = landmarkMap.get(sticker);
+            SticonAsset sticonAsset = sticonAssetMap.get(landmark);
             int isFlipped = sticker.isFlippedHorizontally() ? 1 : 0;
             int rotate = (int) sticker.getCurrentAngle();
 
@@ -254,6 +259,7 @@ public class SticonEditorActivity extends AppCompatActivity {
             sticonAsset.setOffsetY(sticker.getMappedCenterPoint().y - sticonAsset.getOffsetY());
             sticonAsset.setFlip(isFlipped);
             sticonAsset.setRotate(rotate);
+            database.sticon_assetDao().insert(sticonAsset);
         }
 
         finish();
@@ -265,14 +271,13 @@ public class SticonEditorActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
+        adapter = new SticonEditorViewPagerAdapter(getSupportFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
 
         adapter.init(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                        (int) parent.getItemAtPosition(position));
-                addAsset(bitmap, currentLandmark.getX(), currentLandmark.getY(), currentLandmark);
+                Asset asset = (Asset) parent.getItemAtPosition(position);
+                postAsset(asset, currentLandmark);
             }
         });
 

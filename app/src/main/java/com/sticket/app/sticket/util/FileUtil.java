@@ -2,6 +2,7 @@ package com.sticket.app.sticket.util;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.DocumentsContract;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +42,7 @@ public class FileUtil {
         THUMBNAIL_MOTIONTICON_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/thumbnail/motionticon";
         IMAGE_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/image";
         IMAGE_ASSET_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/cache/image/asset";
-        ALBUM_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/album";
+        ALBUM_DIRECTORY_PATH = APPLICATION_DIRECTORY_PATH + "/sticket";
     }
 
     public static void structDirectories() {
@@ -79,6 +81,22 @@ public class FileUtil {
         }
 
         return Arrays.asList(targetDir.listFiles());
+    }
+
+    public static void saveBitmapToFile(Bitmap bitmap, String destDirPath, String destFileName) {
+        File file = new File(destDirPath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        File fileCacheItem = new File(destDirPath + "/" + destFileName + ".png");
+
+        try (OutputStream out = new FileOutputStream(fileCacheItem)) {
+            fileCacheItem.createNewFile();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*
