@@ -17,6 +17,9 @@ public interface SticonDao {
     @Query("SELECT * FROM sticon")
     List<Sticon> getAllSticon();
 
+    @Query("SELECT * FROM sticon ORDER BY idx DESC LIMIT 1")
+    Sticon getLastSticon();
+
     @Query("SELECT * FROM asset WHERE idx IN (:idx)")
     List<Sticon> loadAllByIds(int[] idx);
 

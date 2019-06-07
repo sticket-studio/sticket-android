@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import com.sticket.app.sticket.database.entity.SticonAsset;
 import com.sticket.app.sticket.util.ViewPagerAdapter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class StickerDialog extends BottomSheetDialogFragment {
@@ -55,7 +53,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
 
         SticketDatabase database = SticketDatabase.getDatabase(getContext());
         assetList = database.assetDao().getAllassets();
-        sticonAssetList = database.sticon_assetDao().getAllSticon_assets();
+        sticonAssetList = database.sticonAssetDao().getAllSticon_assets();
         sticonList = database.sticonDao().getAllSticon();
         motionticonList = database.motionticonDao().getAllMotionticons();
 

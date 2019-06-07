@@ -21,7 +21,7 @@ import com.sticket.app.sticket.database.entity.Motionticon_sticon;
 import com.sticket.app.sticket.database.entity.Sticon;
 
 @android.arch.persistence.room.Database(entities = {Asset.class, SticonAsset.class,
-        Motionticon.class, Motionticon_sticon.class, Sticon.class}, version = 4)
+        Motionticon.class, Motionticon_sticon.class, Sticon.class}, version = 5)
 public abstract  class SticketDatabase extends RoomDatabase {
 
     private static SticketDatabase INSTANCE;
@@ -29,7 +29,7 @@ public abstract  class SticketDatabase extends RoomDatabase {
     public abstract AssetDao assetDao();
     public abstract SticonDao sticonDao();
     public abstract MotionticonDao motionticonDao();
-    public abstract Sticon_assetDao sticon_assetDao();
+    public abstract Sticon_assetDao sticonAssetDao();
     public abstract Motionticon_sticonDao motionticon_sticonDao();
 
 

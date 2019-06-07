@@ -1,6 +1,7 @@
 package com.sticket.app.sticket.facedetection;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,7 +11,11 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFace;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark;
 import com.sticket.app.sticket.common.GraphicOverlay;
+import com.sticket.app.sticket.database.entity.Asset;
+import com.sticket.app.sticket.database.entity.SticonAsset;
 import com.sticket.app.sticket.util.MyBitmapFactory;
+
+import java.util.Map;
 
 /**
  * Graphic instance for rendering face contours graphic overlay view.
@@ -79,26 +84,24 @@ public class FaceContourGraphic extends GraphicOverlay.Graphic {
             float px = translateX(point.getX());
             float py = translateY(point.getY());
             canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
-
         }
 
-        for (int type : MyBitmapFactory.getInstance().getLandmarkIdxList()) {
-            FirebaseVisionFaceLandmark landmark = face.getLandmark(type);
+        Map<SticonAsset, Asset> assetMap = MyBitmapFactory.getInstance().getAssetMap();
+
+        for (SticonAsset sticonAsset : assetMap.keySet()) {
+            Asset asset = assetMap.get(sticonAsset);
+
+            FirebaseVisionFaceLandmark landmark = face.getLandmark(sticonAsset.getLandmark().getNo());
             if (landmark != null && landmark.getPosition() != null) {
 
                 final int cx = (int) translateX(landmark.getPosition().getX());
                 final int cy = (int) translateY(landmark.getPosition().getY());
 
 //            if (LANDMARK_DRAWABLE_ARRAY[type] != NO_IMAGE) {
-                Bitmap bitmap = MyBitmapFactory.getInstance().getBitmap(type);
+                Bitmap bitmap = BitmapFactory.decodeFile(asset.getLocal_url());
                 if (bitmap != null) {
-                    if (type == FirebaseVisionFaceLandmark.MOUTH_BOTTOM) {
-                        // 이런 식으로 기준점의 좌표를 지정해 줄 수도 있음
-                        drawLandMark(ratio, canvas, bitmap, cx, cy, F_CENTER, 0.2f);
-                    } else {
-                        // default는 F_CENTER (0.5f)
-                        drawLandMark(ratio, canvas, bitmap, cx, cy);
-                    }
+                    drawLandMark(ratio, canvas, bitmap, cx, cy,
+                            F_CENTER + (float) sticonAsset.getOffsetX(), F_CENTER + (float) sticonAsset.getOffsetY());
                 } else {
 //                    canvas.drawCircle(
 //                            translateX(cx),
@@ -110,8 +113,13 @@ public class FaceContourGraphic extends GraphicOverlay.Graphic {
         }
     }
 
-
-
+//    private void printSticon(){
+//
+//    }
+//
+//    private void printSticon(){
+//
+//    }
 
     private void drawLandMark(float ratio, Canvas canvas, Bitmap icon, int cx, int cy) {
         canvas.drawBitmap(icon, null, getRect(ratio, cx, cy, icon, F_CENTER, F_CENTER), facePositionPaint);

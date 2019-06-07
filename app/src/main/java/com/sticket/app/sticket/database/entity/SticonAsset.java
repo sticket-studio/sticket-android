@@ -5,6 +5,11 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
+
+import com.sticket.app.sticket.database.EnumLandmarkTypeConverter;
+import com.sticket.app.sticket.util.Landmark;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -40,6 +45,10 @@ public class SticonAsset {
 
     @ColumnInfo(name = "flip")
     private int flip;
+
+    @ColumnInfo(name = "landmark")
+    @TypeConverters(EnumLandmarkTypeConverter.class)
+    private Landmark landmark;
 
     public int getIdx() {
         return idx;
@@ -95,5 +104,13 @@ public class SticonAsset {
 
     public void setFlip(int flip) {
         this.flip = flip;
+    }
+
+    public Landmark getLandmark() {
+        return landmark;
+    }
+
+    public void setLandmark(Landmark landmark) {
+        this.landmark = landmark;
     }
 }

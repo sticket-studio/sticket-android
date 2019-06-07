@@ -16,6 +16,13 @@ public interface AssetDao {
     @Query("SELECT * FROM asset")
     List<Asset> getAllassets();
 
+    @Query("SELECT * FROM asset WHERE idx = (:idx)")
+    Asset getAssetById(int idx);
+
+    @Query("SELECT a.* FROM asset a INNER JOIN sticon_asset sa ON a.idx = sa.asset_idx " +
+            "WHERE sa.sticon_idx = (:sticonIdx)")
+    Asset getAssetsBySticonId(int sticonIdx);
+
     @Query("SELECT * FROM asset WHERE idx IN (:idx)")
     List<Asset> loadAllByIds(int[] idx);
 

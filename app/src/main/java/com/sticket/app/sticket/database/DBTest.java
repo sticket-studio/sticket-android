@@ -21,49 +21,51 @@ import static com.sticket.app.sticket.util.FileUtil.IMAGE_ASSET_DIRECTORY_PATH;
 public class DBTest {
     private static final String TAG = DBTest.class.getSimpleName();
 
-    public static void initAsset(Context context){
+    public static void patchAssetIfNotExist(Context context) {
         SticketDatabase database = SticketDatabase.getDatabase(context);
         Resources resources = context.getResources();
 
-        FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.left_eye),
-                IMAGE_ASSET_DIRECTORY_PATH,"left_eye");
-        FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources,R.drawable.right_eye),
-                IMAGE_ASSET_DIRECTORY_PATH,"right_eye");
-        FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources,R.drawable.nose),
-                IMAGE_ASSET_DIRECTORY_PATH,"nose");
-        FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources,R.drawable.mouth_bottom),
-                IMAGE_ASSET_DIRECTORY_PATH,"mouth_bottom");
-        FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources,R.drawable.cheek),
-                IMAGE_ASSET_DIRECTORY_PATH,"cheek");
-        FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources,R.drawable.nose2),
-                IMAGE_ASSET_DIRECTORY_PATH,"nose2");
+        if (database.assetDao().getAllassets().size() == 0) {
+            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.left_eye),
+                    IMAGE_ASSET_DIRECTORY_PATH, "left_eye");
+            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.right_eye),
+                    IMAGE_ASSET_DIRECTORY_PATH, "right_eye");
+            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.nose),
+                    IMAGE_ASSET_DIRECTORY_PATH, "nose");
+            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.mouth_bottom),
+                    IMAGE_ASSET_DIRECTORY_PATH, "mouth_bottom");
+            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.cheek),
+                    IMAGE_ASSET_DIRECTORY_PATH, "cheek");
+            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.nose2),
+                    IMAGE_ASSET_DIRECTORY_PATH, "nose2");
 
-        Asset asset1 = new Asset();
-        asset1.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH+"/"+"left_eye.png");
-        asset1.setLandmark(Landmark.EYE_LEFT);
-        Asset asset2 = new Asset();
-        asset2.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH+"/"+"right_eye.png");
-        asset2.setLandmark(Landmark.EYE_RIGHT);
-        Asset asset3 = new Asset();
-        asset3.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH+"/"+"nose.png");
-        asset3.setLandmark(Landmark.NOSE);
-        Asset asset4 = new Asset();
-        asset4.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH+"/"+"mouth_bottom.png");
-        asset4.setLandmark(Landmark.MOUTH);
-        Asset asset5 = new Asset();
-        asset5.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH+"/"+"cheek.png");
-        asset5.setLandmark(Landmark.CHEEK_LEFT);
-        Asset asset6 = new Asset();
-        asset6.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH+"/"+"nose2.png");
-        asset6.setLandmark(Landmark.NOSE);
+            Asset asset1 = new Asset();
+            asset1.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "left_eye.png");
+            asset1.setLandmark(Landmark.EYE_LEFT);
+            Asset asset2 = new Asset();
+            asset2.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "right_eye.png");
+            asset2.setLandmark(Landmark.EYE_RIGHT);
+            Asset asset3 = new Asset();
+            asset3.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose.png");
+            asset3.setLandmark(Landmark.NOSE);
+            Asset asset4 = new Asset();
+            asset4.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "mouth_bottom.png");
+            asset4.setLandmark(Landmark.MOUTH);
+            Asset asset5 = new Asset();
+            asset5.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "cheek.png");
+            asset5.setLandmark(Landmark.CHEEK_LEFT);
+            Asset asset6 = new Asset();
+            asset6.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose2.png");
+            asset6.setLandmark(Landmark.NOSE);
 
-        database.assetDao().insert(asset1,asset2,asset3,asset4,asset5,asset6);
+            database.assetDao().insert(asset1, asset2, asset3, asset4, asset5, asset6);
+        }
     }
 
     public static void printInfo(Context context) {
         SticketDatabase database = SticketDatabase.getDatabase(context);
         List<Asset> assetList = database.assetDao().getAllassets();
-        List<SticonAsset> sticonAssetList = database.sticon_assetDao().getAllSticon_assets();
+        List<SticonAsset> sticonAssetList = database.sticonAssetDao().getAllSticon_assets();
         List<Sticon> sticonList = database.sticonDao().getAllSticon();
         List<Motionticon> motionticonList = database.motionticonDao().getAllMotionticons();
 

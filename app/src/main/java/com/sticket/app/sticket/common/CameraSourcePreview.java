@@ -189,7 +189,6 @@ public class CameraSourcePreview extends ViewGroup {
         // Computes height and width for potentially doing fit width.
         int childWidth = layoutWidth;
         int childHeight = (int) ((float) layoutWidth * ratioVal);
-        Log.e("PREVIEW", "childWidth : " + childWidth);
 
         // If height is too tall using fit width, does fit height instead.
         if (ratio == Ratio.RATIO_9_16 || childHeight > layoutHeight) {

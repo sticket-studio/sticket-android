@@ -70,6 +70,7 @@ public class SticonEditorActivity extends AppCompatActivity {
     private Map<Landmark, Button> buttonMap;
     private Map<Landmark, Asset> assetMap;
     private Map<Landmark, SticonAsset> sticonAssetMap;
+    private Map<Landmark, Bitmap> bitmapMap;
     private Landmark currentLandmark = Landmark.EYE_LEFT;
     private SticketDatabase database;
 
@@ -87,6 +88,7 @@ public class SticonEditorActivity extends AppCompatActivity {
         buttonMap = new HashMap<>();
         assetMap = new HashMap<>();
         sticonAssetMap = new HashMap<>();
+        bitmapMap = new HashMap<>();
 
         initViews();
         initListener();
@@ -210,6 +212,7 @@ public class SticonEditorActivity extends AppCompatActivity {
         stickerMap.put(landmark, sticker);
         assetMap.put(landmark, asset);
         landmarkMap.put(sticker, landmark);
+        bitmapMap.put(landmark,bitmap);
         stickerView.addSticker(sticker);
 
         float xPercent = landmark.getX();
@@ -250,16 +253,24 @@ public class SticonEditorActivity extends AppCompatActivity {
         for (Sticker sticker : landmarkMap.keySet()) {
             Landmark landmark = landmarkMap.get(sticker);
             SticonAsset sticonAsset = sticonAssetMap.get(landmark);
+            Bitmap bitmap = bitmapMap.get(landmark);
+
             int isFlipped = sticker.isFlippedHorizontally() ? 1 : 0;
             int rotate = (int) sticker.getCurrentAngle();
 
             sticonAsset.setSticonIdx((int) newSticonId);
-            // TODO: 퍼센트로 바꿔줘야함
-            sticonAsset.setOffsetX(sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX());
-            sticonAsset.setOffsetY(sticker.getMappedCenterPoint().y - sticonAsset.getOffsetY());
+            float offsetX = (float)(sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX())/ bitmap.getWidth();
+            // offsetY는 반대 (-)
+            float offsetY = -(float)(sticker.getMappedCenterPoint().y - sticonAsset.getOffsetY())/ bitmap.getHeight();
+
+            Log.e(TAG, "xOffset : " + (float)(sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX())/ bitmap.getWidth());
+
+            sticonAsset.setOffsetX(offsetX);
+            sticonAsset.setOffsetY(offsetY);
             sticonAsset.setFlip(isFlipped);
             sticonAsset.setRotate(rotate);
-            database.sticon_assetDao().insert(sticonAsset);
+            sticonAsset.setLandmark(landmark);
+            database.sticonAssetDao().insert(sticonAsset);
         }
 
         finish();

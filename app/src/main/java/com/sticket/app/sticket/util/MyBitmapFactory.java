@@ -1,40 +1,39 @@
 package com.sticket.app.sticket.util;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark;
-import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.database.SticketDatabase;
+import com.sticket.app.sticket.database.entity.Asset;
+import com.sticket.app.sticket.database.entity.Sticon;
+import com.sticket.app.sticket.database.entity.SticonAsset;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyBitmapFactory {
+    private static final String TAG = MyBitmapFactory.class.getSimpleName();
     private static final int NO_IMAGE = -1;
     private static final int LANDMARK_SIZE = 12;
-    private static final int[] LANDMARK_DRAWABLE_ARRAY = new int[]{
-            R.drawable.mouth_bottom, R.drawable.cheek, NO_IMAGE
-            , NO_IMAGE, R.drawable.left_eye, NO_IMAGE
-            , R.drawable.nose, R.drawable.cheek, NO_IMAGE
-            , NO_IMAGE, R.drawable.right_eye, NO_IMAGE};
-
-    private List<Integer> landmarkIdxList;
 
     private static MyBitmapFactory instance;
 
-    private Bitmap[] bitmaps;
+    private SticketDatabase sticketDatabase;
 
-    private MyBitmapFactory(){
+    private Sticon sticon;
+    private Map<SticonAsset, Asset> assetMap;
+
+    private MyBitmapFactory() {
     }
 
-    public void build(Context context){
-        initBitmaps(context);
-        initLandMarkList();
+    public void build(Context context) {
+        sticketDatabase = SticketDatabase.getDatabase(context);
+
+        assetMap = new HashMap<>();
     }
 
-    public static MyBitmapFactory getInstance(){
+    public static MyBitmapFactory getInstance() {
         if (instance == null) {
             synchronized (MyBitmapFactory.class) {
                 if (instance == null) {
@@ -45,39 +44,28 @@ public class MyBitmapFactory {
         return instance;
     }
 
-    private void initBitmaps(Context context) {
-        bitmaps = new Bitmap[LANDMARK_SIZE];
+    public Sticon getSticon() {
+        return sticon;
+    }
 
-        for (int i = 0; i < LANDMARK_SIZE; i++) {
-            if (LANDMARK_DRAWABLE_ARRAY[i] != NO_IMAGE) {
-                bitmaps[i] = BitmapFactory.decodeResource(context.getResources(), LANDMARK_DRAWABLE_ARRAY[i]);
-            }
+    public void setSticon(Sticon sticon) {
+        this.sticon = sticon;
+
+        setAssetMap(sticon);
+    }
+
+    private void setAssetMap(Sticon sticon) {
+        assetMap.clear();
+
+        List<SticonAsset> sticonAssetList
+                = sticketDatabase.sticonAssetDao().getSticonAssetsBySticonIdx(sticon.getIdx());
+        for (SticonAsset sticonAsset : sticonAssetList) {
+            Asset asset = sticketDatabase.assetDao().getAssetById(sticonAsset.getAssetIdx());
+            assetMap.put(sticonAsset, asset);
         }
     }
 
-    private void initLandMarkList(){
-        landmarkIdxList = new ArrayList<>();
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.MOUTH_BOTTOM);
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.MOUTH_RIGHT);
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.MOUTH_LEFT);
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.RIGHT_EYE);
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.LEFT_EYE);
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.RIGHT_EAR);
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.LEFT_EAR);
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.RIGHT_CHEEK);
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.LEFT_CHEEK);
-        landmarkIdxList.add(FirebaseVisionFaceLandmark.NOSE_BASE);
-    }
-
-    public Bitmap[] getBitmaps() {
-        return bitmaps;
-    }
-
-    public Bitmap getBitmap(int bitmapIdx){
-        return bitmaps[bitmapIdx];
-    }
-
-    public List<Integer> getLandmarkIdxList() {
-        return landmarkIdxList;
+    public Map<SticonAsset, Asset> getAssetMap() {
+        return assetMap;
     }
 }

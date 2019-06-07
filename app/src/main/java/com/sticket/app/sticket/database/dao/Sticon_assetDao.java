@@ -15,6 +15,9 @@ public interface Sticon_assetDao {
     @Query("SELECT * FROM Sticon_asset")
     List<SticonAsset> getAllSticon_assets();
 
+    @Query("SELECT * FROM Sticon_asset WHERE sticon_idx = :sticonIdx")
+    List<SticonAsset> getSticonAssetsBySticonIdx(int sticonIdx);
+
     @Query("SELECT * FROM Sticon_asset WHERE idx IN (:idx)")
     List<SticonAsset> loadAllByIds(int[] idx);
 
