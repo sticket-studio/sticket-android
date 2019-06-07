@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,25 +19,47 @@ import android.widget.LinearLayout;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.sticker.asset_importer.AssetImporter;
 import com.sticket.app.sticket.activities.sticker.sticon_editor.SticonEditorActivity;
+import com.sticket.app.sticket.database.DBTest;
+import com.sticket.app.sticket.database.SticketDatabase;
+import com.sticket.app.sticket.database.entity.Asset;
+import com.sticket.app.sticket.database.entity.Motionticon;
+import com.sticket.app.sticket.database.entity.Sticon;
+import com.sticket.app.sticket.database.entity.SticonAsset;
 import com.sticket.app.sticket.util.ViewPagerAdapter;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class StickerDialog extends BottomSheetDialogFragment {
+    private static final String TAG = StickerDialog.class.getSimpleName();
 
     private Button btnCapture;      // TODO : Search Custom Listener
     private ImageButton assetImporterBtn, sticonEditorBtn;
     private Button motionticonEditorBtn;
     private View view;
 
+    private List<Asset> assetList;
+    private List<SticonAsset> sticonAssetList;
+    private List<Sticon> sticonList;
+    private List<Motionticon> motionticonList;
+
     public StickerDialog() {
         super();
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_FRAME, R.style.BaseDialogTheme);
+
+        SticketDatabase database = SticketDatabase.getDatabase(getContext());
+        assetList = database.assetDao().getAllassets();
+        sticonAssetList = database.sticon_assetDao().getAllSticon_assets();
+        sticonList = database.sticonDao().getAllSticon();
+        motionticonList = database.motionticonDao().getAllMotionticons();
+
+        DBTest.printInfo(getContext());
     }
 
     @android.support.annotation.Nullable

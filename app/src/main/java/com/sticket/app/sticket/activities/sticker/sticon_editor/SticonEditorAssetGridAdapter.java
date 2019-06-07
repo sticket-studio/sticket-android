@@ -1,6 +1,9 @@
-package com.sticket.app.sticket.activities.sticker;
+package com.sticket.app.sticket.activities.sticker.sticon_editor;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,42 +18,29 @@ import com.sticket.app.sticket.database.entity.Sticon;
 
 import java.util.List;
 
-public class StickerGridAdapter extends BaseAdapter {
+public class SticonEditorAssetGridAdapter extends BaseAdapter {
 
     /* CAMERA Adapter*/
-
-    private int icons[] = {
-            R.drawable.left_eye_small, R.drawable.right_eye_small, R.drawable.nose_small, R.drawable.nose2_small,
-            R.drawable.cheek, R.drawable.mouth_bottom_small, R.drawable.left_eye2, R.drawable.btn_switch,
-            R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch,
-            R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch
-    };
 
     private Context mContext;
 
     private List<Asset> assetList;
-    private List<Sticon> sticonList;
-    private List<Motionticon> motionticonList;
 
-    public StickerGridAdapter(Context context) {
+    public SticonEditorAssetGridAdapter(Context context) {
         this.mContext = context;
 
         SticketDatabase sticketDatabase = SticketDatabase.getDatabase(context);
         assetList = sticketDatabase.assetDao().getAllassets();
-        sticonList = sticketDatabase.sticonDao().getAllSticon();
-        motionticonList = sticketDatabase.motionticonDao().getAllMotionticons();
-
-
     }
 
     @Override
     public int getCount() {
-        return icons.length;
+        return assetList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return icons[position];
+        return assetList.get(position);
     }
 
     @Override
@@ -67,9 +57,10 @@ public class StickerGridAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(assetList.get(position).getLocal_url());
             stickerGridView = inflater.inflate(R.layout.item_grid_sticker, null);
             ImageView imageView = (ImageView) stickerGridView.findViewById(R.id.item_sticker_image);
-            imageView.setImageResource(icons[position]);
+            imageView.setImageBitmap(bitmap);
         } else {
             stickerGridView = (View) convertView;
         }

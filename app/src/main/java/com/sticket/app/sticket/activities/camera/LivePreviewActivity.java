@@ -41,11 +41,12 @@ import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.common.CameraSourcePreview;
 import com.sticket.app.sticket.common.GraphicOverlay;
+import com.sticket.app.sticket.database.DBTest;
 import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Asset;
-import com.sticket.app.sticket.database.entity.Landmark;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.util.Alert;
+import com.sticket.app.sticket.util.Landmark;
 import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
@@ -54,6 +55,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sticket.app.sticket.util.FileUtil.IMAGE_ASSET_DIRECTORY_PATH;
 import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_DIRECTION;
 
 /**
@@ -111,6 +113,9 @@ public final class LivePreviewActivity extends AppCompatActivity
         } else {
             getRuntimePermissions();
         }
+
+        // Asset insert test
+//        DBTest.initAsset(this);
 
         mContext = this;
 

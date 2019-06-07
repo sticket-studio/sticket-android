@@ -3,17 +3,13 @@ package com.sticket.app.sticket.database.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 
-import static android.arch.persistence.room.ForeignKey.CASCADE;
+import com.sticket.app.sticket.database.EnumLandmarkTypeConverter;
+import com.sticket.app.sticket.util.Landmark;
 
-@Entity(tableName = "asset",
-        foreignKeys = @ForeignKey(entity = Landmark.class,
-                        parentColumns = "idx",
-                        childColumns = "landmark",
-                        onDelete = CASCADE))
-
+@Entity(tableName = "asset")
 public class Asset {
     @PrimaryKey(autoGenerate = true)
     private  int idx;
@@ -37,7 +33,8 @@ public class Asset {
     private int flip;
 
     @ColumnInfo(name="landmark")
-    private int landmark;
+    @TypeConverters(EnumLandmarkTypeConverter.class)
+    private Landmark landmark;
 
     public int getIdx() {
         return idx;
@@ -95,11 +92,11 @@ public class Asset {
         this.flip = flip;
     }
 
-    public int getLandmark() {
+    public Landmark getLandmark() {
         return landmark;
     }
 
-    public void setLandmark(int landmark) {
+    public void setLandmark(Landmark landmark) {
         this.landmark = landmark;
     }
 }
