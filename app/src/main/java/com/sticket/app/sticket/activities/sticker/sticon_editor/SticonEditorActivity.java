@@ -26,6 +26,8 @@ import com.xiaopo.flying.sticker.DrawableSticker;
 import com.xiaopo.flying.sticker.Sticker;
 import com.xiaopo.flying.sticker.StickerView;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -264,6 +266,7 @@ public class SticonEditorActivity extends AppCompatActivity {
             float offsetY = -(float)(sticker.getMappedCenterPoint().y - sticonAsset.getOffsetY())/ bitmap.getHeight();
 
             Log.e(TAG, "xOffset : " + (float)(sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX())/ bitmap.getWidth());
+            JSONObject jsonObject = new JSONObject();
 
             sticonAsset.setOffsetX(offsetX);
             sticonAsset.setOffsetY(offsetY);

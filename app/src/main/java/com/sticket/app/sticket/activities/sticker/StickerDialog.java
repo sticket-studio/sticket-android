@@ -130,13 +130,44 @@ public class StickerDialog extends BottomSheetDialogFragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
-        adapter.addFrag(new StickerGridFragment(), "눈");
-        adapter.addFrag(new StickerGridFragment(), "코");
-        adapter.addFrag(new StickerGridFragment(), "입");
-        adapter.addFrag(new StickerGridFragment(), "볼");
-        adapter.addFrag(new StickerGridFragment(), "귀걸이");
-        adapter.addFrag(new StickerGridFragment(), "스티커");
-        adapter.addFrag(new StickerGridFragment(), "모션티콘");
+
+        Bundle eyeBundle = new Bundle();
+        eyeBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_EYE);
+        Bundle noseBundle = new Bundle();
+        noseBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_NOSE);
+        Bundle mouthBundle = new Bundle();
+        mouthBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_MOUTH);
+        Bundle cheekBundle = new Bundle();
+        cheekBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_CHEEK);
+        Bundle earBundle = new Bundle();
+        earBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_EAR);
+        Bundle sticonBundle = new Bundle();
+        sticonBundle.putInt("type", StickerGridFragment.GRID_TYPE_STICON);
+        Bundle motionticonBundle = new Bundle();
+        motionticonBundle.putInt("type", StickerGridFragment.GRID_TYPE_MOTIONTICON);
+
+        StickerGridFragment eyeStickerGridFragment = new StickerGridFragment();
+        eyeStickerGridFragment.setArguments(eyeBundle);
+        StickerGridFragment noseStickerGridFragment = new StickerGridFragment();
+        noseStickerGridFragment.setArguments(noseBundle);
+        StickerGridFragment mouthStickerGridFragment = new StickerGridFragment();
+        mouthStickerGridFragment.setArguments(mouthBundle);
+        StickerGridFragment cheekStickerGridFragment = new StickerGridFragment();
+        cheekStickerGridFragment.setArguments(cheekBundle);
+        StickerGridFragment earingStickerGridFragment = new StickerGridFragment();
+        earingStickerGridFragment.setArguments(earBundle);
+        StickerGridFragment sticonStickerGridFragment = new StickerGridFragment();
+        sticonStickerGridFragment.setArguments(sticonBundle);
+        StickerGridFragment motionticonStickerGridFragment = new StickerGridFragment();
+        motionticonStickerGridFragment.setArguments(motionticonBundle);
+
+        adapter.addFrag(eyeStickerGridFragment, "눈");
+        adapter.addFrag(noseStickerGridFragment, "코");
+        adapter.addFrag(mouthStickerGridFragment, "입");
+        adapter.addFrag(cheekStickerGridFragment, "볼");
+        adapter.addFrag(earingStickerGridFragment, "귀걸이");
+        adapter.addFrag(sticonStickerGridFragment, "스티콘");
+        adapter.addFrag(motionticonStickerGridFragment, "모션티콘");
         viewPager.setAdapter(adapter);
     }
 
