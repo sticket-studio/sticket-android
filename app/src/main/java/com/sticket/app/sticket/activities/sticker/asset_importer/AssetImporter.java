@@ -41,6 +41,7 @@ public class AssetImporter   extends AppCompatActivity implements View.OnClickLi
         recyclerView.setAdapter(assetImporterAdapter);
         selectedImg = (ImageView)findViewById(R.id.iv_asset_importer_selectedImg) ;
         goToGallery = (ImageView) findViewById(R.id.iv_asset_importer_gotoGallery);
+        goToGallery.setImageResource(R.drawable.img_gallery);
         goToGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
