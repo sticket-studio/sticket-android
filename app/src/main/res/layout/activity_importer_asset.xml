@@ -4,21 +4,21 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
-        android:id="@+id/app_toolbar"
+        android:id="@+id/layout_editor_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white">
+
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/btn_sticon_editor_back"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:adjustViewBounds="true"
             android:background="@color/transparent"
-            android:onClick="btnToBack"
-            android:layout_marginStart="8dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/img_back" />
 
         <TextView
@@ -26,92 +26,125 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="계정 관리"
-            android:textSize="15sp" />
+            android:text="애셋 에디터"
+            android:textColor="@color/black"
+            android:textSize="21sp" />
 
+        <ImageButton
+            android:id="@+id/btn_asset_editor_finish"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_finish" />
     </RelativeLayout>
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
             android:paddingBottom="15dp">
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btn_asset_editor_left_eye"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_pink"
                 android:text="왼눈"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/btn_gray"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btn_asset_editor_right_eye"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_gray"
                 android:text="오른눈"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/btn_gray"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btn_asset_editor_glasses"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_gray"
                 android:text="안경"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/btn_gray"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btn_asset_editor_nose"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_gray"
                 android:text="코"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/btn_gray"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btn_asset_editor_left_cheek"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_gray"
                 android:text="왼볼"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/btn_gray"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btn_asset_editor_right_cheek"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_gray"
                 android:text="오른볼"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/btn_gray"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="입"
-                android:layout_marginLeft="15dp"
+                android:id="@+id/btn_asset_editor_mouth"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
                 android:background="@drawable/btn_gray"
-                android:textColor="@color/white"/>
+                android:text="입"
+                android:textColor="@color/white" />
         </LinearLayout>
     </HorizontalScrollView>
-
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/layout_asset_editor_editor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
-        android:id="@+id/layout_asset_importer_frame"
-        android:weightSum="7">
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+        android:background="@color/sticon_editor_background">
+       <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:id="@+id/iv_asset_importer_selectedImg"
             android:visibility="invisible"
-            android:layout_gravity="center_vertical"
+            android:layout_centerInParent="true"
             />
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:foreground="@drawable/img_dummy_avatar2">
-        </FrameLayout>
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/img_sasset_editor_avartar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_dummy_avatar2" />
+
+
+        <com.xiaopo.flying.sticker.StickerView
+            android:id="@+id/sv_asset_editor_editor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
