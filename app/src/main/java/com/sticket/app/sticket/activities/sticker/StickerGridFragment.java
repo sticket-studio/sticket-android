@@ -21,6 +21,9 @@ public class StickerGridFragment extends Fragment {
     public static final int GRID_TYPE_ASSET_EAR = 5;
     public static final int GRID_TYPE_STICON = 6;
     public static final int GRID_TYPE_MOTIONTICON = 7;
+    public static final int[] GRID_TYPE_ARRAY = {GRID_TYPE_ASSET_EYE, GRID_TYPE_ASSET_NOSE
+    , GRID_TYPE_ASSET_MOUTH, GRID_TYPE_ASSET_CHEEK, GRID_TYPE_ASSET_EAR
+    , GRID_TYPE_STICON, GRID_TYPE_MOTIONTICON};
 
     private AdapterView.OnItemClickListener onItemClickListener;
 
@@ -63,6 +66,15 @@ public class StickerGridFragment extends Fragment {
             }
 
             stickerGridView.setAdapter(adapter);
+            stickerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // TODO : Set Asset or Sticker on your face
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onItemClick(parent, view, position, id);
+                    }
+                }
+            });
         }
 
         stickerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

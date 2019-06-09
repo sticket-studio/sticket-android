@@ -259,6 +259,7 @@ public class SticonEditorActivity extends AppCompatActivity {
 
             int isFlipped = sticker.isFlippedHorizontally() ? 1 : 0;
             int rotate = (int) sticker.getCurrentAngle();
+            double ratio = sticker.getCurrentScale();
 
             sticonAsset.setSticonIdx((int) newSticonId);
             float offsetX = (float)(sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX())/ bitmap.getWidth();
@@ -273,6 +274,7 @@ public class SticonEditorActivity extends AppCompatActivity {
             sticonAsset.setFlip(isFlipped);
             sticonAsset.setRotate(rotate);
             sticonAsset.setLandmark(landmark);
+            sticonAsset.setRatio(ratio);
             database.sticonAssetDao().insert(sticonAsset);
         }
 
