@@ -25,6 +25,7 @@ import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.Motionticon;
 import com.sticket.app.sticket.database.entity.Sticon;
 import com.sticket.app.sticket.database.entity.SticonAsset;
+import com.sticket.app.sticket.util.MyBitmapFactory;
 import com.sticket.app.sticket.util.ViewPagerAdapter;
 
 import java.util.ArrayList;
@@ -136,7 +137,16 @@ public class StickerDialog extends BottomSheetDialogFragment {
         adapter.init(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Asset asset = (Asset) parent.getItemAtPosition(position);
+                Object item = parent.getItemAtPosition(position);
+                if(item instanceof Asset){
+                    Asset asset = (Asset) parent.getItemAtPosition(position);
+                }else if(item instanceof Sticon){
+                    Sticon sticon = (Sticon) parent.getItemAtPosition(position);
+
+                    if (sticon != null) {
+                        MyBitmapFactory.getInstance().setSticon(sticon);
+                    }
+                }
             }
         });
 
