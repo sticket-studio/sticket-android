@@ -1,5 +1,6 @@
 package com.sticket.app.sticket.util;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,15 +16,22 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    private final List<String> defaultTitles = Arrays.asList("눈", "코", "입", "볼", "귀걸이");
+    private final List<String> defaultTitles = Arrays.asList("눈", "코", "입", "볼", "귀걸이", "스티콘", "모션티콘");
 
     public ViewPagerAdapter(FragmentManager manager) {
         super(manager);
     }
 
     public void init() {
-        for(String defaultTitle : defaultTitles){
-            addFrag(new StickerGridFragment(), defaultTitle);
+        for (int i = 0; i < StickerGridFragment.GRID_TYPE_ARRAY.length; i++) {
+            int type = StickerGridFragment.GRID_TYPE_ARRAY[i];
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", type);
+
+            StickerGridFragment stickerGridFragment = new StickerGridFragment();
+            stickerGridFragment.setArguments(bundle);
+
+            addFrag(stickerGridFragment, defaultTitles.get(i));
         }
     }
 

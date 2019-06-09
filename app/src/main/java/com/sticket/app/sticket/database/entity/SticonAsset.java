@@ -43,6 +43,9 @@ public class SticonAsset {
     @ColumnInfo(name = "rotate")
     private int rotate;
 
+    @ColumnInfo(name = "ratio")
+    private double ratio;
+
     @ColumnInfo(name = "flip")
     private int flip;
 
@@ -96,6 +99,14 @@ public class SticonAsset {
 
     public void setRotate(int rotate) {
         this.rotate = rotate;
+    }
+
+    public double getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(double ratio) {
+        this.ratio = ratio;
     }
 
     public int getFlip() {

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -24,8 +25,10 @@ import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.Motionticon;
 import com.sticket.app.sticket.database.entity.Sticon;
 import com.sticket.app.sticket.database.entity.SticonAsset;
+import com.sticket.app.sticket.util.MyBitmapFactory;
 import com.sticket.app.sticket.util.ViewPagerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -131,43 +134,22 @@ public class StickerDialog extends BottomSheetDialogFragment {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
 
-        Bundle eyeBundle = new Bundle();
-        eyeBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_EYE);
-        Bundle noseBundle = new Bundle();
-        noseBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_NOSE);
-        Bundle mouthBundle = new Bundle();
-        mouthBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_MOUTH);
-        Bundle cheekBundle = new Bundle();
-        cheekBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_CHEEK);
-        Bundle earBundle = new Bundle();
-        earBundle.putInt("type", StickerGridFragment.GRID_TYPE_ASSET_EAR);
-        Bundle sticonBundle = new Bundle();
-        sticonBundle.putInt("type", StickerGridFragment.GRID_TYPE_STICON);
-        Bundle motionticonBundle = new Bundle();
-        motionticonBundle.putInt("type", StickerGridFragment.GRID_TYPE_MOTIONTICON);
+        adapter.init(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object item = parent.getItemAtPosition(position);
+                if(item instanceof Asset){
+                    Asset asset = (Asset) parent.getItemAtPosition(position);
+                }else if(item instanceof Sticon){
+                    Sticon sticon = (Sticon) parent.getItemAtPosition(position);
 
-        StickerGridFragment eyeStickerGridFragment = new StickerGridFragment();
-        eyeStickerGridFragment.setArguments(eyeBundle);
-        StickerGridFragment noseStickerGridFragment = new StickerGridFragment();
-        noseStickerGridFragment.setArguments(noseBundle);
-        StickerGridFragment mouthStickerGridFragment = new StickerGridFragment();
-        mouthStickerGridFragment.setArguments(mouthBundle);
-        StickerGridFragment cheekStickerGridFragment = new StickerGridFragment();
-        cheekStickerGridFragment.setArguments(cheekBundle);
-        StickerGridFragment earingStickerGridFragment = new StickerGridFragment();
-        earingStickerGridFragment.setArguments(earBundle);
-        StickerGridFragment sticonStickerGridFragment = new StickerGridFragment();
-        sticonStickerGridFragment.setArguments(sticonBundle);
-        StickerGridFragment motionticonStickerGridFragment = new StickerGridFragment();
-        motionticonStickerGridFragment.setArguments(motionticonBundle);
+                    if (sticon != null) {
+                        MyBitmapFactory.getInstance().setSticon(sticon);
+                    }
+                }
+            }
+        });
 
-        adapter.addFrag(eyeStickerGridFragment, "눈");
-        adapter.addFrag(noseStickerGridFragment, "코");
-        adapter.addFrag(mouthStickerGridFragment, "입");
-        adapter.addFrag(cheekStickerGridFragment, "볼");
-        adapter.addFrag(earingStickerGridFragment, "귀걸이");
-        adapter.addFrag(sticonStickerGridFragment, "스티콘");
-        adapter.addFrag(motionticonStickerGridFragment, "모션티콘");
         viewPager.setAdapter(adapter);
     }
 
