@@ -37,7 +37,6 @@ public class SticonEditorAssetGridFragment extends Fragment {
                 if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(parent, view, position, id);
                 }
-                Toast.makeText(getActivity(), "Clicked icon position:" + position, Toast.LENGTH_SHORT).show();
             }
         });
 

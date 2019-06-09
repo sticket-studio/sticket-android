@@ -140,6 +140,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
                 Object item = parent.getItemAtPosition(position);
                 if(item instanceof Asset){
                     Asset asset = (Asset) parent.getItemAtPosition(position);
+
                 }else if(item instanceof Sticon){
                     Sticon sticon = (Sticon) parent.getItemAtPosition(position);
 
