@@ -68,6 +68,9 @@ public class SticonEditorActivity extends AppCompatActivity {
 
     private SticonEditorViewPagerAdapter adapter;
 
+    private float dummyX;
+    private float dummyY;
+
     private Map<Landmark, Sticker> stickerMap;
     private Map<Sticker, Landmark> landmarkMap;
     private Map<Landmark, Button> buttonMap;
@@ -103,6 +106,9 @@ public class SticonEditorActivity extends AppCompatActivity {
         assetTabLayout.setupWithViewPager(assetViewPager);
 
         currentBtn = leftEyeBtn;
+
+        dummyX = avartarImg.getDrawable().getIntrinsicWidth();
+        dummyY = avartarImg.getDrawable().getIntrinsicHeight();
     }
 
     private void initListener() {
@@ -218,15 +224,18 @@ public class SticonEditorActivity extends AppCompatActivity {
         bitmapMap.put(landmark, bitmap);
         stickerView.addSticker(sticker);
 
-        float dummyX = avartarImg.getDrawable().getIntrinsicWidth();
-        float dummyY = avartarImg.getDrawable().getIntrinsicHeight();
+//        sticker.getMatrix().setScale(1f,1f);
+//        stickerView.invalidate();
 
-        float xOffset = (stickerView.getWidth() - dummyX) / 2f + dummyX * landmark.getX() / 100f;
-        float yOffset = (stickerView.getHeight() - dummyY) / 2f + dummyY * landmark.getY() / 100f;
+        float xOffset = (stickerView.getWidth() - dummyX) / 2f + dummyX * landmark.getX() / 100f
+                - sticker.getWidth() / 2f
+                ;
+        float yOffset = (stickerView.getHeight() - dummyY) / 2f + dummyY * landmark.getY() / 100f
+                - sticker.getHeight() / 2f
+                ;
 //        float xScaleOffset = (float) bitmap.getWidth() / (float) sticker.getWidth();
 //        float yScaleOffset = (float) bitmap.getHeight() / (float) sticker.getHeight();
-        sticker.getMatrix().postScale(0.3f, 0.3f, xOffset, yOffset);
-
+        sticker.getMatrix().setTranslate(xOffset, yOffset);
         stickerView.invalidate();
 
         SticonAsset sticonAsset = new SticonAsset();
