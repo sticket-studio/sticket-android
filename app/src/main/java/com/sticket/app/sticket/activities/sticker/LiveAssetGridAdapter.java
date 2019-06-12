@@ -55,7 +55,7 @@ public class LiveAssetGridAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(assetList.get(position).getLocal_url());
+            Bitmap bitmap = BitmapFactory.decodeFile(assetList.get(position).getLocalUrl());
             stickerGridView = inflater.inflate(R.layout.item_grid_sticker, null);
             ImageView imageView = (ImageView) stickerGridView.findViewById(R.id.item_sticker_image);
             imageView.setImageBitmap(bitmap);

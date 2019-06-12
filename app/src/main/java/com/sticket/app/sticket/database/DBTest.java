@@ -40,25 +40,29 @@ public class DBTest {
                     IMAGE_ASSET_DIRECTORY_PATH, "nose2");
 
             Asset asset1 = new Asset();
-            asset1.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "left_eye.png");
+            asset1.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "left_eye.png");
             asset1.setLandmark(Landmark.EYE_LEFT);
             Asset asset2 = new Asset();
-            asset2.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "right_eye.png");
+            asset2.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "right_eye.png");
             asset2.setLandmark(Landmark.EYE_RIGHT);
             Asset asset3 = new Asset();
-            asset3.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose.png");
+            asset3.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose.png");
             asset3.setLandmark(Landmark.NOSE);
             Asset asset4 = new Asset();
-            asset4.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "mouth_bottom.png");
+            asset4.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "mouth_bottom.png");
             asset4.setLandmark(Landmark.MOUTH);
             Asset asset5 = new Asset();
-            asset5.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "cheek.png");
+            asset5.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "cheek.png");
             asset5.setLandmark(Landmark.CHEEK_LEFT);
             Asset asset6 = new Asset();
-            asset6.setLocal_url(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose2.png");
+            asset6.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose2.png");
             asset6.setLandmark(Landmark.NOSE);
 
+            Log.e(TAG, "lcoal: "+asset6.getLocalUrl());
+
             database.assetDao().insert(asset1, asset2, asset3, asset4, asset5, asset6);
+
+            Log.e(TAG, "lcoal: "+asset6.getLocalUrl());
         }
     }
 
@@ -80,8 +84,8 @@ public class DBTest {
             Log.d(TAG, "idx       local_url            img_url             offset_x  offset_y  ");
             Log.d(TAG, String.format("%-10d%-20s%-20s%-10f%-10f",
                     asset.getIdx(),
-                    asset.getLocal_url(),
-                    asset.getImg_url(),
+                    asset.getLocalUrl(),
+                    asset.getImgUrl(),
                     asset.getOffset_x(),
                     asset.getOffset_y()));
         }

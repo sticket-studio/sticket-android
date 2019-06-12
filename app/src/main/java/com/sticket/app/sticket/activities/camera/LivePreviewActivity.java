@@ -114,9 +114,6 @@ public final class LivePreviewActivity extends AppCompatActivity
             getRuntimePermissions();
         }
 
-        // Asset insert test
-        DBTest.patchAssetIfNotExist(this);
-
         mContext = this;
 
         initViews();
@@ -275,12 +272,16 @@ public final class LivePreviewActivity extends AppCompatActivity
 
     //TODO : PermissionUtil로 따로 빼자
     @Override
-    public void onRequestPermissionsResult(
-            int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
         Log.i(TAG, "Permission granted!");
         if (allPermissionsGranted()) {
             createCameraSource();
         }
+
+        // Asset insert test
+        DBTest.patchAssetIfNotExist(this);
+
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 

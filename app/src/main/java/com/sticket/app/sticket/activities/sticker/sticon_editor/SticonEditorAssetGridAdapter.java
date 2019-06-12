@@ -3,7 +3,6 @@ package com.sticket.app.sticket.activities.sticker.sticon_editor;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import android.widget.ImageView;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Asset;
-import com.sticket.app.sticket.database.entity.Motionticon;
-import com.sticket.app.sticket.database.entity.Sticon;
 
 import java.util.List;
 
@@ -57,7 +54,7 @@ public class SticonEditorAssetGridAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(assetList.get(position).getLocal_url());
+            Bitmap bitmap = BitmapFactory.decodeFile(assetList.get(position).getLocalUrl());
             stickerGridView = inflater.inflate(R.layout.item_grid_sticker, null);
             ImageView imageView = (ImageView) stickerGridView.findViewById(R.id.item_sticker_image);
             imageView.setImageBitmap(bitmap);
