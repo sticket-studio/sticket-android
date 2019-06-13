@@ -13,16 +13,11 @@
 // limitations under the License.
 package com.sticket.app.sticket.activities.camera;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -47,13 +42,14 @@ import com.sticket.app.sticket.database.entity.Sticon;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.MyBitmapFactory;
+import com.sticket.app.sticket.util.PermissionUtil;
 import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
+import butterknife.BindView;
 
 import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_DIRECTION;
 
@@ -64,57 +60,43 @@ import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_DIRECTION;
 public final class LivePreviewActivity extends AppCompatActivity
         implements OnRequestPermissionsResultCallback,
         CompoundButton.OnCheckedChangeListener {
-    private static final String TAG = "LivePreviewActivity";
+    private static final String TAG = LivePreviewActivity.class.getSimpleName();
     private static final int PERMISSION_REQUESTS = 1;
 
-    private CameraSource cameraSource = null;
+    @BindView(R.id.firePreview)
     private CameraSourcePreview preview;
+    @BindView(R.id.fireFaceOverlay)
     private GraphicOverlay graphicOverlay;
-    public static Context mContext;
-    private CameraSettingDialog cameraSettingDialog;
-
+    @BindView(R.id.btnSwitch)
+    ToggleButton facingSwitch;
+    @BindView(R.id.txtCountDown)
     private TextView countDownTxt;
-    private FaceContourDetectorProcessor faceContourDetectorProcessor;
 
+    private CameraSource cameraSource = null;
+    private CameraSettingDialog cameraSettingDialog;
+    private FaceContourDetectorProcessor faceContourDetectorProcessor;
     private SticketDatabase sticketDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_live_preview);
 
         sticketDatabase = SticketDatabase.getDatabase(getApplicationContext());
 
-        Log.d(TAG, "onCreate");
-
-        setContentView(R.layout.activity_live_preview);
-
-        Log.e(TAG, "getExternalStorageDirectory : " + Environment.getExternalStorageDirectory().getAbsolutePath());
-
-        preview = findViewById(R.id.firePreview);
-        if (preview == null) {
-            Log.d(TAG, "Preview is null");
-        }
         preview.setRatio();
-        graphicOverlay = findViewById(R.id.fireFaceOverlay);
-        if (graphicOverlay == null) {
-            Log.d(TAG, "graphicOverlay is null");
-        }
 
-        ToggleButton facingSwitch = findViewById(R.id.btnSwitch);
         facingSwitch.setOnCheckedChangeListener(this);
 
-        // Hide the toggle button if there is only 1 camera
         if (Camera.getNumberOfCameras() == 1) {
             facingSwitch.setVisibility(View.GONE);
         }
 
-        if (allPermissionsGranted()) {
+        if (PermissionUtil.allPermissionsGranted(this)) {
             createCameraSource();
         } else {
-            getRuntimePermissions();
+            PermissionUtil.getRuntimePermissions(this, PERMISSION_REQUESTS);
         }
-
-        mContext = this;
 
         initViews();
     }
@@ -231,68 +213,20 @@ public final class LivePreviewActivity extends AppCompatActivity
         }
     }
 
-    private String[] getRequiredPermissions() {
-        try {
-            PackageInfo info =
-                    this.getPackageManager()
-                            .getPackageInfo(this.getPackageName(), PackageManager.GET_PERMISSIONS);
-            String[] ps = info.requestedPermissions;
-            if (ps != null && ps.length > 0) {
-                return ps;
-            } else {
-                return new String[0];
-            }
-        } catch (Exception e) {
-            return new String[0];
-        }
-    }
-
-    private boolean allPermissionsGranted() {
-        for (String permission : getRequiredPermissions()) {
-            if (!isPermissionGranted(this, permission)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void getRuntimePermissions() {
-        List<String> allNeededPermissions = new ArrayList<>();
-        for (String permission : getRequiredPermissions()) {
-            if (!isPermissionGranted(this, permission)) {
-                allNeededPermissions.add(permission);
-            }
-        }
-
-        if (!allNeededPermissions.isEmpty()) {
-            ActivityCompat.requestPermissions(
-                    this, allNeededPermissions.toArray(new String[0]), PERMISSION_REQUESTS);
-        }
-    }
-
     //TODO : PermissionUtil로 따로 빼자
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int reqCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         Log.i(TAG, "Permission granted!");
-        if (allPermissionsGranted()) {
+        if (PermissionUtil.allPermissionsGranted(this)) {
             createCameraSource();
         }
 
         // Asset insert test
         DBTest.patchAssetIfNotExist(this);
 
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    private static boolean isPermissionGranted(Context context, String permission) {
-        if (ContextCompat.checkSelfPermission(context, permission)
-                == PackageManager.PERMISSION_GRANTED) {
-            Log.i(TAG, "Permission granted: " + permission);
-            return true;
-        }
-        Log.i(TAG, "Permission NOT granted: " + permission);
-        return false;
+        super.onRequestPermissionsResult(reqCode, permissions, grantResults);
     }
 
     public void btnSticker(View v) {
@@ -392,7 +326,7 @@ public final class LivePreviewActivity extends AppCompatActivity
                                 countDownTxt.setVisibility(View.GONE);
 
                                 final View viewShutterEffect = findViewById(R.id.viewShutterEffect);
-                                Animation shutterAnimation = AnimationUtils.loadAnimation(mContext, R.anim.shutter_effect);
+                                Animation shutterAnimation = AnimationUtils.loadAnimation(LivePreviewActivity.this, R.anim.shutter_effect);
                                 shutterAnimation.setAnimationListener(new Animation.AnimationListener() {
                                     @Override
                                     public void onAnimationStart(Animation animation) {
