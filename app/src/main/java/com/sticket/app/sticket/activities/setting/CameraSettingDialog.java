@@ -15,14 +15,16 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.vision.CameraSource;
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.common.CameraSource;
 import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Flash;
 import com.sticket.app.sticket.util.camera_setting.Ratio;
 import com.sticket.app.sticket.util.camera_setting.Timer;
+
+import java.lang.reflect.Field;
 
 import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_AUTO_SAVE;
 import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_FLASH;
@@ -77,7 +79,21 @@ public class CameraSettingDialog extends Dialog {
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Camera camera = cameraSource.getCamera();
+                Field[] declaredFields = CameraSource.class.getDeclaredFields();
+                Camera camera = null;
+                for (Field field : declaredFields) {
+                    if (field.getType() == Camera.class) {
+                        try {
+                            camera = (Camera) field.get(cameraSource);
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
+                }
+
+                if (camera == null) throw new RuntimeException("Camera is Null");
+
                 Camera.Parameters p = camera.getParameters();
 
                 switch (buttonView.getId()) {

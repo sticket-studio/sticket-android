@@ -13,6 +13,7 @@
 // limitations under the License.
 package com.sticket.app.sticket.activities.camera;
 
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -23,23 +24,27 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.MultiProcessor;
+import com.google.android.gms.vision.face.FaceDetector;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.gallery.SelectedPictureActivity;
 import com.sticket.app.sticket.activities.setting.CameraSettingDialog;
 import com.sticket.app.sticket.activities.setting.SettingActivity;
 import com.sticket.app.sticket.activities.sticker.StickerDialog;
 import com.sticket.app.sticket.activities.store.StoreActivity;
-import com.sticket.app.sticket.common.CameraSource;
-import com.sticket.app.sticket.common.CameraSourcePreview;
-import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.database.DBTest;
 import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Sticon;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
+import com.sticket.app.sticket.facetracker.CameraSourcePreview;
+import com.sticket.app.sticket.facetracker.GraphicFaceTrackerFactory;
+import com.sticket.app.sticket.facetracker.GraphicOverlay;
 import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.MyBitmapFactory;
 import com.sticket.app.sticket.util.PermissionUtil;
@@ -50,6 +55,7 @@ import com.sticket.app.sticket.util.camera_setting.Direction;
 import java.io.IOException;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_DIRECTION;
 
@@ -64,27 +70,45 @@ public final class LivePreviewActivity extends AppCompatActivity
     private static final int PERMISSION_REQUESTS = 1;
 
     @BindView(R.id.firePreview)
-    private CameraSourcePreview preview;
+    CameraSourcePreview preview;
     @BindView(R.id.fireFaceOverlay)
-    private GraphicOverlay graphicOverlay;
+    GraphicOverlay graphicOverlay;
     @BindView(R.id.btnSwitch)
     ToggleButton facingSwitch;
     @BindView(R.id.txtCountDown)
-    private TextView countDownTxt;
+    TextView countDownTxt;
 
-    private CameraSource cameraSource = null;
     private CameraSettingDialog cameraSettingDialog;
     private FaceContourDetectorProcessor faceContourDetectorProcessor;
     private SticketDatabase sticketDatabase;
+
+    //////////////////////
+
+    public static int PREVIEW_WIDTH = 640;
+    public static int PREVIEW_HEIGHT = 480;
+
+    private CameraSource cameraSource = null;
+
+    private Button takePictureBtn, swichCameraBtn;
+
+    private int currentCameraDirection = CameraSource.CAMERA_FACING_FRONT;
+
+    private static final int RC_HANDLE_GMS = 9001;
+    // permission request codes need to be < 256
+    private static final int RC_HANDLE_CAMERA_PERM = 2;
+
+    /////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_preview);
 
+        ButterKnife.bind(this);
+
         sticketDatabase = SticketDatabase.getDatabase(getApplicationContext());
 
-        preview.setRatio();
+        //preview.setRatio();
 
         facingSwitch.setOnCheckedChangeListener(this);
 
@@ -108,7 +132,7 @@ public final class LivePreviewActivity extends AppCompatActivity
             @Override
             public void onRatioChange(int ratioVal) {
                 preview.release();
-                preview.setRatio();
+                //preview.setRatio();
                 startCameraSource();
             }
         });
@@ -116,7 +140,7 @@ public final class LivePreviewActivity extends AppCompatActivity
             @Override
             public void onQualityChange(boolean isHighQuality) {
                 preview.release();
-                preview.setRatio();
+                //preview.setRatio();
                 startCameraSource();
             }
         });
@@ -125,39 +149,48 @@ public final class LivePreviewActivity extends AppCompatActivity
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (cameraSource != null) {
-            Direction direction;
-            if (isChecked) {
-                cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
-                direction = Direction.DIRECTION_FRONT;
-            } else {
-                cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
-                direction = Direction.DIRECTION_BACK;
-            }
+            Direction direction = isChecked? Direction.DIRECTION_FRONT : Direction.DIRECTION_BACK;
 
             CameraOption.getInstance().setDirection(direction);
-            Preference.getInstance().putInt(PREFERENCE_NAME_DIRECTION
-                    , direction.getVal());
+            Preference.getInstance().putInt(PREFERENCE_NAME_DIRECTION, direction.getVal());
         }
         preview.stop();
         startCameraSource();
     }
 
     private void createCameraSource() {
-        // If there's no existing cameraSource, create one.
-        if (cameraSource == null) {
-            cameraSource = new CameraSource(this, graphicOverlay);
-            int directionInt = Preference.getInstance()
-                    .getInt(PREFERENCE_NAME_DIRECTION);
-            if (Direction.toMyEnum(directionInt) == Direction.DIRECTION_BACK) {
-                cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
-            } else {
-                cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
-            }
+        int direction = Preference.getInstance().getInt(PREFERENCE_NAME_DIRECTION);
+        Log.e(TAG, "direction : "  + direction);
+///////////////////////////////////////////////////////////////////////////////////////////////
+        Context context = getApplicationContext();
+        FaceDetector detector = new FaceDetector.Builder(context)
+                .setClassificationType(FaceDetector.ALL_CLASSIFICATIONS)
+                .setLandmarkType(FaceDetector.ALL_LANDMARKS)
+                .setMode(FaceDetector.FAST_MODE)
+                .build();
+
+        detector.setProcessor(
+                new MultiProcessor.Builder<>(new GraphicFaceTrackerFactory(graphicOverlay,context))
+                        .build());
+
+        if (!detector.isOperational()) {
+            // Note: The first time that an app using face API is installed on a device, GMS will
+            // download a native library to the device in order to do detection.  Usually this
+            // completes before the app is run for the first time.  But if that download has not yet
+            // completed, then the above call will not detect any faces.
+            //
+            // isOperational() can be used to check if the required native library is currently
+            // available.  The detector will automatically become operational once the library
+            // download completes on device.
+            Log.w(TAG, "Face detector dependencies are not yet available.");
         }
 
-        Log.i(TAG, "Using Face Contour Detector Processor");
-        faceContourDetectorProcessor = new FaceContourDetectorProcessor(LivePreviewActivity.this);
-        cameraSource.setMachineLearningFrameProcessor(faceContourDetectorProcessor);
+        cameraSource = new CameraSource.Builder(context, detector)
+                .setRequestedPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT)
+                .setFacing(direction)
+                .setRequestedFps(30.0f)
+                .setAutoFocusEnabled(true)
+                .build();
     }
 
     /**
@@ -183,10 +216,10 @@ public final class LivePreviewActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume");
+        @Override
+        public void onResume() {
+            super.onResume();
+            Log.d(TAG, "onResume");
 
         Sticon sticon = sticketDatabase.sticonDao().getLastSticon();
         if (sticon != null) {
@@ -213,7 +246,6 @@ public final class LivePreviewActivity extends AppCompatActivity
         }
     }
 
-    //TODO : PermissionUtil로 따로 빼자
     @Override
     public void onRequestPermissionsResult(int reqCode,
                                            @NonNull String[] permissions,

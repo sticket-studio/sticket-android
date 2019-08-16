@@ -6,9 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <permission android:name="android.permission.FLASHLIGHT"
+
+    <permission
+        android:name="android.permission.FLASHLIGHT"
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
-        android:protectionLevel="normal"/>
+        android:protectionLevel="normal" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -21,24 +23,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme">
-        <activity android:name=".activities.sign.SignupActivity"></activity>
-        <activity android:name=".activities.sign.SigninActivity"></activity>
-        <activity android:name=".activities.setting.AccountActivity"></activity>
+        <activity android:name=".activities.sign.SignupActivity" />
+        <activity
+            android:name=".activities.camera.FaceTrackerActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+
+        </activity>
+        <activity android:name=".activities.sign.SigninActivity" />
+        <activity android:name=".activities.setting.AccountActivity" />
         <activity android:name=".activities.gallery.SelectedPictureActivity" />
         <activity android:name=".activities.setting.SettingActivity" />
         <activity android:name=".activities.sticker.sticon_editor.SticonEditorActivity" />
         <activity android:name=".activities.sticker.asset_importer.AssetImporter" />
-        <activity
-            android:name=".activities.camera.LivePreviewActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+        <activity android:name=".activities.camera.LivePreviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.store.StoreActivity"/>
+        <activity android:name=".activities.store.StoreActivity" />
 
     </application>
 
