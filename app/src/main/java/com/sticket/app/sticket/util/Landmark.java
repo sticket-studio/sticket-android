@@ -19,8 +19,8 @@ public enum Landmark implements Serializable {
     MOUTH(49.4f, 66.1f, MOUTH_BOTTOM),
     CHEEK_LEFT(27.7f, 58.2f, LEFT_CHEEK),
     CHEEK_RIGHT(71.2f, 58.2f, RIGHT_CHEEK),
-    EAR_LEFT(72.2f, 58.2f, LEFT_EAR),
-    EAR_RIGHT(72.2f, 58.2f, RIGHT_EAR);
+    EAR_LEFT(11.95455f, 47.61905f, LEFT_EAR),
+    EAR_RIGHT(90.49430f, 47.61905f, RIGHT_EAR);
 //    EYE_LEFT(-19.6f, -7.7f), EYE_RIGHT(-14.6f, -7.7f), NOSE(-4.4f, 2.9f),
 //    MOUTH(-0.6f, 16.1f), CHEEK_LEFT(-25.3f, 8.2f), CHEEK_RIGHT(-17.8f, 8.2f),
 //    GLASSES(-2.5f, -7.7f);
