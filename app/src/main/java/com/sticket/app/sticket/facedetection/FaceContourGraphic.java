@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import com.google.firebase.ml.vision.face.FirebaseVisionFace;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark;
-import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.SticonAsset;
 import com.sticket.app.sticket.util.BitmapUtils;

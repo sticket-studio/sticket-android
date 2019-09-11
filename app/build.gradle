@@ -20,6 +20,13 @@ android {
         exclude 'META-INF/androidx.exifinterface_exifinterface.version'
         exclude 'META-INF/proguard/androidx-annotations.pro'
     }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {

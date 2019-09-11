@@ -25,11 +25,16 @@ public class DBTest {
         SticketDatabase database = SticketDatabase.getDatabase(context);
         Resources resources = context.getResources();
 
+        database.clearAllTables();
+        Log.e(TAG, "size : " + database.assetDao().getAllassets().size() );
+
         if (database.assetDao().getAllassets().size() == 0) {
-            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.left_eye),
-                    IMAGE_ASSET_DIRECTORY_PATH, "left_eye");
-            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.right_eye),
-                    IMAGE_ASSET_DIRECTORY_PATH, "right_eye");
+            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.heart),
+                    IMAGE_ASSET_DIRECTORY_PATH, "heart");
+            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.img_logo1),
+                    IMAGE_ASSET_DIRECTORY_PATH, "logo1");
+            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.img_logo2),
+                    IMAGE_ASSET_DIRECTORY_PATH, "logo2");
             FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.nose),
                     IMAGE_ASSET_DIRECTORY_PATH, "nose");
             FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.mouth_bottom),
@@ -40,11 +45,14 @@ public class DBTest {
                     IMAGE_ASSET_DIRECTORY_PATH, "nose2");
 
             Asset asset1 = new Asset();
-            asset1.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "left_eye.png");
+            asset1.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "heart.png");
             asset1.setLandmark(Landmark.EYE_LEFT);
-            Asset asset2 = new Asset();
-            asset2.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "right_eye.png");
-            asset2.setLandmark(Landmark.EYE_RIGHT);
+            Asset asset1_1 = new Asset();
+            asset1_1.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "logo1.png");
+            asset1_1.setLandmark(Landmark.EYE_LEFT);
+            Asset asset1_2 = new Asset();
+            asset1_2.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "logo2.png");
+            asset1_2.setLandmark(Landmark.EYE_LEFT);
             Asset asset3 = new Asset();
             asset3.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose.png");
             asset3.setLandmark(Landmark.NOSE);
@@ -58,11 +66,8 @@ public class DBTest {
             asset6.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose2.png");
             asset6.setLandmark(Landmark.NOSE);
 
-            Log.e(TAG, "lcoal: "+asset6.getLocalUrl());
+            database.assetDao().insert(asset1, asset1_1, asset1_2, asset3, asset4, asset5, asset6);
 
-            database.assetDao().insert(asset1, asset2, asset3, asset4, asset5, asset6);
-
-            Log.e(TAG, "lcoal: "+asset6.getLocalUrl());
         }
     }
 

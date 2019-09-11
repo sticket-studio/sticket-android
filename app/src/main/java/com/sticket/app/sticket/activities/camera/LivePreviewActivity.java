@@ -15,6 +15,11 @@ package com.sticket.app.sticket.activities.camera;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,8 +31,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.MultiProcessor;
@@ -41,21 +44,24 @@ import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.database.DBTest;
 import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Sticon;
+import com.sticket.app.sticket.databinding.ActivityLivePreviewBinding;
 import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
-import com.sticket.app.sticket.facetracker.CameraSourcePreview;
 import com.sticket.app.sticket.facetracker.GraphicFaceTrackerFactory;
-import com.sticket.app.sticket.facetracker.GraphicOverlay;
+import com.sticket.app.sticket.facetracker.MyFaceDetector;
 import com.sticket.app.sticket.util.Alert;
+import com.sticket.app.sticket.util.CameraUtil;
+import com.sticket.app.sticket.util.FileUtil;
+import com.sticket.app.sticket.util.ImageUtil;
 import com.sticket.app.sticket.util.MyBitmapFactory;
 import com.sticket.app.sticket.util.PermissionUtil;
 import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_DIRECTION;
 
@@ -68,28 +74,19 @@ public final class LivePreviewActivity extends AppCompatActivity
         CompoundButton.OnCheckedChangeListener {
     private static final String TAG = LivePreviewActivity.class.getSimpleName();
     private static final int PERMISSION_REQUESTS = 1;
-
-    @BindView(R.id.firePreview)
-    CameraSourcePreview preview;
-    @BindView(R.id.fireFaceOverlay)
-    GraphicOverlay graphicOverlay;
-    @BindView(R.id.btnSwitch)
-    ToggleButton facingSwitch;
-    @BindView(R.id.txtCountDown)
-    TextView countDownTxt;
+    public static final String IMG_FORMAT = ".jpg";
 
     private CameraSettingDialog cameraSettingDialog;
     private FaceContourDetectorProcessor faceContourDetectorProcessor;
     private SticketDatabase sticketDatabase;
 
-    //////////////////////
+    private ActivityLivePreviewBinding binding;
 
-    public static int PREVIEW_WIDTH = 640;
-    public static int PREVIEW_HEIGHT = 480;
+    //////////////////////
 
     private CameraSource cameraSource = null;
 
-    private Button takePictureBtn, swichCameraBtn;
+    private MyFaceDetector myFaceDetector;
 
     private int currentCameraDirection = CameraSource.CAMERA_FACING_FRONT;
 
@@ -97,23 +94,21 @@ public final class LivePreviewActivity extends AppCompatActivity
     // permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
 
-    /////////////////
+    private boolean isCapturing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_live_preview);
-
-        ButterKnife.bind(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_live_preview);
 
         sticketDatabase = SticketDatabase.getDatabase(getApplicationContext());
 
-        //preview.setRatio();
+//        binding.previewPreview.setRatio();
 
-        facingSwitch.setOnCheckedChangeListener(this);
+        binding.btnPreviewFacingSwitch.setOnCheckedChangeListener(this);
 
         if (Camera.getNumberOfCameras() == 1) {
-            facingSwitch.setVisibility(View.GONE);
+            binding.btnPreviewFacingSwitch.setVisibility(View.GONE);
         }
 
         if (PermissionUtil.allPermissionsGranted(this)) {
@@ -121,76 +116,49 @@ public final class LivePreviewActivity extends AppCompatActivity
         } else {
             PermissionUtil.getRuntimePermissions(this, PERMISSION_REQUESTS);
         }
+        DBTest.patchAssetIfNotExist(this);
 
         initViews();
     }
 
     private void initViews() {
-        countDownTxt = findViewById(R.id.txtCountDown);       // Annotation in activity_live_preview
         cameraSettingDialog = new CameraSettingDialog(LivePreviewActivity.this);
-        cameraSettingDialog.setOnRatioChangeListener(new CameraSettingDialog.OnRatioChangeListener() {
-            @Override
-            public void onRatioChange(int ratioVal) {
-                preview.release();
-                //preview.setRatio();
-                startCameraSource();
-            }
-        });
-        cameraSettingDialog.setOnQualityChangeListener(new CameraSettingDialog.OnQualityChangeListener() {
-            @Override
-            public void onQualityChange(boolean isHighQuality) {
-                preview.release();
-                //preview.setRatio();
-                startCameraSource();
-            }
-        });
+        cameraSettingDialog.setOnRatioChangeListener((ratioVal) -> refreshPreview());
+        cameraSettingDialog.setOnQualityChangeListener(isHighQuality -> refreshPreview());
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (cameraSource != null) {
-            Direction direction = isChecked? Direction.DIRECTION_FRONT : Direction.DIRECTION_BACK;
+            Direction direction = isChecked ? Direction.DIRECTION_FRONT : Direction.DIRECTION_BACK;
 
             CameraOption.getInstance().setDirection(direction);
             Preference.getInstance().putInt(PREFERENCE_NAME_DIRECTION, direction.getVal());
         }
-        preview.stop();
+        binding.previewPreview.stop();
         startCameraSource();
     }
 
     private void createCameraSource() {
         int direction = Preference.getInstance().getInt(PREFERENCE_NAME_DIRECTION);
-        Log.e(TAG, "direction : "  + direction);
-///////////////////////////////////////////////////////////////////////////////////////////////
         Context context = getApplicationContext();
         FaceDetector detector = new FaceDetector.Builder(context)
-                .setClassificationType(FaceDetector.ALL_CLASSIFICATIONS)
                 .setLandmarkType(FaceDetector.ALL_LANDMARKS)
                 .setMode(FaceDetector.FAST_MODE)
+//                .setProminentFaceOnly(true)
                 .build();
 
         detector.setProcessor(
-                new MultiProcessor.Builder<>(new GraphicFaceTrackerFactory(graphicOverlay,context))
+                new MultiProcessor.Builder<>(new GraphicFaceTrackerFactory(binding.graphyOverlayPreview, this))
                         .build());
-
-        if (!detector.isOperational()) {
-            // Note: The first time that an app using face API is installed on a device, GMS will
-            // download a native library to the device in order to do detection.  Usually this
-            // completes before the app is run for the first time.  But if that download has not yet
-            // completed, then the above call will not detect any faces.
-            //
-            // isOperational() can be used to check if the required native library is currently
-            // available.  The detector will automatically become operational once the library
-            // download completes on device.
-            Log.w(TAG, "Face detector dependencies are not yet available.");
-        }
-
-        cameraSource = new CameraSource.Builder(context, detector)
-                .setRequestedPreviewSize(PREVIEW_WIDTH, PREVIEW_HEIGHT)
+        CameraSource.Builder cb = new CameraSource.Builder(context, detector)
                 .setFacing(direction)
                 .setRequestedFps(30.0f)
-                .setAutoFocusEnabled(true)
-                .build();
+                .setAutoFocusEnabled(true);
+//        if (binding.previewPreview.getWidth() != 0 && binding.previewPreview.getHeight() != 0) {
+//            cb.setRequestedPreviewSize(binding.previewPreview.getWidth(), binding.previewPreview.getHeight());
+//        }
+        cameraSource = cb.build();
     }
 
     /**
@@ -199,15 +167,16 @@ public final class LivePreviewActivity extends AppCompatActivity
      * again when the camera source is created.
      */
     private void startCameraSource() {
+        createCameraSource();
         if (cameraSource != null) {
             try {
-                if (preview == null) {
+                if (binding.previewPreview == null) {
                     Log.d(TAG, "resume: Preview is null");
                 }
-                if (graphicOverlay == null) {
+                if (binding.graphyOverlayPreview == null) {
                     Log.d(TAG, "resume: graphOverlay is null");
                 }
-                preview.start(cameraSource, graphicOverlay);
+                binding.previewPreview.start(cameraSource, binding.graphyOverlayPreview);
             } catch (IOException e) {
                 Log.e(TAG, "Unable to start camera source.", e);
                 cameraSource.release();
@@ -216,10 +185,9 @@ public final class LivePreviewActivity extends AppCompatActivity
         }
     }
 
-        @Override
-        public void onResume() {
-            super.onResume();
-            Log.d(TAG, "onResume");
+    @Override
+    public void onResume() {
+        super.onResume();
 
         Sticon sticon = sticketDatabase.sticonDao().getLastSticon();
         if (sticon != null) {
@@ -235,7 +203,7 @@ public final class LivePreviewActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-        preview.stop();
+        binding.previewPreview.stop();
     }
 
     @Override
@@ -254,9 +222,6 @@ public final class LivePreviewActivity extends AppCompatActivity
         if (PermissionUtil.allPermissionsGranted(this)) {
             createCameraSource();
         }
-
-        // Asset insert test
-        DBTest.patchAssetIfNotExist(this);
 
         super.onRequestPermissionsResult(reqCode, permissions, grantResults);
     }
@@ -307,88 +272,41 @@ public final class LivePreviewActivity extends AppCompatActivity
 
     public void onTouchPreview(View v) {
         if (CameraOption.getInstance().isTouchCapture()) {
-            btnCapture(null);
+            onCaptureBtnClick(null);
         } else {
             // TODO: 초점맞추기
         }
     }
 
-    boolean isCapturing;
-
-    public void btnCapture(View v) {
+    public void onCaptureBtnClick(View v) {
         if (!isCapturing) {
             new Thread() {
                 @Override
                 public void run() {
                     try {
-                        super.run();
                         isCapturing = true;
-                        int sec = 0;
-                        switch (CameraOption.getInstance().getTimer()) {
-                            case TIMER_NONE:
-                                break;
-                            case TIMER_SEC3:
-                                sec = 3;
-                                break;
-                            case TIMER_SEC5:
-                                sec = 5;
-                                break;
-                            case TIMER_SEC7:
-                                sec = 7;
-                                break;
-                        }
 
-                        for (int i = sec; i > 0; i--) {
+                        for (int i = CameraOption.getInstance().getTimer().getVal(); i > 0; i--) {
                             final int finalI = i;
 
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    countDownTxt.setVisibility(View.VISIBLE);
-                                    countDownTxt.setText(String.valueOf(finalI));
-                                }
+                            runOnUiThread(() -> {
+                                binding.txtCountDown.setVisibility(View.VISIBLE);
+                                binding.txtCountDown.setText(String.valueOf(finalI));
                             });
 
                             Thread.sleep(1000);
                         }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-//                                Alert.makeText("Cheeeeeze!");
-                                countDownTxt.setVisibility(View.GONE);
 
-                                final View viewShutterEffect = findViewById(R.id.viewShutterEffect);
-                                Animation shutterAnimation = AnimationUtils.loadAnimation(LivePreviewActivity.this, R.anim.shutter_effect);
-                                shutterAnimation.setAnimationListener(new Animation.AnimationListener() {
-                                    @Override
-                                    public void onAnimationStart(Animation animation) {
-                                        viewShutterEffect.setVisibility(View.VISIBLE);
-                                    }
+                        runOnUiThread(() -> {
+                            binding.txtCountDown.setVisibility(View.GONE);
 
-                                    @Override
-                                    public void onAnimationEnd(Animation animation) {
-                                        viewShutterEffect.setVisibility(View.GONE);
-                                    }
-
-                                    @Override
-                                    public void onAnimationRepeat(Animation animation) {
-
-                                    }
-                                });
-                                shutterAnimation.setFillEnabled(false);
-                                viewShutterEffect.startAnimation(shutterAnimation);
-                            }
+                            shutterEffect();
                         });
 
                         if (CameraOption.getInstance().isAutoSave()) {
-                            faceContourDetectorProcessor.capture();
+                            capture();
                         } else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Alert.makeText("자동저장이 아님.나중에 처리할 예정");
-                                }
-                            });
+                            runOnUiThread(() -> Alert.makeText("자동저장이 아님. 나중에 처리할 예정"));
                         }
                         isCapturing = false;
                     } catch (InterruptedException e) {
@@ -397,5 +315,46 @@ public final class LivePreviewActivity extends AppCompatActivity
                 }
             }.start();
         }
+    }
+
+    private void shutterEffect() {
+        Animation shutterAnimation = AnimationUtils.loadAnimation(LivePreviewActivity.this, R.anim.shutter_effect);
+        shutterAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                binding.viewShutterEffect.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                binding.viewShutterEffect.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        shutterAnimation.setFillEnabled(false);
+        binding.viewShutterEffect.startAnimation(shutterAnimation);
+    }
+
+    private void capture() {
+        cameraSource.takePicture(() -> {
+
+        }, data -> {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+            ImageUtil.store(this, bitmap);
+        });
+
+        Bitmap bitmap = binding.previewPreview.getmSurfaceView().drawBitmap();
+//        ImageUtil.store(this, bitmap);
+    }
+
+    private void refreshPreview() {
+        binding.previewPreview.release();
+        binding.previewPreview.setRatio();
+        startCameraSource();
     }
 }

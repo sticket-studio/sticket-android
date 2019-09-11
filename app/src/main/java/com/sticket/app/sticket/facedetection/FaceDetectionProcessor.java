@@ -26,9 +26,6 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFace;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
 import com.sticket.app.sticket.VisionProcessorBase;
-import com.sticket.app.sticket.common.CameraImageGraphic;
-import com.sticket.app.sticket.common.FrameMetadata;
-import com.sticket.app.sticket.common.GraphicOverlay;
 
 import java.io.IOException;
 import java.util.List;

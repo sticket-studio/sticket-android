@@ -1,12 +1,27 @@
 package com.sticket.app.sticket.util;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 
+import com.sticket.app.sticket.util.camera_setting.CameraOption;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ImageUtil {
+    public static final String IMG_FORMAT = ".jpg";
 
     /**
      * Get bitmap of a view
@@ -62,5 +77,38 @@ public class ImageUtil {
         }
 
         return bitmapResult;
+    }
+
+    public static void store(Context context, Bitmap bitmap) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSSS", Locale.KOREA);
+        String albumPath = FileUtil.ALBUM_DIRECTORY_PATH;
+        String imgName = albumPath + "/" + sdf.format(new Date()) + IMG_FORMAT;
+
+        int quality = CameraOption.getInstance().ishD() ? 95 : 60;
+
+        try {
+            bitmap = rotateBitmap(bitmap, 270);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, new FileOutputStream(imgName));
+        } catch (FileNotFoundException e) {
+            Log.e("CAPTURE", e.getMessage());
+            e.printStackTrace();
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DATA,
+                imgName);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        context.getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+    }
+
+    public static Bitmap rotateBitmap(Bitmap bitmap, int degree) {
+        Matrix matrix = new Matrix();
+
+        matrix.postRotate(degree);
+
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+
+        return Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
     }
 }

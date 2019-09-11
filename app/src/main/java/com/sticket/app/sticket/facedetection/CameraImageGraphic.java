@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.common;
+package com.sticket.app.sticket.facedetection;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

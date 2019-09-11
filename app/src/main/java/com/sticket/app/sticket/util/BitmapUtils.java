@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
-import com.sticket.app.sticket.common.FrameMetadata;
+import com.sticket.app.sticket.facedetection.FrameMetadata;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
