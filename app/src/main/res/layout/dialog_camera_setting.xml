@@ -64,7 +64,7 @@
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@+id/btnTimer"
             app:layout_constraintTop_toTopOf="@+id/btnTimer"
-            android:onClick="btnSetting" />
+            android:onClick="btnSettingClick" />
 
     </android.support.constraint.ConstraintLayout>
 

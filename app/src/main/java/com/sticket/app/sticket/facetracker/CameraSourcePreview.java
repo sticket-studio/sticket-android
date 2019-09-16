@@ -19,11 +19,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Rect;
-import android.graphics.YuvImage;
-import android.hardware.Camera;
 import android.support.v4.app.ActivityCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -35,36 +30,33 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.common.images.Size;
 import com.google.android.gms.vision.CameraSource;
 import com.sticket.app.sticket.util.CameraSurfaceView;
-import com.sticket.app.sticket.util.CameraUtil;
-import com.sticket.app.sticket.util.ImageUtil;
 import com.sticket.app.sticket.util.PxDpUtil;
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Ratio;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class CameraSourcePreview extends ViewGroup {
     private static final String TAG = "CameraSourcePreview";
 
-    private Context mContext;
-    private CameraSurfaceView mSurfaceView;
-    private boolean mStartRequested;
-    private boolean mSurfaceAvailable;
-    private CameraSource mCameraSource;
+    private Context context;
+    private CameraSurfaceView surfaceView;
+    private boolean startRequested;
+    private boolean surfaceAvailable;
+    private CameraSource cameraSource;
 
-    private GraphicOverlay mOverlay;
+    private GraphicOverlay overlay;
 
     public CameraSourcePreview(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
-        mStartRequested = false;
-        mSurfaceAvailable = false;
+        this.context = context;
+        startRequested = false;
+        surfaceAvailable = false;
 
         SurfaceCallback callback = new SurfaceCallback();
-        mSurfaceView = new CameraSurfaceView(context, callback);
-        mSurfaceView.getHolder().addCallback(callback);
-        addView(mSurfaceView);
+        surfaceView = new CameraSurfaceView(context, callback);
+        surfaceView.getHolder().addCallback(callback);
+        addView(surfaceView);
     }
 
     public void start(CameraSource cameraSource) throws IOException {
@@ -72,60 +64,61 @@ public class CameraSourcePreview extends ViewGroup {
             stop();
         }
 
-        mCameraSource = cameraSource;
+        this.cameraSource = cameraSource;
 
-        if (mCameraSource != null) {
-            mStartRequested = true;
+        if (this.cameraSource != null) {
+            startRequested = true;
             startIfReady();
         }
     }
 
     public void start(CameraSource cameraSource, GraphicOverlay overlay) throws IOException {
-        mOverlay = overlay;
+        this.overlay = overlay;
         start(cameraSource);
     }
 
     public void stop() {
-        if (mCameraSource != null) {
-            mCameraSource.stop();
+        if (cameraSource != null) {
+            cameraSource.stop();
         }
     }
 
     public void release() {
-        if (mCameraSource != null) {
-            mCameraSource.release();
-            mCameraSource = null;
+        if (cameraSource != null) {
+            cameraSource.release();
+            cameraSource = null;
         }
     }
 
     private void startIfReady() throws IOException {
-        if (mStartRequested && mSurfaceAvailable) {
-            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA)
+        if (startRequested && surfaceAvailable) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            mCameraSource.start(mSurfaceView.getHolder());
-            if (mOverlay != null) {
-                Size size = mCameraSource.getPreviewSize();
+            cameraSource.start(surfaceView.getHolder());
+            if (overlay != null) {
+                Size size = cameraSource.getPreviewSize();
                 int min = Math.min(size.getWidth(), size.getHeight());
                 int max = Math.max(size.getWidth(), size.getHeight());
+                Log.e(TAG, "startIfReady::isPortraitMode() : " + isPortraitMode());
                 if (isPortraitMode()) {
                     // Swap width and height sizes when in portrait, since it will be rotated by
                     // 90 degrees
-                    mOverlay.setCameraInfo(min, max, mCameraSource.getCameraFacing());
+                    overlay.setCameraInfo(min, max, cameraSource.getCameraFacing());
                 } else {
-                    mOverlay.setCameraInfo(max, min, mCameraSource.getCameraFacing());
+                    overlay.setCameraInfo(max, min, cameraSource.getCameraFacing());
                 }
-                mOverlay.clear();
+                overlay.clear();
             }
-            mStartRequested = false;
+            startRequested = false;
         }
     }
 
     private class SurfaceCallback implements SurfaceHolder.Callback {
         @Override
         public void surfaceCreated(SurfaceHolder surface) {
-            mSurfaceAvailable = true;
+            surfaceAvailable = true;
             try {
                 startIfReady();
             } catch (IOException e) {
@@ -135,42 +128,20 @@ public class CameraSourcePreview extends ViewGroup {
 
         @Override
         public void surfaceDestroyed(SurfaceHolder surface) {
-            mSurfaceAvailable = false;
+            surfaceAvailable = false;
         }
 
         @Override
-        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            Camera mCamera = CameraUtil.getCamera(mCameraSource);
-//            try {
-//                mCamera.setPreviewDisplay(holder);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            mCamera.setPreviewCallback((data, camera) -> {
-                // 현재 SurfaceView를 JPEG Format으로 변경
-//                Camera.Parameters parameters = camera.getParameters();
-//                int w = parameters.getPreviewSize().width;
-//                int h = parameters.getPreviewSize().height;
-//                int format1 = parameters.getPreviewFormat();
-//                YuvImage image = new YuvImage(data, format1, w, h, null);
-//                ByteArrayOutputStream out = new ByteArrayOutputStream();
-//                Rect area = new Rect(0, 0, w, h);
-//                image.compressToJpeg(area, 100, out);
-//                Bitmap bm = BitmapFactory.decodeByteArray(out.toByteArray(), 0, out.size());
-//                byte[] currentData = out.toByteArray();
-//            });
-        }
+        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
     }
-
-    private int cnt = 0;
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         setRatio();
     }
 
-    public CameraSurfaceView getmSurfaceView() {
-        return mSurfaceView;
+    public CameraSurfaceView getSurfaceView() {
+        return surfaceView;
     }
 
     public void setRatio() {
@@ -187,24 +158,26 @@ public class CameraSourcePreview extends ViewGroup {
         layoutParams.setMargins(0, (int) PxDpUtil.convertDpToPixel(marginTop, getContext()), 0, 0);
         setLayoutParams(layoutParams);
 
-        if (mCameraSource != null) {
-            Log.e("PREVIEW", "cameraSource != null : ");
-            Size size = mCameraSource.getPreviewSize();
-            if (size != null) {
-                Log.e("PREVIEW", "size != null : ");
-                ratioWidth = size.getWidth();
-                ratioHeight = size.getHeight();
-            }
-        }
+        // 이거 왜 넣은거지...?
+//        if (cameraSource != null) {
+//            Log.e("PREVIEW", "cameraSource != null : ");
+//            Size size = cameraSource.getPreviewSize();
+//            if (size != null) {
+//                Log.e("PREVIEW", "size != null : ");
+//                ratioWidth = size.getWidth();
+//                ratioHeight = size.getHeight();
+//            }
+//        }
 
         // Swap width and height sizes when in portrait, since it will be rotated 90 degrees
+        Log.e(TAG, "setRatio::isPortraitMode() : " + isPortraitMode());
         if (!isPortraitMode()) {
             int tmp = ratioWidth;
             ratioWidth = ratioHeight;
             ratioHeight = tmp;
         }
 
-        float ratioVal = (float) ratioWidth / (float) ratioHeight;
+        float ratioVal = (float) ratioHeight / (float) ratioWidth;
 
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
 
@@ -239,7 +212,7 @@ public class CameraSourcePreview extends ViewGroup {
     }
 
     private boolean isPortraitMode() {
-        int orientation = mContext.getResources().getConfiguration().orientation;
+        int orientation = context.getResources().getConfiguration().orientation;
         return orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 }

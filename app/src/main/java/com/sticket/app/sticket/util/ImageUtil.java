@@ -87,7 +87,6 @@ public class ImageUtil {
         int quality = CameraOption.getInstance().ishD() ? 95 : 60;
 
         try {
-            bitmap = rotateBitmap(bitmap, 270);
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, new FileOutputStream(imgName));
         } catch (FileNotFoundException e) {
             Log.e("CAPTURE", e.getMessage());

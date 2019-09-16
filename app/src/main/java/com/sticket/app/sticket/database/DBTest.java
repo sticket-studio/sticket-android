@@ -25,7 +25,7 @@ public class DBTest {
         SticketDatabase database = SticketDatabase.getDatabase(context);
         Resources resources = context.getResources();
 
-        database.clearAllTables();
+        //database.clearAllTables();
         Log.e(TAG, "size : " + database.assetDao().getAllassets().size() );
 
         if (database.assetDao().getAllassets().size() == 0) {

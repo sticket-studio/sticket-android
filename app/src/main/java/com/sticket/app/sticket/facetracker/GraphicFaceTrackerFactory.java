@@ -1,7 +1,5 @@
 package com.sticket.app.sticket.facetracker;
 
-import android.content.Context;
-
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.face.Face;
@@ -12,15 +10,13 @@ import com.google.android.gms.vision.face.Face;
  */
 public class GraphicFaceTrackerFactory implements MultiProcessor.Factory<Face> {
     private final GraphicOverlay mGraphicOverlay;
-    private final Context context;
 
-    public GraphicFaceTrackerFactory(GraphicOverlay mGraphicOverlay, Context context) {
+    public GraphicFaceTrackerFactory(GraphicOverlay mGraphicOverlay) {
         this.mGraphicOverlay = mGraphicOverlay;
-        this.context = context;
     }
 
     @Override
     public Tracker<Face> create(Face face) {
-        return new GraphicFaceTracker(mGraphicOverlay, context);
+        return new GraphicFaceTracker(mGraphicOverlay);
     }
 }
