@@ -1,146 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fireTopLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:keepScreenOn="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.sticket.app.sticket.common.CameraSourcePreview
-        android:id="@+id/firePreview"
+    <data>
+
+        <variable
+            name="main"
+            type="com.sticket.app.sticket.activities.camera.LivePreviewActivity" />
+    </data>
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fireTopLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onTouchPreview">
-
-        <com.sticket.app.sticket.common.GraphicOverlay
-            android:id="@+id/fireFaceOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </com.sticket.app.sticket.common.CameraSourcePreview>
-
-    <TextView
-        android:id="@+id/txtCountDown"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="80sp"
-        android:visibility="gone" />
-
-    <View
-        android:id="@+id/viewShutterEffect"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
         android:background="@color/white"
-        android:visibility="gone" />
+        android:keepScreenOn="true">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        <com.sticket.app.sticket.facetracker.CameraSourcePreview
+            android:id="@+id/preview_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onTouchPreview">
 
-        <ImageButton
-            android:id="@+id/btnCameraSetting"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="20dp"
-            android:layout_alignParentStart="true"
+            <com.sticket.app.sticket.facetracker.GraphicOverlay
+                android:id="@+id/graphyOverlayPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.sticket.app.sticket.facetracker.CameraSourcePreview>
+
+        <TextView
+            android:id="@+id/txtCountDown"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:background="@color/transparent"
-            android:onClick="btnCameraSetting"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_camera_setting3" />
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="80sp"
+            android:visibility="gone" />
 
-        <ToggleButton
-            android:id="@+id/btnSwitch"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/img_switch2"
-            android:textOff=""
-            android:textOn="" />
+        <View
+            android:id="@+id/viewShutterEffect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="gone" />
 
-        <ImageButton
-            android:id="@+id/btnStore"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:background="@color/transparent"
-            android:onClick="btnStore"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_store3" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <ImageButton
+                android:id="@+id/btnCameraSetting"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:onClick="btnCameraSetting"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_camera_setting3" />
+
+            <ToggleButton
+                android:id="@+id/btnPreviewFacingSwitch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/img_switch2"
+                android:textOff=""
+                android:textOn="" />
+
+            <ImageButton
+                android:id="@+id/btnStore"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:onClick="btnStoreClick"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_store3" />
+
+        </RelativeLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <ImageButton
+                android:id="@+id/btnSticker"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="16dp"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:onClick="btnSticker"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_sticker3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnCapture"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnCapture"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="8dp"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:onClick="onCaptureBtnClick"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_capture2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnGallery"
+                app:layout_constraintStart_toEndOf="@+id/btnSticker"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnGallery"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:onClick="btnOpenGalleryClick"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_gallery3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnCapture"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
 
     </RelativeLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
-        <ImageButton
-            android:id="@+id/btnSticker"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="20dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="16dp"
-            android:adjustViewBounds="true"
-            android:background="@color/transparent"
-            android:onClick="btnSticker"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_sticker3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnCapture"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnCapture"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:padding="10dp"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="8dp"
-            android:adjustViewBounds="true"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            android:onClick="btnCapture"
-            android:src="@drawable/img_capture2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnGallery"
-            app:layout_constraintStart_toEndOf="@+id/btnSticker"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnGallery"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="16dp"
-            android:adjustViewBounds="true"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            android:onClick="btnOpenGallery"
-            android:src="@drawable/img_gallery3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnCapture"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-
-</RelativeLayout>
+</layout>

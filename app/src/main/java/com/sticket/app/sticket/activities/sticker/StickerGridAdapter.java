@@ -20,8 +20,8 @@ public class StickerGridAdapter extends BaseAdapter {
     /* CAMERA Adapter*/
 
     private int icons[] = {
-            R.drawable.left_eye, R.drawable.right_eye, R.drawable.nose, R.drawable.nose2,
-            R.drawable.cheek, R.drawable.mouth_bottom, R.drawable.left_eye2, R.drawable.btn_switch,
+            R.drawable.heart, R.drawable.nose, R.drawable.nose2,
+            R.drawable.cheek, R.drawable.mouth_bottom, R.drawable.btn_switch,
             R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch,
             R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch, R.drawable.btn_switch
     };

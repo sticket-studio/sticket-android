@@ -2,7 +2,7 @@ package com.sticket.app.sticket.util.camera_setting;
 
 // 타이머 관련 Enum
 public enum Timer {
-    TIMER_NONE(0), TIMER_SEC3(1), TIMER_SEC5(2), TIMER_SEC7(3);
+    TIMER_NONE(0), TIMER_SEC3(3), TIMER_SEC5(5), TIMER_SEC7(7);
 
     private int val;
 
