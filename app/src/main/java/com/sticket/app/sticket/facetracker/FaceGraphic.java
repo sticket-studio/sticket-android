@@ -13,6 +13,7 @@ import com.google.android.gms.vision.face.Landmark;
 import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.SticonAsset;
 import com.sticket.app.sticket.util.BitmapUtils;
+import com.sticket.app.sticket.util.ImageUtil;
 import com.sticket.app.sticket.util.MyBitmapFactory;
 
 import java.util.Map;
@@ -111,47 +112,30 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
                     drawLandMark(ratio * (float) sticonAsset.getRatio(), canvas, bitmap, cx, cy,
                             F_CENTER + (float) sticonAsset.getOffsetX(),
                             F_CENTER + (float) sticonAsset.getOffsetY(),
-                            face.getEulerY());
+                            face.getEulerZ());
+                    bitmap.recycle();
                 }
-            } else {
-                if (landmark.getPosition() != null) {
-                    canvas.drawCircle(
-                            translateX(landmark.getPosition().x),
-                            translateY(landmark.getPosition().y),
-                            FACE_POSITION_RADIUS,
-                            mFacePositionPaint);
-                }
+//            } else {
+//                if (landmark.getPosition() != null) {
+//                    canvas.drawCircle(
+//                            translateX(landmark.getPosition().x),
+//                            translateY(landmark.getPosition().y),
+//                            FACE_POSITION_RADIUS,
+//                            mFacePositionPaint);
+//                }
             }
         }
 
     }
 
     private void drawLandMark(float ratio, Canvas canvas, Bitmap icon, int cx, int cy, float xf, float yf, float degrees) {
+        Bitmap rotatedBitmap = ImageUtil.rotateBitmap(icon, (int)degrees);
         float scaledWidth = ratio * icon.getWidth();
         float scaledHeight = ratio * icon.getHeight();
         int left = (int) (cx - scaledWidth * xf);
         int top = (int) (cy - scaledHeight * yf);
-//        Matrix matrix = new Matrix();
-//        matrix.postRotate(degrees, cx, cy);
-//        matrix.postScale(scaledWidth, scaledHeight);
-//        matrix.postTranslate(left, top);
-        canvas.drawBitmap(icon, null, getRect(ratio, cx, cy, icon, xf, yf), mFacePositionPaint);
-//        canvas.drawBitmap(icon, matrix, mFacePositionPaint);
-        icon.recycle();
-    }
-
-    private Bitmap rotateBitmap(Bitmap bitmap, float degrees) {
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-
-        Matrix matrix = new Matrix();
-        matrix.preRotate(degrees);
-
-        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-        Canvas canvas = new Canvas(rotatedBitmap);
-        canvas.drawBitmap(bitmap, 5.0f, 0.0f, null);
-
-        return rotatedBitmap;
+        canvas.drawBitmap(rotatedBitmap, null, getRect(ratio, cx, cy, rotatedBitmap, xf, yf), mFacePositionPaint);
+        rotatedBitmap.recycle();
     }
 
     private Rect getRect(float ratio, int cx, int cy, Bitmap icon, float xf, float yf) {

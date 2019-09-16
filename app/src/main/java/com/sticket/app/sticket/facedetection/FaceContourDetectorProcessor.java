@@ -89,29 +89,29 @@ public class FaceContourDetectorProcessor extends VisionProcessorBase<List<Fireb
 
     public final String IMG_FORMAT = ".jpg";
 
-    public void capture() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSSS");
-        String albumPath = FileUtil.ALBUM_DIRECTORY_PATH;
-        String imgName = albumPath + "/" + sdf.format(new Date()) + IMG_FORMAT;
-        Log.e("CAPTURE", imgName);
-        Bitmap b = ImageUtil.getBitmapFromView(graphicOverlay);
-
-        int quality = CameraOption.getInstance().ishD() ? 95 : 60;
-
-        try {
-            b.compress(Bitmap.CompressFormat.JPEG, quality, new FileOutputStream(imgName));
-        } catch (FileNotFoundException e) {
-            Log.e("CAPTURE", e.getMessage());
-            e.printStackTrace();
-        }
-
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Images.Media.DATA,
-                imgName);
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-        context.getContentResolver().insert(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-    }
+//    public void capture() {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSSS");
+//        String albumPath = FileUtil.ALBUM_DIRECTORY_PATH;
+//        String imgName = albumPath + "/" + sdf.format(new Date()) + IMG_FORMAT;
+//        Log.e("CAPTURE", imgName);
+//        Bitmap b = ImageUtil.getBitmapFromView(graphicOverlay,0,0);
+//
+//        int quality = CameraOption.getInstance().ishD() ? 95 : 60;
+//
+//        try {
+//            b.compress(Bitmap.CompressFormat.JPEG, quality, new FileOutputStream(imgName));
+//        } catch (FileNotFoundException e) {
+//            Log.e("CAPTURE", e.getMessage());
+//            e.printStackTrace();
+//        }
+//
+//        ContentValues values = new ContentValues();
+//        values.put(MediaStore.Images.Media.DATA,
+//                imgName);
+//        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+//        context.getContentResolver().insert(
+//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+//    }
 
     @Override
     protected void onFailure(@NonNull Exception e) {

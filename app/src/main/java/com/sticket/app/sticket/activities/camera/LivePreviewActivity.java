@@ -52,7 +52,6 @@ import com.sticket.app.sticket.util.camera_setting.CameraOption;
 import com.sticket.app.sticket.util.camera_setting.Direction;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static com.sticket.app.sticket.util.Preference.PREFERENCE_NAME_DIRECTION;
 
@@ -85,8 +84,6 @@ public final class LivePreviewActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_live_preview);
 
         sticketDatabase = SticketDatabase.getDatabase(getApplicationContext());
-
-//        binding.previewPreview.setRatio();
 
         binding.btnPreviewFacingSwitch.setOnCheckedChangeListener(this);
 
@@ -136,6 +133,7 @@ public final class LivePreviewActivity extends AppCompatActivity
                 new MultiProcessor.Builder<>(new GraphicFaceTrackerFactory(binding.graphyOverlayPreview))
                         .build());
         CameraSource.Builder cameraSourceBuilder = new CameraSource.Builder(context, detector)
+//                .setRequestedPreviewSize()
                 .setFacing(direction)
                 .setRequestedFps(29.97f)
                 .setAutoFocusEnabled(true);
@@ -292,14 +290,16 @@ public final class LivePreviewActivity extends AppCompatActivity
     private void capture() {
         if (CameraOption.getInstance().isAutoSave()) {
             cameraSource.takePicture(null, data -> {
-                ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
                 Bitmap previewBitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                 previewBitmap = ImageUtil.rotateBitmap(previewBitmap, 270);
-                Bitmap faceBitmap = ImageUtil.getBitmapFromView(binding.graphyOverlayPreview);
-                bitmapArrayList.add(previewBitmap);
-                bitmapArrayList.add(faceBitmap);
-                Bitmap combinedBitmap = ImageUtil.combineImages(bitmapArrayList);
+                Bitmap faceBitmap = ImageUtil.getBitmapFromView(this, binding.graphyOverlayPreview,
+                        previewBitmap.getWidth(), previewBitmap.getHeight());
+                Bitmap combinedBitmap = ImageUtil.combineImages(previewBitmap, faceBitmap);
                 ImageUtil.store(this, combinedBitmap);
+
+                previewBitmap.recycle();
+                faceBitmap.recycle();
+                combinedBitmap.recycle();
             });
         } else {
             runOnUiThread(() -> Alert.makeText("자동저장이 아님. 나중에 처리할 예정"));

@@ -1,5 +1,6 @@
 package com.sticket.app.sticket.util;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,8 +8,10 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.sticket.app.sticket.util.camera_setting.CameraOption;
 
@@ -29,7 +32,7 @@ public class ImageUtil {
      * @param view source view
      * @return generated bitmap object
      */
-    public static Bitmap getBitmapFromView(View view) {
+    public static Bitmap getBitmapFromView(Activity activity, View view, int width, int height) {
         // TODO: getWidth() to getMeasuredWidth()
         // 여기서 원래 measure를 해줌
         // 근데 문제는 measure를 해주면 값이 0이 되어 에러가 남.
@@ -42,41 +45,31 @@ public class ImageUtil {
 //        Log.e("CAPTURE", "height: " + view.getMeasuredHeight());
 //        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(),
 
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
-                Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.layout(0, 0, view.getWidth(), view.getHeight());
-        view.draw(canvas);
-        return bitmap;
+        view.setDrawingCacheEnabled(true);
+        Bitmap bitmap = view.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false);
+        view.destroyDrawingCache();
+
+        return flipBitmap(bitmap);
     }
 
-    /**
-     * Stitch two images one below another
-     *
-     * @param listOfBitmapsToStitch List of bitmaps to stitch
-     * @return resulting stitched bitmap
-     */
-    public static Bitmap combineImages(ArrayList<Bitmap> listOfBitmapsToStitch) {
-        Bitmap bitmapResult = null;
+    static public Bitmap resizeBitmap(Bitmap original, int width, int height) {
+        return Bitmap.createScaledBitmap(original, width, height, false);
+    }
 
-        int width = 0, height = 0;
+    static public Bitmap flipBitmap(Bitmap original) {
+        Matrix matrix = new Matrix();
+        matrix.preScale(-1.0f, 1.0f);
+        return Bitmap.createBitmap(original, 0,0,original.getWidth(), original.getHeight(), matrix, false);
+    }
 
-        for (Bitmap bitmap : listOfBitmapsToStitch) {
-            width = Math.max(width, bitmap.getWidth());
-            height = height + bitmap.getHeight();
-        }
-
-        bitmapResult = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-
-        Canvas comboImageCanvas = new Canvas(bitmapResult);
-
-        int currentHeight = 0;
-        for (Bitmap bitmap : listOfBitmapsToStitch) {
-            comboImageCanvas.drawBitmap(bitmap, 0f, currentHeight, null);
-            currentHeight = currentHeight + bitmap.getHeight();
-        }
-
-        return bitmapResult;
+    public static Bitmap combineImages(Bitmap bmp1, Bitmap bmp2) {
+        Bitmap bmOverlay = Bitmap.createBitmap(bmp1.getWidth(), bmp1.getHeight(), bmp1.getConfig());
+        Canvas canvas = new Canvas(bmOverlay);
+        canvas.drawBitmap(bmp1, new Matrix(), null);
+        // 왠지 모르겠는데 뒤집혀서 나옴;
+        Bitmap flipedBitmap = resizeBitmap(bmp2, bmp1.getWidth(), bmp1.getHeight());
+        canvas.drawBitmap(flipedBitmap, 0, 0, null);
+        return bmOverlay;
     }
 
     public static void store(Context context, Bitmap bitmap) {
