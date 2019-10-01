@@ -122,15 +122,15 @@
         android:layout_height="0dp"
         android:layout_weight="7"
         android:background="@color/sticon_editor_background">
-       <ImageView
+        <!--<ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:id="@+id/iv_asset_importer_selectedImg"
             android:visibility="invisible"
             android:layout_centerInParent="true"
-            />
+            />-->
         <ImageView
-            android:id="@+id/img_sasset_editor_avartar"
+            android:id="@+id/img_asset_editor_avartar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
