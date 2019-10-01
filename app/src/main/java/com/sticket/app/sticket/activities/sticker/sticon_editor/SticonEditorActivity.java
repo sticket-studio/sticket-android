@@ -2,6 +2,8 @@ package com.sticket.app.sticket.activities.sticker.sticon_editor;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -20,11 +22,12 @@ import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.Sticon;
 import com.sticket.app.sticket.database.entity.SticonAsset;
 import com.sticket.app.sticket.util.FileUtil;
-import com.sticket.app.sticket.util.ImageViewUtil;
 import com.sticket.app.sticket.util.Landmark;
 import com.xiaopo.flying.sticker.DrawableSticker;
 import com.xiaopo.flying.sticker.Sticker;
 import com.xiaopo.flying.sticker.StickerView;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +54,7 @@ public class SticonEditorActivity extends AppCompatActivity {
     @BindView(R.id.btn_sticon_editor_right_eye)
     Button rightEyeBtn;
     @BindView(R.id.btn_sticon_editor_glasses)
-    Button GlassesBtn;
+    Button glassesBtn;
     @BindView(R.id.btn_sticon_editor_nose)
     Button noseBtn;
     @BindView(R.id.btn_sticon_editor_left_cheek)
@@ -60,10 +63,17 @@ public class SticonEditorActivity extends AppCompatActivity {
     Button rightCheekBtn;
     @BindView(R.id.btn_sticon_editor_mouth)
     Button mouthBtn;
+    @BindView(R.id.btn_sticon_editor_left_ear)
+    Button leftEarBtn;
+    @BindView(R.id.btn_sticon_editor_right_ear)
+    Button rightEarBtn;
 
     Button currentBtn;
 
     private SticonEditorViewPagerAdapter adapter;
+
+    private float dummyX;
+    private float dummyY;
 
     private Map<Landmark, Sticker> stickerMap;
     private Map<Sticker, Landmark> landmarkMap;
@@ -100,6 +110,9 @@ public class SticonEditorActivity extends AppCompatActivity {
         assetTabLayout.setupWithViewPager(assetViewPager);
 
         currentBtn = leftEyeBtn;
+
+        dummyX = avartarImg.getDrawable().getIntrinsicWidth();
+        dummyY = avartarImg.getDrawable().getIntrinsicHeight();
     }
 
     private void initListener() {
@@ -156,17 +169,20 @@ public class SticonEditorActivity extends AppCompatActivity {
 
         buttonMap.put(Landmark.EYE_LEFT, leftEyeBtn);
         buttonMap.put(Landmark.EYE_RIGHT, rightEyeBtn);
-        buttonMap.put(Landmark.GLASSES, GlassesBtn);
+        buttonMap.put(Landmark.GLASSES, glassesBtn);
         buttonMap.put(Landmark.CHEEK_LEFT, leftCheekBtn);
         buttonMap.put(Landmark.CHEEK_RIGHT, rightCheekBtn);
         buttonMap.put(Landmark.NOSE, noseBtn);
         buttonMap.put(Landmark.MOUTH, mouthBtn);
+        buttonMap.put(Landmark.EAR_LEFT, leftEarBtn);
+        buttonMap.put(Landmark.EAR_RIGHT, rightEarBtn);
     }
 
     @OnClick({R.id.btn_sticon_editor_left_eye, R.id.btn_sticon_editor_right_eye,
             R.id.btn_sticon_editor_glasses, R.id.btn_sticon_editor_nose,
             R.id.btn_sticon_editor_left_cheek, R.id.btn_sticon_editor_right_cheek
-            , R.id.btn_sticon_editor_mouth})
+            , R.id.btn_sticon_editor_mouth, R.id.btn_sticon_editor_left_ear,
+            R.id.btn_sticon_editor_right_ear})
     public void onClick(View v) {
         if (!stickerMap.containsKey(currentLandmark)) {
             currentBtn.setBackground(getDrawable(R.drawable.btn_gray));
@@ -199,6 +215,12 @@ public class SticonEditorActivity extends AppCompatActivity {
             case R.id.btn_sticon_editor_mouth:
                 currentLandmark = Landmark.MOUTH;
                 break;
+            case R.id.btn_sticon_editor_left_ear:
+                currentLandmark = Landmark.EAR_LEFT;
+                break;
+            case R.id.btn_sticon_editor_right_ear:
+                currentLandmark = Landmark.EAR_RIGHT;
+                break;
         }
     }
 
@@ -207,26 +229,25 @@ public class SticonEditorActivity extends AppCompatActivity {
             stickerView.remove(stickerMap.get(landmark));
         }
 
-        Bitmap bitmap = BitmapFactory.decodeFile(asset.getLocal_url());
+        Bitmap bitmap = BitmapFactory.decodeFile(asset.getLocalUrl());
 
         Sticker sticker = new DrawableSticker(new BitmapDrawable(getResources(), bitmap));
         stickerMap.put(landmark, sticker);
         assetMap.put(landmark, asset);
         landmarkMap.put(sticker, landmark);
-        bitmapMap.put(landmark,bitmap);
+        bitmapMap.put(landmark, bitmap);
         stickerView.addSticker(sticker);
 
-        float xPercent = landmark.getX();
-        float yPercent = landmark.getY();
+//        sticker.getMatrix().setScale(1f,1f);
+//        stickerView.invalidate();
 
-        float xOffset = (stickerView.getWidth() - avartarImg.getDrawable().getIntrinsicWidth()) / 2f
-                + ImageViewUtil.getAbstractXByPercent(avartarImg, xPercent);
-        float yOffset = (stickerView.getHeight() - avartarImg.getDrawable().getIntrinsicHeight()) / 2f
-                + ImageViewUtil.getAbstractYByPercent(avartarImg, yPercent);
-        float xScaleOffset = (float) bitmap.getWidth() / (float) sticker.getWidth();
-        float yScaleOffset = (float) bitmap.getHeight() / (float) sticker.getHeight();
-        sticker.getMatrix().postScale(0.3f, 0.3f, xOffset, yOffset);
-
+        float xOffset = (stickerView.getWidth() - dummyX) / 2f + dummyX * landmark.getX() / 100f
+                - sticker.getWidth() / 2f;
+        float yOffset = (stickerView.getHeight() - dummyY) / 2f + dummyY * landmark.getY() / 100f
+                - sticker.getHeight() / 2f;
+//        float xScaleOffset = (float) bitmap.getWidth() / (float) sticker.getWidth();
+//        float yScaleOffset = (float) bitmap.getHeight() / (float) sticker.getHeight();
+        sticker.getMatrix().setTranslate(xOffset, yOffset);
         stickerView.invalidate();
 
         SticonAsset sticonAsset = new SticonAsset();
@@ -247,7 +268,7 @@ public class SticonEditorActivity extends AppCompatActivity {
         String fileName = "thumbnail" + newSticonId;
         FileUtil.saveBitmapToFile(thumbnail, FileUtil.THUMBNAIL_STICON_DIRECTORY_PATH, fileName);
 
-        sticon.setIdx((int)newSticonId);
+        sticon.setIdx((int) newSticonId);
         sticon.setLocal_url(FileUtil.THUMBNAIL_STICON_DIRECTORY_PATH + "/" + fileName + ".png");
         database.sticonDao().update(sticon);
 
@@ -258,19 +279,22 @@ public class SticonEditorActivity extends AppCompatActivity {
 
             int isFlipped = sticker.isFlippedHorizontally() ? 1 : 0;
             int rotate = (int) sticker.getCurrentAngle();
+            double ratio = sticker.getCurrentScale();
 
             sticonAsset.setSticonIdx((int) newSticonId);
-            float offsetX = (float)(sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX())/ bitmap.getWidth();
+            float offsetX = (float) (sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX()) / bitmap.getWidth();
             // offsetY는 반대 (-)
-            float offsetY = -(float)(sticker.getMappedCenterPoint().y - sticonAsset.getOffsetY())/ bitmap.getHeight();
+            float offsetY = -(float) (sticker.getMappedCenterPoint().y - sticonAsset.getOffsetY()) / bitmap.getHeight();
 
-            Log.e(TAG, "xOffset : " + (float)(sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX())/ bitmap.getWidth());
+            Log.e(TAG, "xOffset : " + (float) (sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX()) / bitmap.getWidth());
+            JSONObject jsonObject = new JSONObject();
 
             sticonAsset.setOffsetX(offsetX);
             sticonAsset.setOffsetY(offsetY);
             sticonAsset.setFlip(isFlipped);
             sticonAsset.setRotate(rotate);
             sticonAsset.setLandmark(landmark);
+            sticonAsset.setRatio(ratio);
             database.sticonAssetDao().insert(sticonAsset);
         }
 
@@ -285,12 +309,9 @@ public class SticonEditorActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         adapter = new SticonEditorViewPagerAdapter(getSupportFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
 
-        adapter.init(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Asset asset = (Asset) parent.getItemAtPosition(position);
-                postAsset(asset, currentLandmark);
-            }
+        adapter.init((parent, view, position, id) -> {
+            Asset asset = (Asset) parent.getItemAtPosition(position);
+            postAsset(asset, currentLandmark);
         });
 
         viewPager.setAdapter(adapter);

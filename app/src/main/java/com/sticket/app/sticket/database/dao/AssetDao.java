@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.sticket.app.sticket.database.entity.Asset;
+import com.sticket.app.sticket.util.Landmark;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public interface AssetDao {
 
     @Query("SELECT * FROM asset WHERE idx = (:idx)")
     Asset getAssetById(int idx);
+
+    @Query("SELECT * FROM asset WHERE landmark = (:landmark)")
+    List<Asset> getAssetsByLandmark(String landmark);
 
     @Query("SELECT a.* FROM asset a INNER JOIN sticon_asset sa ON a.idx = sa.asset_idx " +
             "WHERE sa.sticon_idx = (:sticonIdx)")

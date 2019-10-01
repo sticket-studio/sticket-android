@@ -118,6 +118,24 @@
                 android:background="@drawable/btn_gray"
                 android:text="입"
                 android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_sticon_editor_left_ear"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_gray"
+                android:text="왼쪽귀"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_sticon_editor_right_ear"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_gray"
+                android:text="오른쪽귀"
+                android:textColor="@color/white" />
         </LinearLayout>
     </HorizontalScrollView>
 

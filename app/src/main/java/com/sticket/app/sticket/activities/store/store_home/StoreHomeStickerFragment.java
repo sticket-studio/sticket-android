@@ -31,7 +31,6 @@ public class StoreHomeStickerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO : Preview Page
-                Toast.makeText(getActivity(), "Clicked icon position:" + position, Toast.LENGTH_SHORT).show();
             }
         });
         return view;

@@ -1,7 +1,7 @@
 package com.sticket.app.sticket.util.camera_setting;
 
 public enum Direction {
-    DIRECTION_FRONT(0), DIRECTION_BACK(1);
+    DIRECTION_FRONT(1), DIRECTION_BACK(0);
 
     int val;
 

@@ -8,17 +8,17 @@
     android:background="#000"
     android:keepScreenOn="true">
 
-  <com.sticket.app.sticket.common.CameraSourcePreview
-      android:id="@+id/firePreview"
+  <com.sticket.app.sticket.facedetection.CameraSourcePreview
+      android:id="@+id/preview_preview"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <com.sticket.app.sticket.common.GraphicOverlay
-        android:id="@+id/fireFaceOverlay"
+    <com.sticket.app.sticket.facedetection.GraphicOverlay
+        android:id="@+id/graphyOverlayPreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-  </com.sticket.app.sticket.common.CameraSourcePreview>
+  </com.sticket.app.sticket.facedetection.CameraSourcePreview>
 
   <FrameLayout
       android:id="@+id/control"

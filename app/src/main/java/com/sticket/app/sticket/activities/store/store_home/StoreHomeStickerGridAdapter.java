@@ -12,7 +12,7 @@ import com.sticket.app.sticket.R;
 public class StoreHomeStickerGridAdapter extends BaseAdapter {
 
     private int icons[] = {
-            R.drawable.btn_switch, R.drawable.cheek, R.drawable.left_eye, R.drawable.right_eye,
+            R.drawable.btn_switch, R.drawable.cheek, R.drawable.heart,
             R.drawable.btn_switch, R.drawable.cheek, R.drawable.nose2, R.drawable.mouth_bottom,
             R.drawable.nose2, R.drawable.btn_switch, R.drawable.cheek, R.drawable.mouth_bottom, R.drawable.cheek,
             R.drawable.btn_switch, R.drawable.cheek, R.drawable.mouth_bottom,

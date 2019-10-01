@@ -37,7 +37,7 @@ public class LikeFagement extends Fragment {
         LikeFagement.ViewPagerAdapter adapter = new LikeFagement.ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
         adapter.addFrag(new LikeAuthorFragment(), "작가");
         adapter.addFrag(new LikeAssetFragment(), "애셋");
-        adapter.addFrag(new LikeSticonFragment(), "스티커");
+        adapter.addFrag(new LikeSticonFragment(), "스티콘");
         adapter.addFrag(new LikeMotionticonFragment(), "모션티콘");
         viewPager.setAdapter(adapter);
     }

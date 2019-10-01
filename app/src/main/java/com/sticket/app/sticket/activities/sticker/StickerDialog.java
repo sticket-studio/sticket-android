@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -24,8 +25,10 @@ import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.Motionticon;
 import com.sticket.app.sticket.database.entity.Sticon;
 import com.sticket.app.sticket.database.entity.SticonAsset;
+import com.sticket.app.sticket.util.MyBitmapFactory;
 import com.sticket.app.sticket.util.ViewPagerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -130,13 +133,24 @@ public class StickerDialog extends BottomSheetDialogFragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
-        adapter.addFrag(new StickerGridFragment(), "눈");
-        adapter.addFrag(new StickerGridFragment(), "코");
-        adapter.addFrag(new StickerGridFragment(), "입");
-        adapter.addFrag(new StickerGridFragment(), "볼");
-        adapter.addFrag(new StickerGridFragment(), "귀걸이");
-        adapter.addFrag(new StickerGridFragment(), "스티커");
-        adapter.addFrag(new StickerGridFragment(), "모션티콘");
+
+        adapter.init(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object item = parent.getItemAtPosition(position);
+                if(item instanceof Asset){
+                    Asset asset = (Asset) parent.getItemAtPosition(position);
+
+                }else if(item instanceof Sticon){
+                    Sticon sticon = (Sticon) parent.getItemAtPosition(position);
+
+                    if (sticon != null) {
+                        MyBitmapFactory.getInstance().setSticon(sticon);
+                    }
+                }
+            }
+        });
+
         viewPager.setAdapter(adapter);
     }
 

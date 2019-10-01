@@ -10,9 +10,9 @@ import android.graphics.Rect;
 import com.google.firebase.ml.vision.face.FirebaseVisionFace;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark;
-import com.sticket.app.sticket.common.GraphicOverlay;
 import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.SticonAsset;
+import com.sticket.app.sticket.util.BitmapUtils;
 import com.sticket.app.sticket.util.MyBitmapFactory;
 
 import java.util.Map;
@@ -97,11 +97,16 @@ public class FaceContourGraphic extends GraphicOverlay.Graphic {
                 final int cx = (int) translateX(landmark.getPosition().getX());
                 final int cy = (int) translateY(landmark.getPosition().getY());
 
+                BitmapFactory.Options options = new BitmapFactory.Options();
+
 //            if (LANDMARK_DRAWABLE_ARRAY[type] != NO_IMAGE) {
-                Bitmap bitmap = BitmapFactory.decodeFile(asset.getLocal_url());
+                Bitmap bitmap = BitmapFactory.decodeFile(asset.getLocalUrl());
+                bitmap = BitmapUtils.rotate(bitmap, sticonAsset.getRotate());
+
                 if (bitmap != null) {
-                    drawLandMark(ratio, canvas, bitmap, cx, cy,
-                            F_CENTER + (float) sticonAsset.getOffsetX(), F_CENTER + (float) sticonAsset.getOffsetY());
+                    drawLandMark(ratio * (float) sticonAsset.getRatio(), canvas, bitmap, cx, cy,
+                            F_CENTER + (float) sticonAsset.getOffsetX(),
+                            F_CENTER + (float) sticonAsset.getOffsetY());
                 } else {
 //                    canvas.drawCircle(
 //                            translateX(cx),

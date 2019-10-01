@@ -38,7 +38,7 @@ public class StoreHomeFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
         adapter.addFrag(new StoreHomeHomeFragment(), "홈");
         adapter.addFrag(new StoreHomeAssetFragment(), "애셋");
-        adapter.addFrag(new StoreHomeStickerFragment(), "스티커");
+        adapter.addFrag(new StoreHomeStickerFragment(), "스티콘");
         adapter.addFrag(new StoreHomeMotionFragment(), "모션티콘");
         viewPager.setAdapter(adapter);
     }

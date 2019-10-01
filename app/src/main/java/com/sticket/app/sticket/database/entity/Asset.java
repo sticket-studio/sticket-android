@@ -15,10 +15,10 @@ public class Asset {
     private  int idx;
 
     @ColumnInfo(name="local_url")
-    private String local_url;
+    private String localUrl;
 
     @ColumnInfo(name="img_url")
-    private String img_url;
+    private String imgUrl;
 
     @ColumnInfo(name="offset_x")
     private double offset_x;
@@ -44,20 +44,20 @@ public class Asset {
         this.idx = idx;
     }
 
-    public String getLocal_url() {
-        return local_url;
+    public String getLocalUrl() {
+        return localUrl;
     }
 
-    public void setLocal_url(String local_url) {
-        this.local_url = local_url;
+    public void setLocalUrl(String localUrl) {
+        this.localUrl = localUrl;
     }
 
-    public String getImg_url() {
-        return img_url;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setImg_url(String img_url) {
-        this.img_url = img_url;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public double getOffset_x() {
