@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.camera.LivePreviewActivity;
 import com.sticket.app.sticket.api.retrofit.client.ApiClient;
+import com.sticket.app.sticket.api.retrofit.client.ApiConfig;
 import com.sticket.app.sticket.api.retrofit.dto.request.user.SignInRequest;
 import com.sticket.app.sticket.api.retrofit.dto.response.user.SignInResponse;
 import com.sticket.app.sticket.util.Alert;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Credentials;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,12 +50,14 @@ public class SigninActivity extends AppCompatActivity {
         request.setGrantType("password");
 
         ApiClient.getInstance().getApiService()
-                .getToken(ApiClient.createBasicToken(), "password"
-                        , request.getUsername(), request.getPassword())
+                .getToken(Credentials.basic(ApiConfig.USER_NAME, ApiConfig.USER_SECRET),
+                        request.getUsername(), request.getPassword(), request.getGrantType())
                 .enqueue(new Callback<SignInResponse>() {
                     @Override
                     public void onResponse(Call<SignInResponse> call, Response<SignInResponse> response) {
                         if (response.body() != null) {
+                            ApiClient.getInstance().setToken(response.body().getAccessToken());
+
                             Intent intent = new Intent(SigninActivity.this, LivePreviewActivity.class);
                             startActivity(intent);
                         } else {

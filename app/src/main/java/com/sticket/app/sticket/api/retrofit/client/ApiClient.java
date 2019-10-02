@@ -16,35 +16,32 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    private ApiService apiService;
-    private static ApiClient instance;
-    private OkHttpClient okclient;
     private static final String PROD = ApiConfig.API_SERVER_HOST;
 
-    public void create(){
-        /**
-         * Gson 컨버터 이용
-         */
+    private static ApiClient instance;
+    private MyInterceptor interceptor;
+
+    private ApiService apiService;
+
+    public void create() {
+        interceptor = new MyInterceptor();
+
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateTypeAdapter())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss ZZZ")
                 .create();
 
         OkHttpClient okHttp = new OkHttpClient.Builder()
-                .addInterceptor(new MyInterceptor())
+                .addInterceptor(interceptor)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getApiServer(PROD))
+                .baseUrl(String.format("http://%s:8080/", PROD))
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttp)
                 .build();
 
         apiService = retrofit.create(ApiService.class);
-    }
-
-    public static String createBasicToken() {
-        return Credentials.basic(ApiConfig.USER_NAME, ApiConfig.USER_SECRET);
     }
 
     public static ApiClient getInstance() {
@@ -58,11 +55,11 @@ public class ApiClient {
         return instance;
     }
 
-    public static String getApiServer(String hostIp) {
-        return "http://" + hostIp + ":8080/";
-    }
-
     public ApiService getApiService() {
         return apiService;
+    }
+
+    public void setToken(String token){
+        interceptor.setToken(token);
     }
 }
