@@ -3,6 +3,8 @@ package com.sticket.app.sticket.api.retrofit.client;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.DateTypeAdapter;
+import com.sticket.app.sticket.api.retrofit.client.service.AssetService;
+import com.sticket.app.sticket.api.retrofit.client.service.AuthService;
 
 import java.util.Date;
 

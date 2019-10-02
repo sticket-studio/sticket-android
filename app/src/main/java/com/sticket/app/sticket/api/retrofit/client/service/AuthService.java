@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.api.retrofit.client;
+package com.sticket.app.sticket.api.retrofit.client.service;
 
 import com.sticket.app.sticket.api.retrofit.dto.request.auth.FindEmailRequest;
 import com.sticket.app.sticket.api.retrofit.dto.request.auth.FindPasswordRequest;
