@@ -18,7 +18,6 @@ public class MyApplication extends Application {
 
         Alert.build(getApplicationContext());
         Preference.getInstance().build(getApplicationContext());
-        ApiClient.getInstance().create();
 
         if(Preference.getInstance().getBoolean(Preference.PREFERENCE_NAME_FIRST_LAUNCH)){
             Preference.getInstance().putString(Preference.PREFERENCE_NAME_SAVE_LOCATION,

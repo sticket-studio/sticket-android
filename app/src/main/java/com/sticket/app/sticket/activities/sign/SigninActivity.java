@@ -11,7 +11,7 @@ import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.camera.LivePreviewActivity;
 import com.sticket.app.sticket.api.retrofit.client.ApiClient;
 import com.sticket.app.sticket.api.retrofit.client.ApiConfig;
-import com.sticket.app.sticket.api.retrofit.dto.request.user.SignInRequest;
+import com.sticket.app.sticket.api.retrofit.dto.request.auth.SignInRequest;
 import com.sticket.app.sticket.api.retrofit.dto.response.user.SignInResponse;
 import com.sticket.app.sticket.util.Alert;
 
@@ -47,9 +47,8 @@ public class SigninActivity extends AppCompatActivity {
         final SignInRequest request = new SignInRequest();
         request.setUsername(emailEdit.getText().toString());
         request.setPassword(passwordEdit.getText().toString());
-        request.setGrantType("password");
 
-        ApiClient.getInstance().getApiService()
+        ApiClient.getInstance().getAuthService()
                 .getToken(Credentials.basic(ApiConfig.USER_NAME, ApiConfig.USER_SECRET),
                         request.getUsername(), request.getPassword(), request.getGrantType())
                 .enqueue(new Callback<SignInResponse>() {

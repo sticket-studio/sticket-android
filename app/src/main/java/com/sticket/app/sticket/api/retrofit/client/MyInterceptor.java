@@ -21,7 +21,7 @@ class MyInterceptor implements Interceptor {
                 .build();
 
         Log.i("okhttp", String.format("Sending request %s on %s\n%s\n%s\n%s",
-                request.url(), chain.connection(), request.headers(), request.body(), request.header("content-type")));
+                request.url(), chain.connection(), request.headers(), request.body(), request.header("Content-Type")));
 
         Response response = chain.proceed(request);
 

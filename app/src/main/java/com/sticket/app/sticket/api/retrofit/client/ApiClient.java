@@ -6,7 +6,6 @@ import com.google.gson.internal.bind.DateTypeAdapter;
 
 import java.util.Date;
 
-import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,9 +20,10 @@ public class ApiClient {
     private static ApiClient instance;
     private MyInterceptor interceptor;
 
-    private ApiService apiService;
+    private final AuthService authService;
+    private final AssetService assetService;
 
-    public void create() {
+    public ApiClient() {
         interceptor = new MyInterceptor();
 
         Gson gson = new GsonBuilder()
@@ -41,7 +41,8 @@ public class ApiClient {
                 .client(okHttp)
                 .build();
 
-        apiService = retrofit.create(ApiService.class);
+        authService = retrofit.create(AuthService.class);
+        assetService = retrofit.create(AssetService.class);
     }
 
     public static ApiClient getInstance() {
@@ -55,8 +56,12 @@ public class ApiClient {
         return instance;
     }
 
-    public ApiService getApiService() {
-        return apiService;
+    public AssetService getAssetService() {
+        return assetService;
+    }
+
+    public AuthService getAuthService() {
+        return authService;
     }
 
     public void setToken(String token){

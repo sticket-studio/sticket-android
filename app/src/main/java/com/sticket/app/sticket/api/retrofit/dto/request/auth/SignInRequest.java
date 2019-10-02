@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.api.retrofit.dto.request.user;
+package com.sticket.app.sticket.api.retrofit.dto.request.auth;
 
 public class SignInRequest {
     private String username;
