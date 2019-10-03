@@ -55,10 +55,11 @@ public class SigninActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<SignInResponse> call, Response<SignInResponse> response) {
                         if (response.body() != null) {
+                            Log.e("SIGNIN", response.body().toString());
+                            Log.e("SIGNIN", response.body().getAccessToken());
                             ApiClient.getInstance().setToken(response.body().getAccessToken());
 
-                            Intent intent = new Intent(SigninActivity.this, LivePreviewActivity.class);
-                            startActivity(intent);
+                            finish();
                         } else {
                             try {
                                 Log.e("SIGNIN", "errorBody : " + response.errorBody().string());

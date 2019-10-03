@@ -1,10 +1,16 @@
 package com.sticket.app.sticket.api.retrofit.client.service;
 
-/**
- * Created by YangHC on 2017-08-08.
- */
+
+import com.sticket.app.sticket.database.entity.Asset;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
 
 public interface StickService {
 
+    @GET("sticket/api/normal/sticks")
+    Call<List<Asset>> getAllAssets();
 
 }

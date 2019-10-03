@@ -16,9 +16,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
-/**
- * Created by YangHC on 2017-08-08.
- */
 
 public interface AuthService {
 
