@@ -40,10 +40,10 @@ import com.sticket.app.sticket.database.DBTest;
 import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Sticon;
 import com.sticket.app.sticket.databinding.ActivityLivePreviewBinding;
-import com.sticket.app.sticket.facedetection.FaceContourDetectorProcessor;
 import com.sticket.app.sticket.facetracker.GraphicFaceTrackerFactory;
 import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.CameraUtil;
+import com.sticket.app.sticket.util.FileUtil;
 import com.sticket.app.sticket.util.ImageUtil;
 import com.sticket.app.sticket.util.MyBitmapFactory;
 import com.sticket.app.sticket.util.PermissionUtil;
@@ -67,7 +67,6 @@ public final class LivePreviewActivity extends AppCompatActivity
     public static final String IMG_FORMAT = ".jpg";
 
     private CameraSettingDialog cameraSettingDialog;
-    private FaceContourDetectorProcessor faceContourDetectorProcessor;
     private SticketDatabase sticketDatabase;
 
     private ActivityLivePreviewBinding binding;
@@ -96,7 +95,6 @@ public final class LivePreviewActivity extends AppCompatActivity
         } else {
             PermissionUtil.getRuntimePermissions(this, PERMISSION_REQUESTS);
         }
-        DBTest.patchAssetIfNotExist(this);
 
         initViews();
     }
@@ -191,6 +189,9 @@ public final class LivePreviewActivity extends AppCompatActivity
                                            @NonNull int[] grantResults) {
         if (PermissionUtil.allPermissionsGranted(this)) {
             createCameraSource();
+
+            FileUtil.structDirectories();
+            DBTest.patchAssetIfNotExist(this);
         }
 
         super.onRequestPermissionsResult(reqCode, permissions, grantResults);

@@ -1,30 +1,22 @@
 package com.sticket.app.sticket.activities.sign;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.activities.camera.LivePreviewActivity;
-import com.sticket.app.sticket.activities.setting.AccountActivity;
 import com.sticket.app.sticket.api.retrofit.client.ApiClient;
-import com.sticket.app.sticket.api.retrofit.dto.request.user.SignupRequest;
+import com.sticket.app.sticket.api.retrofit.dto.request.auth.SignupRequest;
 import com.sticket.app.sticket.api.retrofit.message.ApiMessasge;
 import com.sticket.app.sticket.util.Alert;
-import com.sticket.app.sticket.util.FileUtil;
-import com.sticket.app.sticket.util.Preference;
 
 import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import lib.folderpicker.FolderPicker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,7 +53,7 @@ public class SignupActivity extends AppCompatActivity {
         request.setName(usernameEdit.getText().toString());
         request.setPassword(passwordEdit.getText().toString());
 
-        ApiClient.getInstance().getApiService()
+        ApiClient.getInstance().getAuthService()
                 .userSignUp(request)
                 .enqueue(new Callback<ApiMessasge>() {
                     @Override

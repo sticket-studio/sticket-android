@@ -25,23 +25,24 @@ public class DBTest {
         SticketDatabase database = SticketDatabase.getDatabase(context);
         Resources resources = context.getResources();
 
-        //database.clearAllTables();
-        Log.e(TAG, "size : " + database.assetDao().getAllassets().size() );
+//        database.clearAllTables();
+        Log.e(TAG, "size : " + database.assetDao().getAllassets().size());
+        boolean isSuccess = true;
 
         if (database.assetDao().getAllassets().size() == 0) {
-            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.heart),
+            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.heart),
                     IMAGE_ASSET_DIRECTORY_PATH, "heart");
-            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.img_logo1),
+            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.img_logo1),
                     IMAGE_ASSET_DIRECTORY_PATH, "logo1");
-            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.img_logo2),
+            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.img_logo2),
                     IMAGE_ASSET_DIRECTORY_PATH, "logo2");
-            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.nose),
+            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.nose),
                     IMAGE_ASSET_DIRECTORY_PATH, "nose");
-            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.mouth_bottom),
+            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.mouth_bottom),
                     IMAGE_ASSET_DIRECTORY_PATH, "mouth_bottom");
-            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.cheek),
+            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.cheek),
                     IMAGE_ASSET_DIRECTORY_PATH, "cheek");
-            FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.nose2),
+            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.nose2),
                     IMAGE_ASSET_DIRECTORY_PATH, "nose2");
 
             Asset asset1 = new Asset();
@@ -67,7 +68,10 @@ public class DBTest {
             asset6.setLandmark(Landmark.NOSE);
 
             database.assetDao().insert(asset1, asset1_1, asset1_2, asset3, asset4, asset5, asset6);
+        }
 
+        if(!isSuccess){
+            database.clearAllTables();
         }
     }
 

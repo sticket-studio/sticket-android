@@ -12,10 +12,11 @@ import android.widget.TextView;
 import com.sticket.app.sticket.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<String> mData = null;
+    private List<String> mData = null;
     private ImageView itemImage;
     private TextView itemThemeText;
 
@@ -33,7 +34,7 @@ public class ItemAdapter extends RecyclerView.Adapter {
     }
 
     // Get Data list in Constructor
-    public ItemAdapter(ArrayList<String> list) {
+    public ItemAdapter(List<String> list) {
         mData = list;
     }
 

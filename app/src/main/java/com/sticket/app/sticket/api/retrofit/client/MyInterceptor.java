@@ -1,34 +1,47 @@
 package com.sticket.app.sticket.api.retrofit.client;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
 class MyInterceptor implements Interceptor {
-    @Override
-    public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request().newBuilder()
-                .header("User-Agent", "Beongaeman Android/1.1")
-                .method(chain.request().method(), chain.request().body())
-                .build();
+    private final String TOKEN_TYPE = "Bearer ";
+    private String token;
 
-        long t1 = System.nanoTime();
-        Log.i("okhttp", String.format("Sending request %s on %s%n%s",
-                request.url(), chain.connection(), request.headers()));
-        Log.i("okhttp", ",,"+request.url());
-        Log.i("okhttp", ",,"+chain.connection());
-        Log.i("okhttp", ",,"+request.headers());
+    @Override
+    public Response intercept(@NonNull Chain chain) throws IOException {
+        Request request = chain.request();
+
+        if (this.token != null) {
+            request = chain.request().newBuilder()
+                    .addHeader("Authorization", TOKEN_TYPE + this.token)
+                    .method(chain.request().method(), chain.request().body())
+                    .build();
+        }
 
         Response response = chain.proceed(request);
 
-        long t2 = System.nanoTime();
-        Log.i("okhttp", String.format("Received response for %s in %.1fms%n%s",
-                response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+        try {
+            Log.i("okhttp", String.format("Sending request %s on %s\n%s\n%s\n%s",
+                    request.url(), chain.connection(), request.headers(), request.body(), request.header("Content-Type")));
 
-        return response;
+            Log.i("okhttp", String.format("Received response for %s in %n%s",
+                    response.body(), response.headers()));
+        } catch (Exception e) {
+            Log.e("okhttp", "Error: " + e);
+        }
+        return chain.proceed(request);
+    }
+
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

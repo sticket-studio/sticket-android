@@ -10,7 +10,8 @@ import android.widget.EditText;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.camera.LivePreviewActivity;
 import com.sticket.app.sticket.api.retrofit.client.ApiClient;
-import com.sticket.app.sticket.api.retrofit.dto.request.user.SignInRequest;
+import com.sticket.app.sticket.api.retrofit.client.ApiConfig;
+import com.sticket.app.sticket.api.retrofit.dto.request.auth.SignInRequest;
 import com.sticket.app.sticket.api.retrofit.dto.response.user.SignInResponse;
 import com.sticket.app.sticket.util.Alert;
 
@@ -19,6 +20,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Credentials;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,17 +47,19 @@ public class SigninActivity extends AppCompatActivity {
         final SignInRequest request = new SignInRequest();
         request.setUsername(emailEdit.getText().toString());
         request.setPassword(passwordEdit.getText().toString());
-        request.setGrantType("password");
 
-        ApiClient.getInstance().getApiService()
-                .getToken(ApiClient.createBasicToken(), "password"
-                        , request.getUsername(), request.getPassword())
+        ApiClient.getInstance().getAuthService()
+                .getToken(Credentials.basic(ApiConfig.USER_NAME, ApiConfig.USER_SECRET),
+                        request.getUsername(), request.getPassword(), request.getGrantType())
                 .enqueue(new Callback<SignInResponse>() {
                     @Override
                     public void onResponse(Call<SignInResponse> call, Response<SignInResponse> response) {
                         if (response.body() != null) {
-                            Intent intent = new Intent(SigninActivity.this, LivePreviewActivity.class);
-                            startActivity(intent);
+                            Log.e("SIGNIN", response.body().toString());
+                            Log.e("SIGNIN", response.body().getAccessToken());
+                            ApiClient.getInstance().setToken(response.body().getAccessToken());
+
+                            finish();
                         } else {
                             try {
                                 Log.e("SIGNIN", "errorBody : " + response.errorBody().string());
