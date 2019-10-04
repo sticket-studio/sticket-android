@@ -43,6 +43,7 @@ import com.sticket.app.sticket.databinding.ActivityLivePreviewBinding;
 import com.sticket.app.sticket.facetracker.GraphicFaceTrackerFactory;
 import com.sticket.app.sticket.util.Alert;
 import com.sticket.app.sticket.util.CameraUtil;
+import com.sticket.app.sticket.util.FileUtil;
 import com.sticket.app.sticket.util.ImageUtil;
 import com.sticket.app.sticket.util.MyBitmapFactory;
 import com.sticket.app.sticket.util.PermissionUtil;
@@ -94,7 +95,6 @@ public final class LivePreviewActivity extends AppCompatActivity
         } else {
             PermissionUtil.getRuntimePermissions(this, PERMISSION_REQUESTS);
         }
-        DBTest.patchAssetIfNotExist(this);
 
         initViews();
     }
@@ -189,6 +189,9 @@ public final class LivePreviewActivity extends AppCompatActivity
                                            @NonNull int[] grantResults) {
         if (PermissionUtil.allPermissionsGranted(this)) {
             createCameraSource();
+
+            FileUtil.structDirectories();
+            DBTest.patchAssetIfNotExist(this);
         }
 
         super.onRequestPermissionsResult(reqCode, permissions, grantResults);

@@ -83,7 +83,7 @@ public class FileUtil {
         return Arrays.asList(targetDir.listFiles());
     }
 
-    public static void saveBitmapToFile(Bitmap bitmap, String destDirPath, String destFileName) {
+    public static boolean saveBitmapToFile(Bitmap bitmap, String destDirPath, String destFileName) {
         File file = new File(destDirPath);
         if (!file.exists()) {
             file.mkdirs();
@@ -94,8 +94,10 @@ public class FileUtil {
         try (OutputStream out = new FileOutputStream(fileCacheItem)) {
             fileCacheItem.createNewFile();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "cannot save bitmap: ", e);
+            return false;
         }
     }
 
