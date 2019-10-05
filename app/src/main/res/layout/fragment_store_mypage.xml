@@ -215,7 +215,7 @@
                 android:background="@color/white"
                 app:tabIndicatorColor="@color/grey"
                 app:tabMinWidth="55dp"
-                app:tabMode="scrollable"
+                app:tabMode="fixed"
                 app:tabTextAppearance="@style/MyPageTab" />
         </android.support.design.widget.AppBarLayout>
 

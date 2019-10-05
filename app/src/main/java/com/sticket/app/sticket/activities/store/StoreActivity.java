@@ -13,11 +13,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.store.store_viewbyasset.StoreViewByAssetFragment;
 import com.sticket.app.sticket.activities.store.store_charge.StoreChargeFragment;
-import com.sticket.app.sticket.activities.store.store_gift.StoreGiftFragment;
 import com.sticket.app.sticket.activities.store.store_home.StoreHomeFragment;
-import com.sticket.app.sticket.activities.store.store_like.LikeFagement;
-import com.sticket.app.sticket.activities.store.store_myitem.StoreMyItemFragment;
+import com.sticket.app.sticket.activities.store.store_like.StoreLikeFagement;
 import com.sticket.app.sticket.activities.store.store_mypage.StoreMyPageFragment;
 
 public class StoreActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -60,10 +59,10 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                 drawer.closeDrawer(GravityCompat.START);
                 tv.setText("홈");
                 break;
-            case R.id.nav_my_item:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreMyItemFragment()).commit();
+            case R.id.nav_view_by_asset:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreViewByAssetFragment()).commit();
                 drawer.closeDrawer(GravityCompat.START);
-                tv.setText("내 아이템");
+                tv.setText("애셋별 열람");
                 break;
             case R.id.nav_my_page:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreMyPageFragment()).commit();
@@ -71,14 +70,9 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                 tv.setText("마이 페이지");
                 break;
             case R.id.nav_like:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LikeFagement()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreLikeFagement()).commit();
                 drawer.closeDrawer(GravityCompat.START);
                 tv.setText("좋아요");
-                break;
-            case R.id.nav_gift_box:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreGiftFragment()).commit();
-                drawer.closeDrawer(GravityCompat.START);
-                tv.setText("선물함");
                 break;
             case R.id.nav_charge:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreChargeFragment()).commit();

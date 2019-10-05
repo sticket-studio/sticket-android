@@ -70,8 +70,6 @@ public class StoreMyPageFragment extends Fragment {
 
             }
         });
-
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -79,12 +77,8 @@ public class StoreMyPageFragment extends Fragment {
         adapter.addFrag(new MyPageItemListFragment(), "눈");
         adapter.addFrag(new MyPageItemListFragment(), "코");
         adapter.addFrag(new MyPageItemListFragment(), "입");
-        adapter.addFrag(new MyPageItemListFragment(), "귀");
         adapter.addFrag(new MyPageItemListFragment(), "볼");
-        adapter.addFrag(new MyPageItemListFragment(), "안경");
-        adapter.addFrag(new MyPageItemListFragment(), "머리띠");
-        adapter.addFrag(new MyPageItemListFragment(), "스티콘");
-        adapter.addFrag(new MyPageItemListFragment(), "모션티콘");
+        adapter.addFrag(new MyPageItemListFragment(), "귀");
         viewPager.setAdapter(adapter);
     }
 }
