@@ -3,7 +3,9 @@ package com.sticket.app.sticket.database;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.sticket.app.sticket.R;
@@ -14,65 +16,68 @@ import com.sticket.app.sticket.database.entity.SticonAsset;
 import com.sticket.app.sticket.util.FileUtil;
 import com.sticket.app.sticket.util.Landmark;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.sticket.app.sticket.util.FileUtil.IMAGE_ASSET_DIRECTORY_PATH;
 
-public class DBTest {
-    private static final String TAG = DBTest.class.getSimpleName();
+public class InitBasicAssets {
+    private static final String TAG = InitBasicAssets.class.getSimpleName();
+    private static boolean isSuccess;
 
     public static void patchAssetIfNotExist(Context context) {
+        isSuccess = true;
         SticketDatabase database = SticketDatabase.getDatabase(context);
-        Resources resources = context.getResources();
 
-//        database.clearAllTables();
-        Log.e(TAG, "size : " + database.assetDao().getAllassets().size());
-        boolean isSuccess = true;
+        Log.d(TAG, "size : " + database.assetDao().getAllassets().size());
 
         if (database.assetDao().getAllassets().size() == 0) {
-            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.heart),
-                    IMAGE_ASSET_DIRECTORY_PATH, "heart");
-            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.img_logo1),
-                    IMAGE_ASSET_DIRECTORY_PATH, "logo1");
-            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.img_logo2),
-                    IMAGE_ASSET_DIRECTORY_PATH, "logo2");
-            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.nose),
-                    IMAGE_ASSET_DIRECTORY_PATH, "nose");
-            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.mouth_bottom),
-                    IMAGE_ASSET_DIRECTORY_PATH, "mouth_bottom");
-            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.cheek),
-                    IMAGE_ASSET_DIRECTORY_PATH, "cheek");
-            isSuccess &= FileUtil.saveBitmapToFile(BitmapFactory.decodeResource(resources, R.drawable.nose2),
-                    IMAGE_ASSET_DIRECTORY_PATH, "nose2");
+            List<Asset> assets = new ArrayList<>();
 
-            Asset asset1 = new Asset();
-            asset1.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "heart.png");
-            asset1.setLandmark(Landmark.EYE_LEFT);
-            Asset asset1_1 = new Asset();
-            asset1_1.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "logo1.png");
-            asset1_1.setLandmark(Landmark.EYE_LEFT);
-            Asset asset1_2 = new Asset();
-            asset1_2.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "logo2.png");
-            asset1_2.setLandmark(Landmark.EYE_LEFT);
-            Asset asset3 = new Asset();
-            asset3.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose.png");
-            asset3.setLandmark(Landmark.NOSE);
-            Asset asset4 = new Asset();
-            asset4.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "mouth_bottom.png");
-            asset4.setLandmark(Landmark.MOUTH);
-            Asset asset5 = new Asset();
-            asset5.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "cheek.png");
-            asset5.setLandmark(Landmark.CHEEK_LEFT);
-            Asset asset6 = new Asset();
-            asset6.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + "nose2.png");
-            asset6.setLandmark(Landmark.NOSE);
+            for (Field field : R.drawable.class.getFields()) {
+                if(field.getName().startsWith("basic_")) {
+                    Log.d(TAG, "field.getName() : " + field.getName());
+                    try {
+                        assets.add(initBasicAsset(context, field.getInt(null), field.getName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
-            database.assetDao().insert(asset1, asset1_1, asset1_2, asset3, asset4, asset5, asset6);
+            database.assetDao().insertAll(assets);
         }
 
-        if(!isSuccess){
+        if (!isSuccess) {
+            Log.e(TAG, "Fail to save asset, Let's clear all tables ");
             database.clearAllTables();
         }
+    }
+
+    private static Asset initBasicAsset(Context context, int resourceId, String name) {
+        Resources resources = context.getResources();
+
+        Bitmap bitmap = BitmapFactory.decodeResource(resources, resourceId);
+        isSuccess &= FileUtil.saveBitmapToFile(bitmap, IMAGE_ASSET_DIRECTORY_PATH, name);
+
+        Asset asset = new Asset();
+        asset.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + name + ".png");
+        if(name.startsWith("basic_eye_")){
+            asset.setLandmark(Landmark.EYE_LEFT);
+        } else if(name.startsWith("basic_ear_")){
+            asset.setLandmark(Landmark.EAR_LEFT);
+        } else if(name.startsWith("basic_cheek_")){
+            asset.setLandmark(Landmark.CHEEK_LEFT);
+        } else if(name.startsWith("basic_nose_")){
+            asset.setLandmark(Landmark.NOSE);
+        } else if(name.startsWith("basic_mouth_")){
+            asset.setLandmark(Landmark.MOUTH);
+        }else{
+            Log.e(TAG, "setLandmark error : " + name);
+        }
+
+        return asset;
     }
 
     public static void printInfo(Context context) {

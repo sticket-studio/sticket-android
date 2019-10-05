@@ -194,4 +194,7 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
+### Basic assets ###
+**/basic_*.png
+
 # End of https://www.gitignore.io/api/maven,gradle,android,jetbrains

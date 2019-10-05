@@ -36,7 +36,7 @@ import com.sticket.app.sticket.activities.setting.CameraSettingDialog;
 import com.sticket.app.sticket.activities.setting.SettingActivity;
 import com.sticket.app.sticket.activities.sticker.StickerDialog;
 import com.sticket.app.sticket.activities.store.StoreActivity;
-import com.sticket.app.sticket.database.DBTest;
+import com.sticket.app.sticket.database.InitBasicAssets;
 import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Sticon;
 import com.sticket.app.sticket.databinding.ActivityLivePreviewBinding;
@@ -191,7 +191,7 @@ public final class LivePreviewActivity extends AppCompatActivity
             createCameraSource();
 
             FileUtil.structDirectories();
-            DBTest.patchAssetIfNotExist(this);
+            InitBasicAssets.patchAssetIfNotExist(this);
         }
 
         super.onRequestPermissionsResult(reqCode, permissions, grantResults);
