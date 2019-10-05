@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.adapter.SticonEditorGridAdapter;
 import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.Sticon;
@@ -308,8 +309,7 @@ public class SticonEditorActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         adapter = new SticonEditorViewPagerAdapter(getSupportFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
 
-        adapter.init((parent, view, position, id) -> {
-            Asset asset = (Asset) parent.getItemAtPosition(position);
+        adapter.init(asset -> {
             postAsset(asset, currentLandmark);
         });
 

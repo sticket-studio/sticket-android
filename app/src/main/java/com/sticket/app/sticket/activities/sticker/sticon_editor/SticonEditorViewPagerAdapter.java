@@ -3,7 +3,8 @@ package com.sticket.app.sticket.activities.sticker.sticon_editor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.widget.AdapterView;
+
+import com.sticket.app.sticket.adapter.SticonEditorGridAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,12 +26,12 @@ public class SticonEditorViewPagerAdapter extends FragmentPagerAdapter {
         }
     }
 
-    public void init(AdapterView.OnItemClickListener onItemClickListener) {
+    public void init(SticonEditorGridAdapter.OnAssetClickListener onAssetClickListener) {
         init();
 
         for (Fragment fragment : mFragmentList) {
             if (fragment instanceof SticonEditorAssetGridFragment) {
-                ((SticonEditorAssetGridFragment) fragment).setOnItemClickListener(onItemClickListener);
+                ((SticonEditorAssetGridFragment) fragment).setOnAssetClickListener(onAssetClickListener);
             }
         }
     }
