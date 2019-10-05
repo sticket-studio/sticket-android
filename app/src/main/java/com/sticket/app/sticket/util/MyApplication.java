@@ -23,5 +23,7 @@ public class MyApplication extends Application {
             Preference.getInstance().putString(Preference.PREFERENCE_NAME_SAVE_LOCATION,
                     Environment.getExternalStorageDirectory().getAbsolutePath());
         }
+
+        FileUtil.buildPaths();
     }
 }
