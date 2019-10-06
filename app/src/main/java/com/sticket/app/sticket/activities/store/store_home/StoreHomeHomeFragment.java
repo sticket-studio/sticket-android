@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.adapter.StoreHomeHomeAssetsAdapter;
-import com.sticket.app.sticket.api.retrofit.client.ApiClient;
-import com.sticket.app.sticket.api.retrofit.client.CustomCallback;
+import com.sticket.app.sticket.retrofit.client.ApiClient;
+import com.sticket.app.sticket.retrofit.client.CustomCallback;
 import com.sticket.app.sticket.databinding.FragmentStoreStartBinding;
 import com.sticket.app.sticket.models.Asset;
 
