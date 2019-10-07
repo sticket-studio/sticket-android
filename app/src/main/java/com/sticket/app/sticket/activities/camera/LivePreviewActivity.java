@@ -292,7 +292,7 @@ public final class LivePreviewActivity extends AppCompatActivity
         if (CameraOption.getInstance().isAutoSave()) {
             cameraSource.takePicture(null, data -> {
                 Bitmap previewBitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                previewBitmap = ImageUtil.rotateBitmap(previewBitmap, 270);
+                previewBitmap = ImageUtil.rotateBitmap(previewBitmap, 270, false);
                 Bitmap faceBitmap = ImageUtil.getBitmapFromView(this, binding.graphyOverlayPreview,
                         previewBitmap.getWidth(), previewBitmap.getHeight());
                 Bitmap combinedBitmap = ImageUtil.combineImages(previewBitmap, faceBitmap);

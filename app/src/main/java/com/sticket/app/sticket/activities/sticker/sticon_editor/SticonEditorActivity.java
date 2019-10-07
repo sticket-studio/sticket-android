@@ -278,6 +278,7 @@ public class SticonEditorActivity extends AppCompatActivity {
 
             int isFlipped = sticker.isFlippedHorizontally() ? 1 : 0;
             int rotate = (int) sticker.getCurrentAngle();
+            if (isFlipped==1) rotate += 180;
             double ratio = sticker.getCurrentScale();
 
             sticonAsset.setSticonIdx((int) newSticonId);

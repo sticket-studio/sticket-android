@@ -46,8 +46,6 @@ public class FileUtil {
     }
 
     public static void structDirectories() {
-        buildPaths();
-
         File dataDir = new File(DATA_DIRECTORY_PATH);
         File thumbnailDir = new File(THUMBNAIL_DIR_PATH);
         File assetThumbnailDir = new File(THUMBNAIL_ASSET_DIRECTORY_PATH);
