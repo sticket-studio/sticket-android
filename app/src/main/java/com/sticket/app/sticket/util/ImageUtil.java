@@ -94,13 +94,17 @@ public class ImageUtil {
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
     }
 
-    public static Bitmap rotateBitmap(Bitmap bitmap, int degree) {
+    public static Bitmap rotateBitmap(Bitmap bitmap, int degree, boolean isFlipped) {
         Matrix matrix = new Matrix();
 
+        if(isFlipped){
+            matrix.setScale(-1,1);
+            matrix.postTranslate(bitmap.getWidth(),0);
+        }
         matrix.postRotate(degree);
 
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+        Bitmap rotated = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
 
-        return Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+        return Bitmap.createBitmap(rotated, 0, 0, rotated.getWidth(), rotated.getHeight(), matrix, true);
     }
 }

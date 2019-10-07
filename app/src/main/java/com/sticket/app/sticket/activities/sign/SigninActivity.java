@@ -8,11 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.activities.camera.LivePreviewActivity;
-import com.sticket.app.sticket.api.retrofit.client.ApiClient;
-import com.sticket.app.sticket.api.retrofit.client.ApiConfig;
-import com.sticket.app.sticket.api.retrofit.dto.request.auth.SignInRequest;
-import com.sticket.app.sticket.api.retrofit.dto.response.user.SignInResponse;
+import com.sticket.app.sticket.retrofit.client.ApiClient;
+import com.sticket.app.sticket.retrofit.client.ApiConfig;
+import com.sticket.app.sticket.retrofit.dto.request.auth.SignInRequest;
+import com.sticket.app.sticket.retrofit.dto.response.user.SignInResponse;
 import com.sticket.app.sticket.util.Alert;
 
 import java.io.IOException;

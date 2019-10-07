@@ -3,8 +3,6 @@ package com.sticket.app.sticket.util;
 import android.app.Application;
 import android.os.Environment;
 
-import com.sticket.app.sticket.api.retrofit.client.ApiClient;
-
 public class MyApplication extends Application {
     private static final String TAG = "MyApplication";
 
