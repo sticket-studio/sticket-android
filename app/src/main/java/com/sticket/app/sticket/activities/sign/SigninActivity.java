@@ -72,7 +72,7 @@ public class SigninActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<SignInResponse> call, Throwable t) {
                         Alert.makeText("로그인 중 네트워크 에러 발생");
-                        Log.e("SIGNIN", "host : " + call.request().url().toString());
+                        Log.e("SIGNIN", "host : " + call.request().url().toString(), t);
                     }
                 });
     }

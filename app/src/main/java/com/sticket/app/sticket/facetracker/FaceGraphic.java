@@ -110,7 +110,7 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
 
                 if (bitmap != null) {
                     drawLandMark(ratio * (float) sticonAsset.getRatio(), canvas, bitmap, cx, cy,
-                            F_CENTER + (float) sticonAsset.getOffsetX(),
+                            F_CENTER + (float) -sticonAsset.getOffsetX(),
                             F_CENTER + (float) sticonAsset.getOffsetY(),
                             face.getEulerZ(), sticonAsset.getFlip()==1);
                     bitmap.recycle();

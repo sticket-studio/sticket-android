@@ -17,7 +17,7 @@ import com.sticket.app.sticket.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LikeFagement extends Fragment {
+public class StoreLikeFagement extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,11 +34,9 @@ public class LikeFagement extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        LikeFagement.ViewPagerAdapter adapter = new LikeFagement.ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
+        StoreLikeFagement.ViewPagerAdapter adapter = new StoreLikeFagement.ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
         adapter.addFrag(new LikeAuthorFragment(), "작가");
         adapter.addFrag(new LikeAssetFragment(), "애셋");
-        adapter.addFrag(new LikeSticonFragment(), "스티콘");
-        adapter.addFrag(new LikeMotionticonFragment(), "모션티콘");
         viewPager.setAdapter(adapter);
     }
 

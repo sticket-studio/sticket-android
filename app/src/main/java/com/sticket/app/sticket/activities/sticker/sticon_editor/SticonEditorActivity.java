@@ -238,15 +238,10 @@ public class SticonEditorActivity extends AppCompatActivity {
         bitmapMap.put(landmark, bitmap);
         stickerView.addSticker(sticker);
 
-//        sticker.getMatrix().setScale(1f,1f);
-//        stickerView.invalidate();
-
-        float xOffset = (stickerView.getWidth() - dummyX) / 2f + dummyX * landmark.getX() / 100f
-                - sticker.getWidth() / 2f;
-        float yOffset = (stickerView.getHeight() - dummyY) / 2f + dummyY * landmark.getY() / 100f
-                - sticker.getHeight() / 2f;
-//        float xScaleOffset = (float) bitmap.getWidth() / (float) sticker.getWidth();
-//        float yScaleOffset = (float) bitmap.getHeight() / (float) sticker.getHeight();
+        float xOffset = ((stickerView.getWidth() - dummyX) / 2f + dummyX * landmark.getX() / 100f
+                - sticker.getWidth() / 2f);
+        float yOffset = ((stickerView.getHeight() - dummyY) / 2f + dummyY * landmark.getY() / 100f
+                - sticker.getHeight() / 2f);
         sticker.getMatrix().setTranslate(xOffset, yOffset);
         stickerView.invalidate();
 
@@ -287,8 +282,6 @@ public class SticonEditorActivity extends AppCompatActivity {
             // offsetY는 반대 (-)
             float offsetY = -(float) (sticker.getMappedCenterPoint().y - sticonAsset.getOffsetY()) / bitmap.getHeight();
 
-            Log.e(TAG, "xOffset : " + (float) (sticker.getMappedCenterPoint().x - sticonAsset.getOffsetX()) / bitmap.getWidth());
-
             sticonAsset.setOffsetX(offsetX);
             sticonAsset.setOffsetY(offsetY);
             sticonAsset.setFlip(isFlipped);
@@ -297,8 +290,6 @@ public class SticonEditorActivity extends AppCompatActivity {
             sticonAsset.setRatio(ratio);
             database.sticonAssetDao().insert(sticonAsset);
 
-            Log.e(TAG, "isFlipped: " + isFlipped);
-            Log.e(TAG, "rotate: " + rotate);
         }
 
         finish();

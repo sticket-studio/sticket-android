@@ -15,6 +15,7 @@ import com.sticket.app.sticket.adapter.SticonEditorGridAdapter.OnAssetClickListe
 import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.databinding.FragmentStickerGrid2Binding;
+import com.sticket.app.sticket.util.Landmark;
 
 import java.util.List;
 
@@ -31,8 +32,10 @@ public class SticonEditorAssetGridFragment extends Fragment {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sticker_grid2, container, false);
 
+        Landmark landmark = (Landmark) getArguments().get("landmark");
+
         SticketDatabase sticketDatabase = SticketDatabase.getDatabase(getContext());
-        assetList = sticketDatabase.assetDao().getAllassets();
+        assetList = sticketDatabase.assetDao().getAssetsByLandmark(landmark.name());
 
         SticonEditorGridAdapter adapter = new SticonEditorGridAdapter(assetList);
         adapter.setOnAssetClickListener(onAssetClickListener);
