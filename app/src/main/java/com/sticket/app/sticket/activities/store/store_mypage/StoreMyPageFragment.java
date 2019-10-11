@@ -44,22 +44,21 @@ public class StoreMyPageFragment extends Fragment {
     }
 
     private void initViews(View view){
-        backGroundImg = view.findViewById(R.id.img_store_mypage_background);
         profileImg = view.findViewById(R.id.img_store_mypage_profile);
         likeToggle = view.findViewById(R.id.toggle_store_mypage_like);
         nameTxt = view.findViewById(R.id.txt_store_mypage_name);
         introductionTxt = view.findViewById(R.id.txt_store_mypage_introduction);
+
         worksTxt = view.findViewById(R.id.txt_store_mypage_works);
         followerTxt = view.findViewById(R.id.txt_store_mypage_follower);
         followingTxt = view.findViewById(R.id.txt_store_mypage_following);
-        settingBtn = view.findViewById(R.id.btn_store_mypage_setting);
-        backgroundSettingBtn = view.findViewById(R.id.btn_store_mypage_background_setting);
+
+        settingBtn = view.findViewById(R.id.btn_store_mypage_setting);              // Go to activity_account
         itemCategoryTab = view.findViewById(R.id.tab_store_mypage_item_category);
         itemsViewPager = view.findViewById(R.id.viewpager_store_mypage);
 
         setupViewPager(itemsViewPager);
         itemCategoryTab.setupWithViewPager(itemsViewPager);
-
         initListener();
     }
 

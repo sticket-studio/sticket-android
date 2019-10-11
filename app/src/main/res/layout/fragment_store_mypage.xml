@@ -16,31 +16,25 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/img_store_mypage_background"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
+                <!--TODO: width 고정시킨 것을 비율을 이용하여 유동적으로 변경가능하도록 수정 -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_store_mypage_profile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginTop="50dp"
+                    android:src="@drawable/img_profile2"
+                    app:civ_border_color="@color/whitegrey"
+                    app:civ_border_width="1dp" />
 
                 <TextView
                     android:id="@+id/txt_store_mypage_name"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="작가이름"
+                    android:text="내 이름"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -48,55 +42,40 @@
                     android:id="@+id/txt_store_mypage_introduction"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="1"
                     android:gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:maxLines="2"
-                    android:text="작가가 쓰는 설명. 자기소개 같은 것. 2줄까지 보여줄거야!"
-                    android:textColor="@color/black" />
-            </LinearLayout>
+                    android:text="안드로이드 파편화가 싫다."
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
         </LinearLayout>
 
-        <ToggleButton
-            android:id="@+id/toggle_store_mypage_like"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/selector_heart"
-            android:visibility="gone" />
-
-        <!-- Change Image button (camera img in oven). how about deleting this? i don't think we need it -->
-        <Button
-            android:id="@+id/btn_store_mypage_background_setting"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/img_camera_setting" />
-
-        <!-- User Setting (MyPage) ||  Interactive Like Button (DesignerPage) -->
+        <!-- User Setting (MyPage) -->
         <Button
             android:id="@+id/btn_store_mypage_setting"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/img_camera_setting" />
 
-
-        <!--TODO: width 고정시킨 것을 비율을 이용하여 유동적으로 변경가능하도록 수정 -->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_store_mypage_profile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/img_profile2"
-            app:civ_border_color="@color/grey"
-            app:civ_border_width="2dp" />
+        <!-- Like Button (DesignerPage) -->
+        <ToggleButton
+            android:id="@+id/toggle_store_mypage_like"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textOn=""
+            android:textOff=""
+            android:visibility="gone"
+            android:background="@drawable/ic_heart" />
 
     </RelativeLayout>
 
