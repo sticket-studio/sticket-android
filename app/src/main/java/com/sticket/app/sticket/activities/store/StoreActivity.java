@@ -18,6 +18,7 @@ import com.sticket.app.sticket.activities.store.store_charge.StoreChargeFragment
 import com.sticket.app.sticket.activities.store.store_home.StoreHomeFragment;
 import com.sticket.app.sticket.activities.store.store_like.StoreLikeFagement;
 import com.sticket.app.sticket.activities.store.store_mypage.StoreMyPageFragment;
+import com.sticket.app.sticket.retrofit.client.ApiClient;
 
 public class StoreActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -65,7 +66,11 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                 tv.setText("애셋별 열람");
                 break;
             case R.id.nav_my_page:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StoreMyPageFragment()).commit();
+                StoreMyPageFragment storeMyPageFragment = new StoreMyPageFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(StoreMyPageFragment.EXTRA_USER_IDX, ApiClient.getInstance().getUserId());
+                storeMyPageFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, storeMyPageFragment).commit();
                 drawer.closeDrawer(GravityCompat.START);
                 tv.setText("마이 페이지");
                 break;

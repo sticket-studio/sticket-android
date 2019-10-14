@@ -1,9 +1,11 @@
 package com.sticket.app.sticket.retrofit.client.service;
 
 import com.sticket.app.sticket.retrofit.dto.response.user.GetMyFavoriteAuthorsResponse;
+import com.sticket.app.sticket.retrofit.dto.response.user.UserPageResponse;
 import com.sticket.app.sticket.retrofit.message.ApiMessasge;
 import com.sticket.app.sticket.models.User;
 
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -19,7 +21,7 @@ public interface UserService {
      * @return 응답받은 User 정보
      */
     @GET("sticket/api/normal/users/me")
-    public User getMyInfo();
+    public Call<UserPageResponse> getMyInfo();
 
     /**
      * 유저 정보 조회
@@ -29,7 +31,7 @@ public interface UserService {
      * @return 응답받은 User 정보
      */
     @GET("sticket/api/normal/users/{userId}")
-    public User getUserInfoById(@Path("userId") int userId);
+    public Call<UserPageResponse> getUserInfoById(@Path("userId") int userId);
 
     /**
      * 내 정보 수정
@@ -39,7 +41,7 @@ public interface UserService {
      * @param user 바꿀 User의 정보
      */
     @PUT("sticket/api/normal/users")
-    public ApiMessasge updateMyInfo(@Body User user);
+    public Call<ApiMessasge> updateMyInfo(@Body User user);
 
     /**
      * 내가 좋아하는 작가 리스트 조회
@@ -48,7 +50,7 @@ public interface UserService {
      * @return 내가 좋아하는 작가 리스트
      */
     @GET("sticket/api/normal/users/like")
-    public GetMyFavoriteAuthorsResponse getMyLikeAuthor();
+    public Call<GetMyFavoriteAuthorsResponse> getMyLikeAuthor();
 
     /**
      * 작가 좋아요
@@ -58,7 +60,7 @@ public interface UserService {
      * @return 성공 여부
      */
     @POST("sticket/api/normal/users/like/{userId}")
-    public ApiMessasge likeAuthor(@Path("userId") int userId);
+    public Call<ApiMessasge> likeAuthor(@Path("userId") int userId);
 
     /**
      * 작가 좋아요 취소
@@ -67,5 +69,5 @@ public interface UserService {
      * @return 성공 여부
      */
     @DELETE("sticket/api/normal/users/like/{userId}")
-    public ApiMessasge dislikeAuthor(@Path("userId") int userId);
+    public Call<ApiMessasge> dislikeAuthor(@Path("userId") int userId);
 }

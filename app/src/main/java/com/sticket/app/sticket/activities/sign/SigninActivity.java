@@ -57,6 +57,7 @@ public class SigninActivity extends AppCompatActivity {
                             Log.e("SIGNIN", response.body().toString());
                             Log.e("SIGNIN", response.body().getAccessToken());
                             ApiClient.getInstance().setToken(response.body().getAccessToken());
+                            ApiClient.getInstance().setUserId(response.body().getUserId());
 
                             finish();
                         } else {
