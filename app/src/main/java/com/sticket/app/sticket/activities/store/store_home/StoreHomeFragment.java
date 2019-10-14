@@ -55,7 +55,7 @@ public class StoreHomeFragment extends Fragment {
         binding = binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_store_start, container, false);
 
-        // Set RecyclerView to ItemAdapter
+        // Set RecyclerView to StoreMyPageAssetAdapter
         //TODO: 오른쪽 끝까지 가면 새로운 페이지 가져오는 기능 구현
 
         binding.todayItemRecycler.setAdapter(todayAssetsAdapter);

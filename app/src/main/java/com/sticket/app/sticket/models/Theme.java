@@ -1,6 +1,8 @@
 package com.sticket.app.sticket.models;
 
-public class Theme {
+import java.io.Serializable;
+
+public class Theme implements Serializable {
     private int id;
     private String name;
     private int cnt;

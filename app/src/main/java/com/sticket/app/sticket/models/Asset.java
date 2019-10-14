@@ -1,10 +1,9 @@
 package com.sticket.app.sticket.models;
 
-import com.sticket.app.sticket.util.Landmark;
-
+import java.io.Serializable;
 import java.util.Date;
 
-public class Asset {
+public class Asset implements Serializable{
     private int id;
     private String name;
     private String imgUrl;

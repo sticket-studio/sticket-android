@@ -14,13 +14,15 @@ import static com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark.RIGH
 public enum Landmark implements Serializable {
     EYE_LEFT(33.038022813f, 42.8571428f, RIGHT_EYE, "왼눈"),
     EYE_RIGHT(62.01901140f, 42.8571428f, LEFT_EYE, "오른눈"),
-    GLASSES(47.5f, 42.8571428f, -1, "안경"),
+//    GLASSES(47.5f, 42.8571428f, -1, "안경"),
     NOSE(47.6f, 52.9f, NOSE_BASE, "코"),
     MOUTH(49.4f, 66.1f, MOUTH_BOTTOM, "입"),
     CHEEK_LEFT(27.7f, 58.2f, RIGHT_CHEEK, "왼볼"),
     CHEEK_RIGHT(71.2f, 58.2f, LEFT_CHEEK, "오른볼"),
     EAR_LEFT(11.95455f, 47.61905f, RIGHT_EAR, "왼귀"),
     EAR_RIGHT(90.49430f, 47.61905f, LEFT_EAR, "오른귀");
+
+    public static final Landmark[] LANDMARKS = {EYE_LEFT, NOSE, MOUTH, CHEEK_LEFT, EAR_LEFT};
 
     private final float x;
     private final float y;

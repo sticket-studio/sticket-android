@@ -2,8 +2,6 @@ package com.sticket.app.sticket.activities.sticker.sticon_editor;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -11,13 +9,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.adapter.SticonEditorGridAdapter;
 import com.sticket.app.sticket.database.SticketDatabase;
 import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.database.entity.Sticon;
@@ -27,8 +23,6 @@ import com.sticket.app.sticket.util.Landmark;
 import com.xiaopo.flying.sticker.DrawableSticker;
 import com.xiaopo.flying.sticker.Sticker;
 import com.xiaopo.flying.sticker.StickerView;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -169,7 +163,6 @@ public class SticonEditorActivity extends AppCompatActivity {
 
         buttonMap.put(Landmark.EYE_LEFT, leftEyeBtn);
         buttonMap.put(Landmark.EYE_RIGHT, rightEyeBtn);
-        buttonMap.put(Landmark.GLASSES, glassesBtn);
         buttonMap.put(Landmark.CHEEK_LEFT, leftCheekBtn);
         buttonMap.put(Landmark.CHEEK_RIGHT, rightCheekBtn);
         buttonMap.put(Landmark.NOSE, noseBtn);
@@ -199,9 +192,6 @@ public class SticonEditorActivity extends AppCompatActivity {
                 break;
             case R.id.btn_sticon_editor_right_eye:
                 currentLandmark = Landmark.EYE_RIGHT;
-                break;
-            case R.id.btn_sticon_editor_glasses:
-                currentLandmark = Landmark.GLASSES;
                 break;
             case R.id.btn_sticon_editor_left_cheek:
                 currentLandmark = Landmark.CHEEK_LEFT;
