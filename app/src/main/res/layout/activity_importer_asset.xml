@@ -162,15 +162,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:padding="10dp"
                 android:id="@+id/iv_asset_importer_gotoGallery"
-                android:src="@drawable/yeoni"/>
+                android:src="@drawable/yeoni"
+                android:layout_gravity="center_vertical"/>
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="horizontal"
+                android:layout_gravity="center_vertical"
                 android:id="@+id/recyler_asset_impoter_gallery_list">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>

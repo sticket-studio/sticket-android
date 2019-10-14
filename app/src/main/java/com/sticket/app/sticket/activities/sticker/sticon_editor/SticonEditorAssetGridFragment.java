@@ -39,7 +39,6 @@ public class SticonEditorAssetGridFragment extends Fragment {
                 }
             }
         });
-
         return view;
     }
 }

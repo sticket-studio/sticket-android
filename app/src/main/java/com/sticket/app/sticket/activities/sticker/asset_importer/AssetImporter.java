@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -64,6 +65,7 @@ public class AssetImporter   extends AppCompatActivity implements View.OnClickLi
 
     final  int PICTURE_REQUEST_CODE = 100;
     private static final String TAG = AssetImporter.class.getSimpleName();
+
     ImageView goToGallery;
     ImageView selectedImg;
     BitmapStickerIcon sticker;
@@ -85,26 +87,25 @@ public class AssetImporter   extends AppCompatActivity implements View.OnClickLi
     Button mouthBtn;
     @BindView(R.id.sv_asset_editor_editor)
     StickerView stickerView;
+    ImageView avartarImg;
     Bitmap bitmap;
     Button currentBtn;
-    private Map<Landmark, Sticker> stickerMap;
-    private Map<Sticker, Landmark> landmarkMap;
-    private Map<Landmark, Button> buttonMap;
-    private Map<Landmark, Asset> assetMap;
-    private Map<Landmark, Bitmap> bitmapMap;
+    ImageButton finishBtn;
     private Landmark currentLandmark = Landmark.EYE_LEFT;
     private SticketDatabase database;
 
 
-
+    private float dummyX;
+    private float dummyY;
 
     ArrayList<Uri> galleryUriList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_importer_asset);
+        avartarImg = (ImageView)findViewById(R.id.img_asset_editor_avartar) ;
         assetImpoerter = (RelativeLayout) findViewById(R.id.layout_asset_editor_editor);
-
+        finishBtn = (ImageButton)findViewById(R.id.btn_asset_editor_finish);
         RecyclerView recyclerView = findViewById(R.id.recyler_asset_impoter_gallery_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         galleryUriList = getVideo();
@@ -127,42 +128,81 @@ public class AssetImporter   extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View view, int position) {
                 try {
-
+                    Log.e(TAG,Uri.parse("file://"+galleryUriList.get(position)).toString()+" : check");
                     bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(Uri.parse("file://"+galleryUriList.get(position))));
                     Sticker sticker = new DrawableSticker(new BitmapDrawable(getResources(), bitmap));
+                    Log.e("check",sticker.toString());
                     stickerView.addSticker(sticker);
+
                 }catch (FileNotFoundException e){
                     e.printStackTrace();
                 }
             }
         });
 
-
-
+        initViews();
         ButterKnife.bind(this);
         database = SticketDatabase.getDatabase(this);
         ButterKnife.bind(this);
 
 
-        landmarkMap = new HashMap<>();
-        stickerMap = new HashMap<>();
-        buttonMap = new HashMap<>();
-        assetMap = new HashMap<>();
-        bitmapMap = new HashMap<>();
-
         currentBtn = leftEyeBtn;
-        initListener();
     }
+
+    private void initViews() {
+        currentBtn = leftEyeBtn;
+        dummyX = avartarImg.getDrawable().getIntrinsicWidth();
+        dummyY = avartarImg.getDrawable().getIntrinsicHeight();
+    }
+
+    @OnClick({R.id.btn_asset_editor_finish})
+    public void finishClick(View v){
+        Asset asset = new Asset();
+        asset.setImgUrl("");
+        Log.e(TAG, "current Bitmap : "+bitmap);
+        Log.e(TAG,""+stickerView.getCurrentSticker().getMappedCenterPoint().x);
+        Landmark landmark = currentLandmark;
+
+        float xAssetOffset = (stickerView.getWidth() - dummyX) / 2f + dummyX * landmark.getX() / 100f
+                - stickerView.getCurrentSticker().getWidth() / 2f;
+        float yAssetOffset = (stickerView.getHeight() - dummyY) / 2f + dummyY * landmark.getY() / 100f
+                - stickerView.getCurrentSticker().getHeight() / 2f;
+
+        int isFlipped = stickerView.getCurrentSticker().isFlippedHorizontally() ? 1 : 0;
+        int rotate = (int) stickerView.getCurrentSticker().getCurrentAngle();
+        double ratio = stickerView.getCurrentSticker().getCurrentScale();
+
+
+        float offsetX = (float) (stickerView.getCurrentSticker().getMappedCenterPoint().x - xAssetOffset) / bitmap.getWidth();
+        // offsetY는 반대 (-)
+        float offsetY = -(float) (stickerView.getCurrentSticker().getMappedCenterPoint().y - yAssetOffset) / bitmap.getHeight();
+
+
+        Log.e(TAG,"bitmap Check"+bitmap);
+        String fileName = "thumbnail" + bitmap;
+        FileUtil.structDirectories();
+        Log.e(TAG,"file path check : "+FileUtil.THUMBNAIL_ASSET_DIRECTORY_PATH);
+        FileUtil.saveBitmapToFile(bitmap, FileUtil.THUMBNAIL_ASSET_DIRECTORY_PATH, fileName);
+        asset.setLocalUrl(FileUtil.THUMBNAIL_ASSET_DIRECTORY_PATH + "/" + fileName + ".png");
+
+        asset.setOffset_x(offsetX);
+        asset.setOffset_y(offsetY);
+        asset.setFlip(isFlipped);
+        asset.setRotate(rotate);
+        asset.setLandmark(landmark);
+        asset.setRatio(ratio);
+        database.assetDao().insert(asset);
+
+        finish();
+
+    }
+
+
     @OnClick({R.id.btn_asset_editor_left_eye, R.id.btn_asset_editor_right_eye,
             R.id.btn_asset_editor_glasses, R.id.btn_asset_editor_nose,
             R.id.btn_asset_editor_left_cheek, R.id.btn_asset_editor_right_cheek
             , R.id.btn_asset_editor_mouth})
     public void onClick(View v) {
-        if (!stickerMap.containsKey(currentLandmark)) {
-            currentBtn.setBackground(getDrawable(R.drawable.btn_gray));
-        } else {
-            currentBtn.setBackground(getDrawable(R.drawable.btn_green));
-        }
 
         currentBtn = (Button) v;
         currentBtn.setBackground(getDrawable(R.drawable.btn_pink));
@@ -170,23 +210,65 @@ public class AssetImporter   extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.btn_asset_editor_left_eye:
                 currentLandmark = Landmark.EYE_LEFT;
+                rightEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                GlassesBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                noseBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                leftCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                rightCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                mouthBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 break;
             case R.id.btn_asset_editor_right_eye:
+                leftEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                GlassesBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                noseBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                leftCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                rightCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                mouthBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 currentLandmark = Landmark.EYE_RIGHT;
                 break;
             case R.id.btn_asset_editor_glasses:
+                leftEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                rightEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                noseBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                leftCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                rightCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                mouthBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 currentLandmark = Landmark.GLASSES;
                 break;
             case R.id.btn_asset_editor_left_cheek:
                 currentLandmark = Landmark.CHEEK_LEFT;
+                leftEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                rightEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                noseBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                GlassesBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                rightCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                mouthBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 break;
             case R.id.btn_asset_editor_right_cheek:
+                rightEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                GlassesBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                noseBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                leftCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                GlassesBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                mouthBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 currentLandmark = Landmark.CHEEK_RIGHT;
                 break;
             case R.id.btn_asset_editor_nose:
+                leftEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                rightEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                GlassesBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                rightCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                leftCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                mouthBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 currentLandmark = Landmark.NOSE;
                 break;
             case R.id.btn_asset_editor_mouth:
+                rightEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                GlassesBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                rightCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                leftCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                GlassesBtn.setBackground(getDrawable(R.drawable.btn_gray));
+                noseBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 currentLandmark = Landmark.MOUTH;
                 break;
         }
@@ -214,65 +296,6 @@ public class AssetImporter   extends AppCompatActivity implements View.OnClickLi
         return gelleryUriList;
     }
 
-    private void initListener() {
-        stickerView.setOnStickerOperationListener(new StickerView.OnStickerOperationListener() {
-            @Override
-            public void onStickerClicked(Sticker sticker){
-
-                Landmark landmark = landmarkMap.get(sticker);
-
-                if (sticker.equals(stickerMap.get(landmark))) {
-                    if (!stickerMap.containsKey(currentLandmark)) {
-                        currentBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                    } else {
-                        currentBtn.setBackground(getDrawable(R.drawable.btn_green));
-                    }
-
-                    currentBtn = buttonMap.get(landmark);
-                    currentBtn.setBackground(getDrawable(R.drawable.btn_pink));
-                }
-            }
-
-            @Override
-            public void onStickerDeleted(Sticker sticker) {
-                Landmark landmark = landmarkMap.get(sticker);
-                if (sticker.equals(stickerMap.get(landmark))) {
-                    if (!currentBtn.equals(buttonMap.get(landmark))) {
-                        buttonMap.get(landmark).setBackground(getDrawable(R.drawable.btn_gray));
-                    }
-
-                    Log.e(TAG, "onStickerDeleted");
-                    stickerMap.remove(landmark);
-                    assetMap.remove(landmark);
-                    landmarkMap.remove(sticker);
-                }
-            }
-
-            @Override
-            public void onStickerDragFinished(Sticker sticker) {
-            }
-
-            @Override
-            public void onStickerZoomFinished(Sticker sticker) {
-            }
-
-            @Override
-            public void onStickerFlipped(Sticker sticker) {
-            }
-
-            @Override
-            public void onStickerDoubleTapped(Sticker sticker) {
-            }
-        });
-
-        buttonMap.put(Landmark.EYE_LEFT, leftEyeBtn);
-        buttonMap.put(Landmark.EYE_RIGHT, rightEyeBtn);
-        buttonMap.put(Landmark.GLASSES, GlassesBtn);
-        buttonMap.put(Landmark.CHEEK_LEFT, leftCheekBtn);
-        buttonMap.put(Landmark.CHEEK_RIGHT, rightCheekBtn);
-        buttonMap.put(Landmark.NOSE, noseBtn);
-        buttonMap.put(Landmark.MOUTH, mouthBtn);
-    }
 
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){

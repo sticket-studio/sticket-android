@@ -24,6 +24,8 @@ public class MyBitmapFactory {
     private Sticon sticon;
     private Map<SticonAsset, Asset> assetMap;
 
+    private  Asset asset;
+
     private MyBitmapFactory() {
     }
 
@@ -50,8 +52,11 @@ public class MyBitmapFactory {
 
     public void setSticon(Sticon sticon) {
         this.sticon = sticon;
-
         setAssetMap(sticon);
+    }
+
+    public void setAsset(Asset asset){
+        this.asset = asset;
     }
 
     private void setAssetMap(Sticon sticon) {

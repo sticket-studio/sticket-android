@@ -27,6 +27,7 @@ public enum Landmark implements Serializable {
     private final float y;
     private final int no;
 
+
     Landmark(float x, float y, int no) {
         this.x = x;
         this.y = y;
