@@ -1,84 +1,125 @@
 package com.sticket.app.sticket.activities.store.store_mypage;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.databinding.FragmentStoreMypageBinding;
+import com.sticket.app.sticket.models.Asset;
+import com.sticket.app.sticket.models.User;
+import com.sticket.app.sticket.retrofit.client.ApiClient;
+import com.sticket.app.sticket.retrofit.dto.response.user.UserPageResponse;
+import com.sticket.app.sticket.util.SimpleCallbackUtil;
 import com.sticket.app.sticket.util.ViewPagerAdapter;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StoreMyPageFragment extends Fragment {
+    private static final String TAG = StoreMyPageFragment.class.getSimpleName();
+    public static final String EXTRA_USER_IDX = "USER_IDX";
 
-    private ImageView backGroundImg;
-    private CircleImageView profileImg;
-    private ToggleButton likeToggle;
-    private TextView nameTxt, introductionTxt;
-    private TextView worksTxt, followerTxt, followingTxt;
-    private Button settingBtn, backgroundSettingBtn;
-    private TabLayout itemCategoryTab;
-    private ViewPager itemsViewPager;
-
-    private boolean isMe;
+    private static final String[] LANDMARKS = {"눈", "코", "입", "볼", "귀"};
+    private static final String[] LANDMARKS_ENG = {"EYE_LEFT", "NOSE", "MOUTH", "CHEEK_LEFT", "EAR_LEFT"};
+    private FragmentStoreMypageBinding binding;
+    private UserPageResponse user;
+    private int userIdx;
+    private List<Asset> assets = new ArrayList<>();
+    private ArrayList<Asset>[] landmarkAssets = new ArrayList[LANDMARKS_ENG.length];
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_store_mypage, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store_mypage, container, false);
+        userIdx = getArguments().getInt(EXTRA_USER_IDX);
+        initViews();
 
-        initViews(view);
-
-        return view;
+        return binding.getRoot();
     }
 
-    private void initViews(View view){
-        backGroundImg = view.findViewById(R.id.img_store_mypage_background);
-        profileImg = view.findViewById(R.id.img_store_mypage_profile);
-        likeToggle = view.findViewById(R.id.toggle_store_mypage_like);
-        nameTxt = view.findViewById(R.id.txt_store_mypage_name);
-        introductionTxt = view.findViewById(R.id.txt_store_mypage_introduction);
-        worksTxt = view.findViewById(R.id.txt_store_mypage_works);
-        followerTxt = view.findViewById(R.id.txt_store_mypage_follower);
-        followingTxt = view.findViewById(R.id.txt_store_mypage_following);
-        settingBtn = view.findViewById(R.id.btn_store_mypage_setting);
-        backgroundSettingBtn = view.findViewById(R.id.btn_store_mypage_background_setting);
-        itemCategoryTab = view.findViewById(R.id.tab_store_mypage_item_category);
-        itemsViewPager = view.findViewById(R.id.viewpager_store_mypage);
+    private void initViews() {
+        ApiClient.getInstance().getUserService()
+                .getUserInfoById(userIdx)
+                .enqueue(SimpleCallbackUtil.getSimpleCallback(user -> {
+                    this.user = user;
+                    Glide.with(StoreMyPageFragment.this)
+                            .load(this.user.getImgUrl())
+                            .placeholder(R.drawable.img_profile2)
+                            .into(binding.imgStoreMypageProfile);
+                    binding.txtStoreMypageName.setText(this.user.getName());
+                    binding.txtStoreMypageIntroduction.setText(this.user.getDescription());
+                    binding.txtStoreMypageFollower.setText(String.valueOf(user.getFollowerCnt()));
+                    binding.txtStoreMypageFollowing.setText(String.valueOf(user.getFollowingCnt()));
+                    binding.txtStoreMypageWorks.setText(String.valueOf(this.user.getWorksCnt()));
 
-        setupViewPager(itemsViewPager);
-        itemCategoryTab.setupWithViewPager(itemsViewPager);
+                    this.assets.addAll(user.getAssets());
+                    initList();
 
+                    setupViewPager();
+                }));
+        binding.tabStoreMypageItemCategory.setupWithViewPager(binding.viewpagerStoreMypage);
+        if (isMe()) {
+            binding.toggleStoreMypageLike.setVisibility(View.GONE);
+            binding.btnStoreMypageSetting.setVisibility(View.VISIBLE);
+        } else {
+            binding.toggleStoreMypageLike.setVisibility(View.VISIBLE);
+            binding.btnStoreMypageSetting.setVisibility(View.GONE);
+        }
         initListener();
     }
 
-    private void initListener(){
-        likeToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+    private void initListener() {
+        binding.toggleStoreMypageLike.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                ApiClient.getInstance().getUserService()
+                        .likeAuthor(userIdx)
+                        .enqueue(SimpleCallbackUtil.getSimpleCallback());
+            } else {
+                ApiClient.getInstance().getUserService()
+                        .dislikeAuthor(userIdx)
+                        .enqueue(SimpleCallbackUtil.getSimpleCallback());
             }
         });
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void initList() {
+        for (int i = 0; i < LANDMARKS_ENG.length; i++) {
+            landmarkAssets[i] = new ArrayList<>();
+        }
+
+        for (Asset asset : assets) {
+            for (int i = 0; i < LANDMARKS_ENG.length; i++) {
+                if (asset.getLandmark().equals(LANDMARKS_ENG[i])) {
+                    landmarkAssets[i].add(asset);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFrag(new MyPageItemListFragment(), "눈");
-        adapter.addFrag(new MyPageItemListFragment(), "코");
-        adapter.addFrag(new MyPageItemListFragment(), "입");
-        adapter.addFrag(new MyPageItemListFragment(), "볼");
-        adapter.addFrag(new MyPageItemListFragment(), "귀");
-        viewPager.setAdapter(adapter);
+
+        for (int i = 0; i < LANDMARKS_ENG.length; i++) {
+            MyPageAssetListFragment assetListFragment = new MyPageAssetListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(MyPageAssetListFragment.EXTRA_ASSETS, landmarkAssets[i]);
+            assetListFragment.setArguments(bundle);
+            adapter.addFrag(assetListFragment, LANDMARKS[i]);
+        }
+        binding.viewpagerStoreMypage.setAdapter(adapter);
+        Log.e(TAG, "sticker: " + assets.size());
+    }
+
+    private boolean isMe() {
+        return this.userIdx == ApiClient.getInstance().getUserId();
     }
 }

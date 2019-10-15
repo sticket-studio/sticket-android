@@ -18,6 +18,7 @@ public class MyInterceptor implements Interceptor {
         Request request = chain.request();
 
         if (this.token != null) {
+            Log.e("MyInterceptor", "token: "+ token);
             request = chain.request().newBuilder()
                     .addHeader("Authorization", TOKEN_TYPE + this.token)
                     .method(chain.request().method(), chain.request().body())
@@ -35,7 +36,7 @@ public class MyInterceptor implements Interceptor {
         } catch (Exception e) {
             Log.e("okhttp", "Error: " + e);
         }
-        return chain.proceed(request);
+        return response;
     }
 
 

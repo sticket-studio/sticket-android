@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/img_store_mypage_background"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+            android:layout_height="0dp"
+            android:layout_weight="8">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/white"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
+                <!--TODO: width 고정시킨 것을 비율을 이용하여 유동적으로 변경가능하도록 수정 -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_store_mypage_profile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/img_profile2"
+                    app:civ_border_color="@color/whitegrey"
+                    app:civ_border_width="1dp" />
 
                 <TextView
                     android:id="@+id/txt_store_mypage_name"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="작가이름"
+                    android:text="내 이름"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -48,185 +44,171 @@
                     android:id="@+id/txt_store_mypage_introduction"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="3"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:maxLines="2"
-                    android:text="작가가 쓰는 설명. 자기소개 같은 것. 2줄까지 보여줄거야!"
-                    android:textColor="@color/black" />
+                    android:text="안드로이드 파편화가 싫다."
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
             </LinearLayout>
 
-        </LinearLayout>
+            <!-- User Setting (MyPage) -->
+            <Button
+                android:id="@+id/btn_store_mypage_setting"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/img_camera_setting" />
 
-        <ToggleButton
-            android:id="@+id/toggle_store_mypage_like"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/selector_heart"
-            android:visibility="gone" />
+            <!-- Like Button (DesignerPage) -->
+            <ToggleButton
+                android:id="@+id/toggle_store_mypage_like"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_heart"
+                android:textOff=""
+                android:textOn=""
+                android:visibility="gone" />
 
-        <!-- Change Image button (camera img in oven). how about deleting this? i don't think we need it -->
-        <Button
-            android:id="@+id/btn_store_mypage_background_setting"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/img_camera_setting" />
-
-        <!-- User Setting (MyPage) ||  Interactive Like Button (DesignerPage) -->
-        <Button
-            android:id="@+id/btn_store_mypage_setting"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/img_camera_setting" />
-
-
-        <!--TODO: width 고정시킨 것을 비율을 이용하여 유동적으로 변경가능하도록 수정 -->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_store_mypage_profile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/img_profile2"
-            app:civ_border_color="@color/grey"
-            app:civ_border_width="2dp" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5">
+        </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5">
 
-            <TextView
-                android:id="@+id/txt_store_mypage_works"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_horizontal|bottom"
-                android:text="0"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                <TextView
+                    android:id="@+id/txt_store_mypage_works"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|bottom"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|top"
+                    android:text="@string/mypage_works"
+                    android:textColor="@color/dark_grey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_horizontal|top"
-                android:text="@string/mypage_works"
-                android:textColor="@color/dark_grey" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_store_mypage_follower"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|bottom"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|top"
+                    android:text="@string/mypage_follower"
+                    android:textColor="@color/dark_grey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_store_mypage_following"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|bottom"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|top"
+                    android:text="@string/mypage_following"
+                    android:textColor="@color/dark_grey" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txt_store_mypage_follower"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|bottom"
-                android:textSize="18sp"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
 
-            <TextView
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|top"
-                android:text="@string/mypage_follower"
-                android:textColor="@color/dark_grey" />
+                android:layout_height="0.5dp"
+                android:background="@color/grey" />
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/camera_sticker_dialog_background"
+                app:elevation="1dp"
+                app:layout_constraintBottom_toTopOf="@+id/sticker_dialog_viewpager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_store_mypage_item_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:tabIndicatorColor="@color/grey"
+                    app:tabMinWidth="55dp"
+                    app:tabMode="fixed"
+                    app:tabTextAppearance="@style/MyPageTab" />
+            </android.support.design.widget.AppBarLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txt_store_mypage_following"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:gravity="center_horizontal|bottom"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|top"
-                android:text="@string/mypage_following"
-                android:textColor="@color/dark_grey" />
-        </LinearLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_store_mypage"
+            android:layout_width="match_parent"
+            android:layout_height="180dp" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.8"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/grey" />
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/camera_sticker_dialog_background"
-            app:elevation="1dp"
-            app:layout_constraintBottom_toTopOf="@+id/sticker_dialog_viewpager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="spread">
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_store_mypage_item_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:tabIndicatorColor="@color/grey"
-                app:tabMinWidth="55dp"
-                app:tabMode="fixed"
-                app:tabTextAppearance="@style/MyPageTab" />
-        </android.support.design.widget.AppBarLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/grey" />
-    </LinearLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager_store_mypage"
-        android:layout_width="match_parent"
-        android:layout_height="180dp" />
-</LinearLayout>
+</layout>

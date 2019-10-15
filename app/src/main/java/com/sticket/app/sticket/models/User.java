@@ -1,13 +1,14 @@
 package com.sticket.app.sticket.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
     private int id;
     private String snsType;
     private String email;
     private String name;
-    private Date createTime;
+    private Date createdTime;
     private String imgUrl;
     private int followerCnt;
     private int followingCnt;
@@ -45,12 +46,12 @@ public class User {
         this.name = name;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 
     public String getImgUrl() {

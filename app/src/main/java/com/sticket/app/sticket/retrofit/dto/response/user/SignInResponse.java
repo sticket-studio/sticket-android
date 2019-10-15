@@ -7,6 +7,7 @@ public class SignInResponse {
     private int expiresIn;
     private String scope;
     private String jti;
+    private int userId;
 
     public String getAccessToken() {
         return accessToken;
@@ -56,5 +57,11 @@ public class SignInResponse {
         this.jti = jti;
     }
 
+    public int getUserId() {
+        return userId;
+    }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

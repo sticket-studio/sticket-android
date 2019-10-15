@@ -25,6 +25,7 @@ public class ApiClient {
     private static ApiClient instance;
     private MyInterceptor interceptor;
 
+    private int userId;
     private final AuthService authService;
     private final AssetService assetService;
     private final UserService userService;
@@ -34,7 +35,7 @@ public class ApiClient {
         interceptor = new MyInterceptor();
 
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Date.class, new DateTypeAdapter())
+                .registerTypeAdapter(Date.class, new DateDeserializer())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
@@ -74,7 +75,23 @@ public class ApiClient {
         return authService;
     }
 
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public StickService getStickService() {
+        return stickService;
+    }
+
     public void setToken(String token){
         interceptor.setToken(token);
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId){
+        this.userId = userId;
     }
 }

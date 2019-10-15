@@ -20,7 +20,7 @@ public interface AssetService {
     @GET("sticket/api/normal/assets/{assetId}")
     Call<Asset> getAssetById(@Path("assetId") int assetId);
 
-    @GET("sticket/api/normal/assets/{assetId}")
+    @GET("sticket/api/normal/assets")
     Call<List<Asset>> searchAssets(@Query("authorId") int authorId, @Query("buyerId") int buyerId,
                             @Query("landmark") String landmark, @Query("themeId") int themeId);
 
