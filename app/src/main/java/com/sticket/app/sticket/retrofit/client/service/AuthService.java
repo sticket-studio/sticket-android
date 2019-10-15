@@ -9,6 +9,7 @@ import com.sticket.app.sticket.retrofit.message.ApiMessasge;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
@@ -56,7 +57,7 @@ public interface AuthService {
      *
      * @return 성공 여부
      */
-    @POST("sticket/api/auth/signout")
+    @DELETE("sticket/api/auth/signout")
     Call<ApiMessasge> signout();
 
     /**

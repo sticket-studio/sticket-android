@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
 import com.sticket.app.sticket.retrofit.client.ApiConfig;
 import com.sticket.app.sticket.retrofit.dto.request.auth.SignInRequest;
@@ -26,6 +27,7 @@ import retrofit2.Response;
 
 public class SigninActivity extends AppCompatActivity {
     private static final int FOLDERPICKER_CODE = 123;
+    public static final String EXTRA_USER = "USER";
 
     @BindView(R.id.edit_signin_email)
     EditText emailEdit;
@@ -59,6 +61,7 @@ public class SigninActivity extends AppCompatActivity {
                             ApiClient.getInstance().setToken(response.body().getAccessToken());
                             ApiClient.getInstance().setUserId(response.body().getUserId());
 
+                            setResult(RESULT_OK);
                             finish();
                         } else {
                             try {

@@ -32,11 +32,11 @@ public class MyInterceptor implements Interceptor {
                     request.url(), chain.connection(), request.headers(), request.body(), request.header("Content-Type")));
 
             Log.i("okhttp", String.format("Received response for %s in %n%s",
-                    response.body().string(), response.headers()));
+                    response.body(), response.headers()));
         } catch (Exception e) {
             Log.e("okhttp", "Error: " + e);
         }
-        return chain.proceed(request);
+        return response;
     }
 
 
