@@ -2,13 +2,15 @@ package com.sticket.app.sticket.retrofit.dto.response.user;
 
 import com.sticket.app.sticket.models.Asset;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-public class UserPageResponse {
+public class UserPageResponse implements Serializable {
     private String imgUrl;
     private String name;
+    private String email;
     private String description;
     private int followerCnt;
     private int followingCnt;
@@ -31,6 +33,14 @@ public class UserPageResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDescription() {
