@@ -37,7 +37,6 @@ public class StoreMyPageAssetAdapter extends RecyclerView.Adapter<StoreMyPageAss
     public void onBindViewHolder(@NonNull StoreMyPageAssetViewHolder holder, int position) {
         final Asset item = assets.get(position);
         ItemStoreStickerBinding binding = holder.bind(item);
-        binding.itemThemeText.setText(item.getName());
         Glide.with(binding.getRoot())
                 .load(item.getImgUrl())
                 .placeholder(R.drawable.basic_cheek_logo1)

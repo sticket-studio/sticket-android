@@ -82,6 +82,7 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                     .signout()
                     .enqueue(SimpleCallbackUtil.getSimpleCallback(responseBody -> {
                         ApiClient.getInstance().setUserId(0);
+                        ApiClient.getInstance().setToken(null);
                         checkSignedIn();
                     }));
         });
@@ -170,17 +171,19 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
     }
 
     private void setNavigationHeader() {
-        ApiClient.getInstance().getUserService()
-                .getUserInfoById(ApiClient.getInstance().getUserId())
-                .enqueue(SimpleCallbackUtil.getSimpleCallback(responseBody -> {
-                    user = responseBody;
-                    Glide.with(StoreActivity.this)
-                            .load(this.user.getImgUrl())
-                            .placeholder(R.drawable.img_profile2)
-                            .into(profileImg);
-                    nameTxt.setText(user.getName());
-                    emailTxt.setText(user.getEmail());
-                    checkSignedIn();
-                }));
+        if (ApiClient.getInstance().getUserId() != 0) {
+            ApiClient.getInstance().getUserService()
+                    .getUserInfoById(ApiClient.getInstance().getUserId())
+                    .enqueue(SimpleCallbackUtil.getSimpleCallback(responseBody -> {
+                        user = responseBody;
+                        Glide.with(StoreActivity.this)
+                                .load(this.user.getImgUrl())
+                                .placeholder(R.drawable.img_profile2)
+                                .into(profileImg);
+                        nameTxt.setText(user.getName());
+                        emailTxt.setText(user.getEmail());
+                        checkSignedIn();
+                    }));
+        }
     }
 }
