@@ -1,5 +1,6 @@
 package com.sticket.app.sticket.activities.store.store_register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,7 +31,9 @@ public class StoreRegisterViewFragment extends Fragment {
         storeStickerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO : Preview Page
+                // TODO : Register Page
+                Intent intent = new Intent(getActivity(), StoreRegisterAssetActivity.class);
+                startActivity(intent);
             }
         });
         return view;

@@ -42,6 +42,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.store.StoreActivity" />
+        <activity android:name=".activities.store.store_register.StoreRegisterAssetActivity" />
 
     </application>
 

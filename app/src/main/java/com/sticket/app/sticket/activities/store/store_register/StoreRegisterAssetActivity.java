@@ -21,7 +21,5 @@ public class StoreRegisterAssetActivity extends AppCompatActivity {
     public void btnToRegister(View view){
         // TODO: 완료 버튼 눌렀을 때 일어날 일들
 
-//        Intent intent = new Intent(this, SigninActivity.class);
-//        startActivity(intent);
     }
 }
