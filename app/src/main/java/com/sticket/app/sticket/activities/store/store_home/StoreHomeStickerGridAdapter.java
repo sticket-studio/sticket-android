@@ -47,8 +47,8 @@ public class StoreHomeStickerGridAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            stickerGridView = inflater.inflate(R.layout.item_store_sticker, null);
-            ImageView imageView = (ImageView) stickerGridView.findViewById(R.id.item_image);
+            stickerGridView = inflater.inflate(R.layout.item_store_asset, null);
+            ImageView imageView = (ImageView) stickerGridView.findViewById(R.id.img_item_asset_preview);
             imageView.setImageResource(icons[position]);
         }
         else {

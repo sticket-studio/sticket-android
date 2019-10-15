@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.adapter.viewholders.StoreMyPageAssetViewHolder;
-import com.sticket.app.sticket.databinding.ItemStoreStickerBinding;
+import com.sticket.app.sticket.databinding.ItemStoreAssetBinding;
 import com.sticket.app.sticket.models.Asset;
 
 import java.util.List;
@@ -28,19 +28,19 @@ public class StoreMyPageAssetAdapter extends RecyclerView.Adapter<StoreMyPageAss
     public StoreMyPageAssetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater =
                 LayoutInflater.from(parent.getContext());
-        ItemStoreStickerBinding itemBinding =
-                ItemStoreStickerBinding.inflate(layoutInflater, parent, false);
+        ItemStoreAssetBinding itemBinding =
+                ItemStoreAssetBinding.inflate(layoutInflater, parent, false);
         return new StoreMyPageAssetViewHolder(itemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull StoreMyPageAssetViewHolder holder, int position) {
         final Asset item = assets.get(position);
-        ItemStoreStickerBinding binding = holder.bind(item);
+        ItemStoreAssetBinding binding = holder.bind(item);
         Glide.with(binding.getRoot())
                 .load(item.getImgUrl())
                 .placeholder(R.drawable.basic_cheek_logo1)
-                .into(binding.itemImage);
+                .into(binding.imgItemAssetPreview);
         binding.getRoot().setOnClickListener(v -> {
             if (onAssetClickListener != null) {
                 onAssetClickListener.onAssetClick(item);
