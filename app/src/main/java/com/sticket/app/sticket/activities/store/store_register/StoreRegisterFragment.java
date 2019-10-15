@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.activities.store.store_like;
+package com.sticket.app.sticket.activities.store.store_register;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,30 +17,34 @@ import com.sticket.app.sticket.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreLikeFagement extends Fragment {
+public class StoreRegisterFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_store_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_store_register, container, false);
 
-        ViewPager storeHomeViewPager = (ViewPager) view.findViewById(R.id.store_home_viewpager);
-        setupViewPager(storeHomeViewPager);
+        ViewPager storeViewByAssetViewViewPager = (ViewPager) view.findViewById(R.id.store_register_viewpager);
+        setupViewPager(storeViewByAssetViewViewPager);
 
-        TabLayout storeHomeTabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        storeHomeTabLayout.setupWithViewPager(storeHomeViewPager);
+        TabLayout storeViewByAssetViewTabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        storeViewByAssetViewTabLayout.setupWithViewPager(storeViewByAssetViewViewPager);
 
         return view;
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        StoreLikeFagement.ViewPagerAdapter adapter = new StoreLikeFagement.ViewPagerAdapter(getChildFragmentManager());     // getFragmentManager() -> getChildFragmentManager() in BottomSheetDialogFragment
-        adapter.addFrag(new LikeAuthorFragment(), "작가");
-        adapter.addFrag(new LikeAssetFragment(), "애셋");
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFrag(new StoreRegisterViewFragment(), "눈");
+        adapter.addFrag(new StoreRegisterViewFragment(), "코");
+        adapter.addFrag(new StoreRegisterViewFragment(), "입");
+        adapter.addFrag(new StoreRegisterViewFragment(), "볼");
+        adapter.addFrag(new StoreRegisterViewFragment(), "귀");
         viewPager.setAdapter(adapter);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    public class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -68,4 +72,5 @@ public class StoreLikeFagement extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
+
 }

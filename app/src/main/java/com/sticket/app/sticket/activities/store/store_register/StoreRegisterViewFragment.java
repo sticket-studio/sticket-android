@@ -1,4 +1,4 @@
-package com.sticket.app.sticket.activities.store.store_viewbyasset;
+package com.sticket.app.sticket.activities.store.store_register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,11 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.activities.store.StoreItemViewActivity;
 import com.sticket.app.sticket.activities.store.store_home.StoreHomeStickerGridAdapter;
 
-public class StoreViewByAssetViewFragment extends Fragment {
+public class StoreRegisterViewFragment extends Fragment {
 
-    public StoreViewByAssetViewFragment(){
+    public StoreRegisterViewFragment(){
         // Required empty public constructor
     }
 
@@ -32,8 +31,8 @@ public class StoreViewByAssetViewFragment extends Fragment {
         storeStickerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO : Preview Page
-                Intent intent = new Intent(getActivity(), StoreItemViewActivity.class);
+                // TODO : Register Page
+                Intent intent = new Intent(getActivity(), StoreRegisterAssetActivity.class);
                 startActivity(intent);
             }
         });
