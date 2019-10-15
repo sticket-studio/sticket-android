@@ -1,5 +1,6 @@
 package com.sticket.app.sticket.activities.store.store_viewbyasset;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.store.StoreItemViewActivity;
 import com.sticket.app.sticket.activities.store.store_home.StoreHomeStickerGridAdapter;
 
 public class StoreViewByAssetViewFragment extends Fragment {
@@ -31,6 +33,8 @@ public class StoreViewByAssetViewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO : Preview Page
+                Intent intent = new Intent(getActivity(), StoreItemViewActivity.class);
+                startActivity(intent);
             }
         });
         return view;

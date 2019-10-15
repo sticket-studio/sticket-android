@@ -43,6 +43,7 @@
         </activity>
         <activity android:name=".activities.store.StoreActivity" />
         <activity android:name=".activities.store.store_register.StoreRegisterAssetActivity" />
+        <activity android:name=".activities.store.StoreItemViewActivity" />
 
     </application>
 
