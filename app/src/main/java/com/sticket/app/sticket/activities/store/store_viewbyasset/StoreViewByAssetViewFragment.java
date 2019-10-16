@@ -24,9 +24,9 @@ public class StoreViewByAssetViewFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sticker, container, false);
-
+        String landmark = getArguments().getString("landmark");
         GridView storeStickerGridView = (GridView) view.findViewById(R.id.storeStickerGridView);
-        StoreHomeStickerGridAdapter adapter = new StoreHomeStickerGridAdapter(getActivity());
+        StoreHomeStickerGridAdapter adapter = new StoreHomeStickerGridAdapter(getActivity(),landmark);
         storeStickerGridView.setAdapter(adapter);
 
         storeStickerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -64,6 +64,9 @@ public class StoreViewByAssetFragment extends Fragment {
 
         public void addFrag(Fragment fragment, String title) {
             mFragmentList.add(fragment);
+            Bundle bundle = new Bundle(1);
+            bundle.putString("landmark",title);
+            fragment.setArguments(bundle);
             mFragmentTitleList.add(title);
         }
 

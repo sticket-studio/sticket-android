@@ -113,7 +113,8 @@ public class SticonEditorActivity extends AppCompatActivity {
     private void initListener() {
         stickerView.setOnStickerOperationListener(new StickerView.OnStickerOperationListener() {
             @Override
-            public void onStickerClicked(Sticker sticker) {
+            public void onStickerClicked(Sticker sticker){
+
                 Landmark landmark = landmarkMap.get(sticker);
 
                 if (sticker.equals(stickerMap.get(landmark))) {

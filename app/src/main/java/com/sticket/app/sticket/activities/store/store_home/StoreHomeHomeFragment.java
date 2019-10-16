@@ -48,6 +48,7 @@ public class StoreHomeHomeFragment extends Fragment {
         getPopularAssets(1);
         getNewAssets(1);
 
+
     }
 
     @Override
