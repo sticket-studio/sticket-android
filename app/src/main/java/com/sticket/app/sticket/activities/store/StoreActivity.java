@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.sign.SigninActivity;
-import com.sticket.app.sticket.activities.store.store_charge.StoreChargeFragment;
+import com.sticket.app.sticket.activities.store.store_stick.StoreStickFragment;
 import com.sticket.app.sticket.activities.store.store_home.StoreHomeFragment;
 import com.sticket.app.sticket.activities.store.store_like.StoreLikeFragement;
 import com.sticket.app.sticket.activities.store.store_mypage.StoreMyPageFragment;
@@ -93,7 +93,7 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
     }
 
     private void checkSignedIn() {
-        if (ApiClient.getInstance().getUserId() == 0) {
+        if (!ApiClient.getInstance().isLoggedIn()) {
             signinBtn.setVisibility(View.VISIBLE);
             signoutBtn.setVisibility(View.GONE);
             nameTxt.setTextColor(getResources().getColor(R.color.dark_grey));
@@ -148,7 +148,7 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_charge:
                 getSupportFragmentManager().beginTransaction().replace(
-                        R.id.fragment_container, new StoreChargeFragment()).commit();
+                        R.id.fragment_container, new StoreStickFragment()).commit();
                 binding.drawerLayout.closeDrawer(GravityCompat.START);
                 binding.txtToolbarTitle.setText("스틱 충전");
                 break;
@@ -178,7 +178,7 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
     }
 
     private void setNavigationHeader() {
-        if (ApiClient.getInstance().getUserId() != 0) {
+        if (ApiClient.getInstance().isLoggedIn()) {
             ApiClient.getInstance().getUserService()
                     .getUserInfoById(ApiClient.getInstance().getUserId())
                     .enqueue(SimpleCallbackUtil.getSimpleCallback(responseBody -> {
