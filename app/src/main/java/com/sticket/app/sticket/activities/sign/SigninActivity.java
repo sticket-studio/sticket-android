@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.activities.camera.LivePreviewActivity;
-import com.sticket.app.sticket.api.retrofit.client.ApiClient;
-import com.sticket.app.sticket.api.retrofit.client.ApiConfig;
-import com.sticket.app.sticket.api.retrofit.dto.request.auth.SignInRequest;
-import com.sticket.app.sticket.api.retrofit.dto.response.user.SignInResponse;
+import com.sticket.app.sticket.activities.store.StoreActivity;
+import com.sticket.app.sticket.retrofit.client.ApiClient;
+import com.sticket.app.sticket.retrofit.client.ApiConfig;
+import com.sticket.app.sticket.retrofit.dto.request.auth.SignInRequest;
+import com.sticket.app.sticket.retrofit.dto.response.user.SignInResponse;
 import com.sticket.app.sticket.util.Alert;
 
 import java.io.IOException;
@@ -27,6 +27,7 @@ import retrofit2.Response;
 
 public class SigninActivity extends AppCompatActivity {
     private static final int FOLDERPICKER_CODE = 123;
+    public static final String EXTRA_USER = "USER";
 
     @BindView(R.id.edit_signin_email)
     EditText emailEdit;
@@ -58,7 +59,9 @@ public class SigninActivity extends AppCompatActivity {
                             Log.e("SIGNIN", response.body().toString());
                             Log.e("SIGNIN", response.body().getAccessToken());
                             ApiClient.getInstance().setToken(response.body().getAccessToken());
+                            ApiClient.getInstance().setUserId(response.body().getUserId());
 
+                            setResult(RESULT_OK);
                             finish();
                         } else {
                             try {
@@ -73,7 +76,7 @@ public class SigninActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<SignInResponse> call, Throwable t) {
                         Alert.makeText("로그인 중 네트워크 에러 발생");
-                        Log.e("SIGNIN", "host : " + call.request().url().toString());
+                        Log.e("SIGNIN", "host : " + call.request().url().toString(), t);
                     }
                 });
     }

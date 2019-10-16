@@ -33,6 +33,9 @@ public interface AssetDao {
     @Insert
     void insert(Asset... asset);
 
+    @Insert
+    void insertAll(List<Asset> assets);
+
     @Update
     void update(Asset... asset);
 

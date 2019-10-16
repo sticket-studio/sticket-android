@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.api.retrofit.client.ApiClient;
-import com.sticket.app.sticket.api.retrofit.dto.request.auth.SignupRequest;
-import com.sticket.app.sticket.api.retrofit.message.ApiMessasge;
+import com.sticket.app.sticket.retrofit.client.ApiClient;
+import com.sticket.app.sticket.retrofit.dto.request.auth.SignupRequest;
+import com.sticket.app.sticket.retrofit.message.ApiMessasge;
 import com.sticket.app.sticket.util.Alert;
 
 import java.io.IOException;

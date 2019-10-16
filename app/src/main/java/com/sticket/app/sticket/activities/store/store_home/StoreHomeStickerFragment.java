@@ -22,7 +22,6 @@ public class StoreHomeStickerFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sticker, container, false);
-
         GridView storeStickerGridView = (GridView) view.findViewById(R.id.storeStickerGridView);
         StoreHomeStickerGridAdapter adapter = new StoreHomeStickerGridAdapter(getActivity());
         storeStickerGridView.setAdapter(adapter);

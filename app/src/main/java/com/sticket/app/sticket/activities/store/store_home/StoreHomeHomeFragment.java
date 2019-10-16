@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.adapter.StoreHomeHomeAssetsAdapter;
-import com.sticket.app.sticket.api.retrofit.client.ApiClient;
-import com.sticket.app.sticket.api.retrofit.client.CustomCallback;
 import com.sticket.app.sticket.databinding.FragmentStoreStartBinding;
 import com.sticket.app.sticket.models.Asset;
+import com.sticket.app.sticket.retrofit.client.ApiClient;
+import com.sticket.app.sticket.retrofit.client.CustomCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,10 +53,10 @@ public class StoreHomeHomeFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = binding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_store_start, container, false);
 
-        // Set RecyclerView to ItemAdapter
+        // Set RecyclerView to StoreMyPageAssetAdapter
         //TODO: 오른쪽 끝까지 가면 새로운 페이지 가져오는 기능 구현
 
         binding.todayItemRecycler.setAdapter(todayAssetsAdapter);

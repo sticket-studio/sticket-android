@@ -110,9 +110,9 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
 
                 if (bitmap != null) {
                     drawLandMark(ratio * (float) sticonAsset.getRatio(), canvas, bitmap, cx, cy,
-                            F_CENTER + (float) sticonAsset.getOffsetX(),
+                            F_CENTER + (float) -sticonAsset.getOffsetX(),
                             F_CENTER + (float) sticonAsset.getOffsetY(),
-                            face.getEulerZ());
+                            face.getEulerZ(), sticonAsset.getFlip()==1);
                     bitmap.recycle();
                 }
 //            } else {
@@ -128,8 +128,8 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
 
     }
 
-    private void drawLandMark(float ratio, Canvas canvas, Bitmap icon, int cx, int cy, float xf, float yf, float degrees) {
-        Bitmap rotatedBitmap = ImageUtil.rotateBitmap(icon, (int)degrees);
+    private void drawLandMark(float ratio, Canvas canvas, Bitmap icon, int cx, int cy, float xf, float yf, float degrees, boolean isFlipped) {
+        Bitmap rotatedBitmap = ImageUtil.rotateBitmap(icon, (int)degrees, isFlipped);
         float scaledWidth = ratio * icon.getWidth();
         float scaledHeight = ratio * icon.getHeight();
         int left = (int) (cx - scaledWidth * xf);

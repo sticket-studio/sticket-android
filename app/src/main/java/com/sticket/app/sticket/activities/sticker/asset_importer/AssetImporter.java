@@ -226,15 +226,7 @@ public class AssetImporter   extends AppCompatActivity implements View.OnClickLi
                 mouthBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 currentLandmark = Landmark.EYE_RIGHT;
                 break;
-            case R.id.btn_asset_editor_glasses:
-                leftEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                rightEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                noseBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                leftCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                rightCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                mouthBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                currentLandmark = Landmark.GLASSES;
-                break;
+
             case R.id.btn_asset_editor_left_cheek:
                 currentLandmark = Landmark.CHEEK_LEFT;
                 leftEyeBtn.setBackground(getDrawable(R.drawable.btn_gray));

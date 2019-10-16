@@ -13,9 +13,10 @@
 
         <ImageButton
             android:id="@+id/btn_sticon_editor_back"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentStart="true"
+            android:padding="16dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:adjustViewBounds="true"
@@ -34,8 +35,9 @@
 
         <ImageButton
             android:id="@+id/btn_sticon_editor_finish"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="16dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"

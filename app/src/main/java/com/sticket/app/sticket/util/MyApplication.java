@@ -3,8 +3,6 @@ package com.sticket.app.sticket.util;
 import android.app.Application;
 import android.os.Environment;
 
-import com.sticket.app.sticket.api.retrofit.client.ApiClient;
-
 public class MyApplication extends Application {
     private static final String TAG = "MyApplication";
 
@@ -23,5 +21,7 @@ public class MyApplication extends Application {
             Preference.getInstance().putString(Preference.PREFERENCE_NAME_SAVE_LOCATION,
                     Environment.getExternalStorageDirectory().getAbsolutePath());
         }
+
+        FileUtil.buildPaths();
     }
 }
