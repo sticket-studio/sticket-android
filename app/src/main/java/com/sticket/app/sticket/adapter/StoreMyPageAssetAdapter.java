@@ -8,18 +8,18 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.adapter.viewholders.StoreMyPageAssetViewHolder;
-import com.sticket.app.sticket.databinding.ItemStoreStickerBinding;
-import com.sticket.app.sticket.models.Asset;
+import com.sticket.app.sticket.databinding.ItemStoreAssetBinding;
+import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 
 import java.util.List;
 
 public class StoreMyPageAssetAdapter extends RecyclerView.Adapter<StoreMyPageAssetViewHolder> {
     private static final String TAG = StoreMyPageAssetAdapter.class.getSimpleName();
 
-    private final List<Asset> assets;
+    private final List<SimpleAssetResponse> assets;
     private OnAssetClickListener onAssetClickListener;
 
-    public StoreMyPageAssetAdapter(List<Asset> assets) {
+    public StoreMyPageAssetAdapter(List<SimpleAssetResponse> assets) {
         this.assets = assets;
     }
 
@@ -28,19 +28,19 @@ public class StoreMyPageAssetAdapter extends RecyclerView.Adapter<StoreMyPageAss
     public StoreMyPageAssetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater =
                 LayoutInflater.from(parent.getContext());
-        ItemStoreStickerBinding itemBinding =
-                ItemStoreStickerBinding.inflate(layoutInflater, parent, false);
+        ItemStoreAssetBinding itemBinding =
+                ItemStoreAssetBinding.inflate(layoutInflater, parent, false);
         return new StoreMyPageAssetViewHolder(itemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull StoreMyPageAssetViewHolder holder, int position) {
-        final Asset item = assets.get(position);
-        ItemStoreStickerBinding binding = holder.bind(item);
+        final SimpleAssetResponse item = assets.get(position);
+        ItemStoreAssetBinding binding = holder.bind(item);
         Glide.with(binding.getRoot())
                 .load(item.getImgUrl())
                 .placeholder(R.drawable.basic_cheek_logo1)
-                .into(binding.itemImage);
+                .into(binding.imgItemAssetPreview);
         binding.getRoot().setOnClickListener(v -> {
             if (onAssetClickListener != null) {
                 onAssetClickListener.onAssetClick(item);
@@ -58,6 +58,6 @@ public class StoreMyPageAssetAdapter extends RecyclerView.Adapter<StoreMyPageAss
     }
 
     public interface OnAssetClickListener {
-        public void onAssetClick(Asset asset);
+        public void onAssetClick(SimpleAssetResponse asset);
     }
 }

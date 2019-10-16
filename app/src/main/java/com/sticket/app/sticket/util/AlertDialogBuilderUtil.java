@@ -12,18 +12,8 @@ public class AlertDialogBuilderUtil {
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
         alertBuilder.setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        simpleListener.positiveListener(dialog, which);
-                    }
-                })
-                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                .setPositiveButton("확인", simpleListener::positiveListener)
+                .setNegativeButton("취소", (dialog, which) -> dialog.cancel());
 
         alertBuilder.create().show();
     }

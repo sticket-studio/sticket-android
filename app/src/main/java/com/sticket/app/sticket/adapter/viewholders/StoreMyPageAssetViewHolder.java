@@ -2,18 +2,18 @@ package com.sticket.app.sticket.adapter.viewholders;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.sticket.app.sticket.databinding.ItemStoreStickerBinding;
-import com.sticket.app.sticket.models.Asset;
+import com.sticket.app.sticket.databinding.ItemStoreAssetBinding;
+import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 
 public class StoreMyPageAssetViewHolder extends RecyclerView.ViewHolder {
-    private final ItemStoreStickerBinding binding;
+    private final ItemStoreAssetBinding binding;
 
-    public StoreMyPageAssetViewHolder(ItemStoreStickerBinding binding) {
+    public StoreMyPageAssetViewHolder(ItemStoreAssetBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
     }
 
-    public ItemStoreStickerBinding bind(Asset item) {
+    public ItemStoreAssetBinding bind(SimpleAssetResponse item) {
         binding.setItem(item);
         binding.executePendingBindings();
         return binding;

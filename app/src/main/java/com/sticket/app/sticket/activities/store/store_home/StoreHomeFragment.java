@@ -16,6 +16,7 @@ import com.sticket.app.sticket.retrofit.client.ApiClient;
 import com.sticket.app.sticket.retrofit.client.CustomCallback;
 import com.sticket.app.sticket.databinding.FragmentStoreStartBinding;
 import com.sticket.app.sticket.models.Asset;
+import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,9 @@ import retrofit2.Response;
 public class StoreHomeFragment extends Fragment {
 
     private FragmentStoreStartBinding binding;
-    private List<Asset> todayAssets = new ArrayList<>();
-    private List<Asset> popularAssets = new ArrayList<>();
-    private List<Asset> newAssets = new ArrayList<>();
+    private List<SimpleAssetResponse> todayAssets = new ArrayList<>();
+    private List<SimpleAssetResponse> popularAssets = new ArrayList<>();
+    private List<SimpleAssetResponse> newAssets = new ArrayList<>();
     private StoreHomeHomeAssetsAdapter todayAssetsAdapter;
     private StoreHomeHomeAssetsAdapter popularAssetsAdapter;
     private StoreHomeHomeAssetsAdapter newAssetsAdapter;
@@ -69,9 +70,9 @@ public class StoreHomeFragment extends Fragment {
         ApiClient.getInstance()
                 .getAssetService()
                 .getTodayAssets(page)
-                .enqueue(new CustomCallback<List<Asset>>() {
+                .enqueue(new CustomCallback<List<SimpleAssetResponse>>() {
                     @Override
-                    public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
+                    public void onResponse(Call<List<SimpleAssetResponse>> call, Response<List<SimpleAssetResponse>> response) {
                         if (response.body() == null) {
                             Log.e("Retrofit2 Callback", String.format("onFailure: %s\n", call.request().url()));
                         } else {
@@ -87,9 +88,9 @@ public class StoreHomeFragment extends Fragment {
         ApiClient.getInstance()
                 .getAssetService()
                 .getPopularAssets(page)
-                .enqueue(new CustomCallback<List<Asset>>() {
+                .enqueue(new CustomCallback<List<SimpleAssetResponse>>() {
                     @Override
-                    public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
+                    public void onResponse(Call<List<SimpleAssetResponse>> call, Response<List<SimpleAssetResponse>> response) {
                         if (response.body() == null) {
                             Log.e("Retrofit2 Callback", String.format("onFailure: %s\n", call.request().url()));
                         } else {
@@ -105,9 +106,9 @@ public class StoreHomeFragment extends Fragment {
         ApiClient.getInstance()
                 .getAssetService()
                 .getNewAssets(page)
-                .enqueue(new CustomCallback<List<Asset>>() {
+                .enqueue(new CustomCallback<List<SimpleAssetResponse>>() {
                     @Override
-                    public void onResponse(Call<List<Asset>> call, Response<List<Asset>> response) {
+                    public void onResponse(Call<List<SimpleAssetResponse>> call, Response<List<SimpleAssetResponse>> response) {
                         if (response.body() == null) {
                             Log.e("Retrofit2 Callback", String.format("onFailure: %s\n", call.request().url()));
                         } else {

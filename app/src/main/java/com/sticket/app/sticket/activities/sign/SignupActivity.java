@@ -11,6 +11,7 @@ import com.sticket.app.sticket.retrofit.client.ApiClient;
 import com.sticket.app.sticket.retrofit.dto.request.auth.SignupRequest;
 import com.sticket.app.sticket.retrofit.message.ApiMessasge;
 import com.sticket.app.sticket.util.Alert;
+import com.sticket.app.sticket.util.SimpleCallbackUtil;
 
 import java.io.IOException;
 
@@ -55,25 +56,6 @@ public class SignupActivity extends AppCompatActivity {
 
         ApiClient.getInstance().getAuthService()
                 .userSignUp(request)
-                .enqueue(new Callback<ApiMessasge>() {
-                    @Override
-                    public void onResponse(Call<ApiMessasge> call, Response<ApiMessasge> response) {
-                        if (response.body() != null) {
-                            finish();
-                        } else {
-                            try {
-                                Log.e("SIGNUP", "errorBody : " + response.errorBody().string());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            Alert.makeText("회원가입 중 에러 발생");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ApiMessasge> call, Throwable t) {
-                        Alert.makeText("회원가입 중 네트워크 에러 발생");
-                    }
-                });
+                .enqueue(SimpleCallbackUtil.getSimpleCallback());
     }
 }

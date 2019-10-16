@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:weightSum="11"
     android:padding="20dip"
-    android:id="@+id/likeItemListView">
+    android:id="@+id/layout_item_author_like">
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
@@ -37,13 +37,14 @@
        <LinearLayout
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
+           android:orientation="horizontal"
            android:paddingBottom="3dip">
            <TextView
-               android:layout_width="match_parent"
+               android:layout_width="wrap_content"
                android:layout_height="match_parent"
                android:text="work "/>
            <TextView
-               android:layout_width="match_parent"
+               android:layout_width="wrap_content"
                android:layout_height="match_parent"
                android:id="@+id/txt_like_author_workCount"
                android:text="13"/>

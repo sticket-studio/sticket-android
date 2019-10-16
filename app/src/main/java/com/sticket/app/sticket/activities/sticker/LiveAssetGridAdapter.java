@@ -3,6 +3,7 @@ package com.sticket.app.sticket.activities.sticker;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,10 @@ public class LiveAssetGridAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
+            for(Asset  a : assetList){
+                Log.e("assetName",""+a.getLocalUrl());
+            }
+            Log.e("getView",""+position);
             Bitmap bitmap = BitmapFactory.decodeFile(assetList.get(position).getLocalUrl());
             stickerGridView = inflater.inflate(R.layout.item_grid_sticker, null);
             ImageView imageView = (ImageView) stickerGridView.findViewById(R.id.item_sticker_image);

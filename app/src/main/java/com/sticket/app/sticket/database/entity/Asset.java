@@ -29,6 +29,9 @@ public class Asset {
     @ColumnInfo(name="rotate")
     private int rotate;
 
+    @ColumnInfo(name="ratio")
+    private double ratio;
+
     @ColumnInfo(name="filp")
     private int flip;
 
@@ -99,4 +102,8 @@ public class Asset {
     public void setLandmark(Landmark landmark) {
         this.landmark = landmark;
     }
+
+    public void setRatio(double ratio){this.ratio = ratio;}
+
+    public double getRatio(){return ratio;}
 }

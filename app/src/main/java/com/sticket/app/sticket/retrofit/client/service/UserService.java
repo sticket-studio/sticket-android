@@ -2,10 +2,15 @@ package com.sticket.app.sticket.retrofit.client.service;
 
 import com.sticket.app.sticket.retrofit.dto.response.user.GetMyFavoriteAuthorsResponse;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserPageResponse;
+import com.sticket.app.sticket.retrofit.dto.response.user.UserSimple;
 import com.sticket.app.sticket.retrofit.message.ApiMessasge;
 import com.sticket.app.sticket.models.User;
 
+import java.util.List;
+
 import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -50,7 +55,7 @@ public interface UserService {
      * @return 내가 좋아하는 작가 리스트
      */
     @GET("sticket/api/normal/users/like")
-    public Call<GetMyFavoriteAuthorsResponse> getMyLikeAuthor();
+    public Call<List<UserSimple>> getMyLikeAuthor();
 
     /**
      * 작가 좋아요
@@ -70,4 +75,7 @@ public interface UserService {
      */
     @DELETE("sticket/api/normal/users/like/{userId}")
     public Call<ApiMessasge> dislikeAuthor(@Path("userId") int userId);
+
+
+
 }

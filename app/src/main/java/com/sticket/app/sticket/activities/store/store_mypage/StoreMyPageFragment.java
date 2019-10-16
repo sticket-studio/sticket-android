@@ -14,8 +14,8 @@ import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.databinding.FragmentStoreMypageBinding;
 import com.sticket.app.sticket.models.Asset;
-import com.sticket.app.sticket.models.User;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
+import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserPageResponse;
 import com.sticket.app.sticket.util.SimpleCallbackUtil;
 import com.sticket.app.sticket.util.ViewPagerAdapter;
@@ -33,7 +33,7 @@ public class StoreMyPageFragment extends Fragment {
     private UserPageResponse user;
     private int userIdx;
     private List<Asset> assets = new ArrayList<>();
-    private ArrayList<Asset>[] landmarkAssets = new ArrayList[LANDMARKS_ENG.length];
+    private ArrayList<SimpleAssetResponse>[] landmarkAssets = new ArrayList[LANDMARKS_ENG.length];
 
     @Nullable
     @Override
@@ -98,7 +98,7 @@ public class StoreMyPageFragment extends Fragment {
         for (Asset asset : assets) {
             for (int i = 0; i < LANDMARKS_ENG.length; i++) {
                 if (asset.getLandmark().equals(LANDMARKS_ENG[i])) {
-                    landmarkAssets[i].add(asset);
+                    landmarkAssets[i].add(SimpleAssetResponse.mapping(asset));
                     break;
                 }
             }
