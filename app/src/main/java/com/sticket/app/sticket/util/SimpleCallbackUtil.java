@@ -24,7 +24,9 @@ public class SimpleCallbackUtil {
                 Log.i("okhttp", "response.code() == 200: "+ (response.code() == 200));
                 if (response.body() != null && response.code() == 200) {
                     Alert.makeText("성공");
-                    simpleCallback.onSuccess(response.body());
+                    if(simpleCallback!=null) {
+                        simpleCallback.onSuccess(response.body());
+                    }
                 } else {
                     Alert.makeText("에러");
                 }

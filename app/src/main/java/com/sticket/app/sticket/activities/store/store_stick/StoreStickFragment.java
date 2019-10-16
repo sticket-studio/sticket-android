@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.adapter.StoreStickAdapter;
-import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.databinding.FragmentStoreStickBinding;
 import com.sticket.app.sticket.models.Advertisement;
 import com.sticket.app.sticket.models.Stick;
@@ -43,6 +42,10 @@ public class StoreStickFragment extends Fragment {
 
     private void initViews() {
         stickAdapter = new StoreStickAdapter(this.sticks);
+        stickAdapter.setOnBuyStickListener(newStick -> {
+            int currentStick = Integer.parseInt(binding.txtStoreStickerMyStick.getText().toString());
+            binding.txtStoreStickerMyStick.setText(String.valueOf(currentStick+newStick));
+        });
         binding.rvStoreStickSticks.setLayoutManager(new GridLayoutManager(getContext(), 3));
         binding.rvStoreStickSticks.setAdapter(stickAdapter);
 
