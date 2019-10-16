@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.sticket.app.sticket.models.Asset" />
+            type="com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse" />
 
         <variable
             name="adapter"
@@ -36,7 +36,7 @@
             android:layout_height="24dp"
             android:background="@drawable/item_tag_bg"
             android:padding="3dp"
-            android:text="@{item.theme.name}"
+            android:text="@{item.themeName}"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="12sp"

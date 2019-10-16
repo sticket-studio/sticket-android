@@ -9,16 +9,16 @@ import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.adapter.viewholders.StoreHomeHomeAssetsViewHolder;
 import com.sticket.app.sticket.databinding.ItemStoreAssetBinding;
-import com.sticket.app.sticket.models.Asset;
+import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 
 import java.util.List;
 
 public class StoreHomeHomeAssetsAdapter extends RecyclerView.Adapter<StoreHomeHomeAssetsViewHolder> {
     private static final String TAG = StoreHomeHomeAssetsAdapter.class.getSimpleName();
 
-    private List<Asset> assets;
+    private List<SimpleAssetResponse> assets;
 
-    public StoreHomeHomeAssetsAdapter(List<Asset> assets) {
+    public StoreHomeHomeAssetsAdapter(List<SimpleAssetResponse> assets) {
         this.assets = assets;
     }
 
@@ -34,12 +34,11 @@ public class StoreHomeHomeAssetsAdapter extends RecyclerView.Adapter<StoreHomeHo
 
     @Override
     public void onBindViewHolder(@NonNull StoreHomeHomeAssetsViewHolder holder, int position) {
-        final Asset item = assets.get(position);
+        final SimpleAssetResponse item = assets.get(position);
 
         ItemStoreAssetBinding binding = holder.bind(item);
         binding.setAdapter(this);
 
-        binding.txtItemAssetName.setText(item.getTheme().getName());
         Glide.with(binding.getRoot())
                 .load(item.getImgUrl())
                 .placeholder(R.drawable.basic_cheek_logo1)

@@ -12,6 +12,7 @@ import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.adapter.StoreMyPageAssetAdapter;
 import com.sticket.app.sticket.databinding.FragmentStoreMypageViewpagerBinding;
 import com.sticket.app.sticket.models.Asset;
+import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class MyPageAssetListFragment extends Fragment {
     public static final String EXTRA_ASSETS = "ASSETS";
 
     private FragmentStoreMypageViewpagerBinding binding;
-    private List<Asset> assets = new ArrayList<>();
+    private List<SimpleAssetResponse> assets = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class MyPageAssetListFragment extends Fragment {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_store_mypage_viewpager, container, false);
 
-        assets = (List<Asset>) getArguments().getSerializable(EXTRA_ASSETS);
+        assets = (List<SimpleAssetResponse>) getArguments().getSerializable(EXTRA_ASSETS);
 
         StoreMyPageAssetAdapter storeMyPageAssetAdapter = new StoreMyPageAssetAdapter(assets);
         binding.recyclerItemList.setAdapter(storeMyPageAssetAdapter);
