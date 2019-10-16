@@ -3,8 +3,14 @@
     android:layout_height="130dip"
     android:orientation="horizontal"
     android:weightSum="11"
-    android:padding="20dip"
+    android:padding="10dip"
+    android:background="@color/grey"
     android:id="@+id/layout_item_author_like">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:background="@color/white">
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
@@ -74,6 +80,7 @@
             android:text="324"
             android:textAlignment="center"
             android:id="@+id/txt_like_author_likeNum"/>
+    </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
