@@ -94,4 +94,8 @@ public class ApiClient {
     public void setUserId(int userId){
         this.userId = userId;
     }
+
+    public boolean isLoggedIn(){
+        return getUserId() != 0;
+    }
 }

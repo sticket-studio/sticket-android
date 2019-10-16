@@ -4,10 +4,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import okio.Buffer;
+import okio.BufferedSource;
 
 public class MyInterceptor implements Interceptor {
     private final String TOKEN_TYPE = "Bearer ";
@@ -30,9 +33,11 @@ public class MyInterceptor implements Interceptor {
         try {
             Log.i("okhttp", String.format("Sending request %s on %s\n%s\n%s\n%s",
                     request.url(), chain.connection(), request.headers(), request.body(), request.header("Content-Type")));
-
+            BufferedSource source = response.body().source();
+            source.request(Long.MAX_VALUE); // Buffer the entire body.
+            Buffer buffer = source.buffer();
             Log.i("okhttp", String.format("Received response for %s in %n%s",
-                    response.body(), response.headers()));
+                    buffer.clone().readString(Charset.forName("UTF-8")), response.headers()));
         } catch (Exception e) {
             Log.e("okhttp", "Error: " + e);
         }
