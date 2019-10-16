@@ -32,11 +32,15 @@ public class MyInterceptor implements Interceptor {
                     request.url(), chain.connection(), request.headers(), request.body(), request.header("Content-Type")));
 
             Log.i("okhttp", String.format("Received response for %s in %n%s",
-                    response.body().string(), response.headers()));
+                    response.body(), response.headers()));
         } catch (Exception e) {
             Log.e("okhttp", "Error: " + e);
         }
-        return chain.proceed(request);
+        // 이부분 고치지 마세염
+        // return chain.proceed(request); 해버리면 요청을 다시 보내게 됨
+        // 그럼 logout같은 곳에서 에러남
+        // (같은 토큰으로 로그아웃 한 번 하면 token이 invalidate 되는데 한 번 더 보내므로 에러남)
+        return response;
     }
 
 
