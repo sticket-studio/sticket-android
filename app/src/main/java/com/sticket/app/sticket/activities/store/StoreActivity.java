@@ -20,11 +20,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.sign.SigninActivity;
-import com.sticket.app.sticket.activities.store.store_viewbyasset.StoreViewByAssetFragment;
 import com.sticket.app.sticket.activities.store.store_charge.StoreChargeFragment;
 import com.sticket.app.sticket.activities.store.store_home.StoreHomeFragment;
-import com.sticket.app.sticket.activities.store.store_like.StoreLikeFagement;
+import com.sticket.app.sticket.activities.store.store_like.StoreLikeFragement;
 import com.sticket.app.sticket.activities.store.store_mypage.StoreMyPageFragment;
+import com.sticket.app.sticket.activities.store.store_register.StoreRegisterFragment;
+import com.sticket.app.sticket.activities.store.store_viewbyasset.StoreViewByAssetFragment;
 import com.sticket.app.sticket.databinding.ActivityStoreBinding;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserPageResponse;
@@ -135,9 +136,15 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_like:
                 getSupportFragmentManager().beginTransaction().replace(
-                        R.id.fragment_container, new StoreLikeFagement()).commit();
+                        R.id.fragment_container, new StoreLikeFragement()).commit();
                 binding.drawerLayout.closeDrawer(GravityCompat.START);
                 binding.txtToolbarTitle.setText("좋아요");
+                break;
+            case R.id.nav_register:
+                getSupportFragmentManager().beginTransaction().replace(
+                        R.id.fragment_container, new StoreRegisterFragment()).commit();
+                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                binding.txtToolbarTitle.setText("애셋 등록");
                 break;
             case R.id.nav_charge:
                 getSupportFragmentManager().beginTransaction().replace(

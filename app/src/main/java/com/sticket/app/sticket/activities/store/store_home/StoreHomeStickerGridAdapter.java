@@ -89,6 +89,7 @@ public class StoreHomeStickerGridAdapter extends BaseAdapter {
                         }
                     });
 
+
         }
         else {
             stickerGridView = (View) convertView;

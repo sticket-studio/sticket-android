@@ -16,6 +16,9 @@
         <item android:id="@+id/nav_like"
             android:icon="@drawable/ic_home"
             android:title="좋아요" />
+        <item android:id="@+id/nav_register"
+            android:icon="@drawable/ic_home"
+            android:title="애셋 등록" />
         <item android:id="@+id/nav_charge"
             android:icon="@drawable/ic_home"
             android:title="스틱 충전" />
