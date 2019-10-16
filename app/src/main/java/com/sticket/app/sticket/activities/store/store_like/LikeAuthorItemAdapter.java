@@ -2,20 +2,24 @@ package com.sticket.app.sticket.activities.store.store_like;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-
-
+import java.util.List;
 
 public class LikeAuthorItemAdapter extends BaseAdapter {
     private class LikeAuthorItemViewHolder {
@@ -64,7 +68,7 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
 
         LikeAuthorItem likeAuthorItem = itemList.get(position);
 
-        likeAuthorItemViewHolder.userImge.setImageResource(likeAuthorItem.getUserImg());
+        Glide.with(parent.getContext()).load(likeAuthorItem.getUserImg()).into(likeAuthorItemViewHolder.userImge);
         likeAuthorItemViewHolder.userName.setText(likeAuthorItem.getUserName());
         likeAuthorItemViewHolder.workCount.setText(String.valueOf(likeAuthorItem.getWorkCount()));
         likeAuthorItemViewHolder.title.setText(likeAuthorItem.getTitle());
@@ -86,7 +90,7 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-      return position;
+        return position;
     }
 
     @Override
@@ -94,7 +98,7 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
         return itemList.get(position);
     }
 
-    public void addItem(int resourse, String userName, int workCount, String title, String likeNum){
+    public void addItem(String resourse, String userName, int workCount, String title, String likeNum){
         LikeAuthorItem likeAuthorItem = new LikeAuthorItem(resourse,userName,workCount ,title,likeNum);
         itemList.add(likeAuthorItem);
     }

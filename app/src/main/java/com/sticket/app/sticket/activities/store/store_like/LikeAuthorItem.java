@@ -3,13 +3,13 @@ package com.sticket.app.sticket.activities.store.store_like;
 import android.graphics.drawable.Drawable;
 
 public class LikeAuthorItem {
-    private int userImg;
+    private String userImg;
     private String userName;
     private int workCount;
     private String title;
     private String likeNum;
 
-    public LikeAuthorItem(int userImg, String userName, int workCount, String title, String likeNum) {
+    public LikeAuthorItem(String userImg, String userName, int workCount, String title, String likeNum) {
         this.userImg = userImg;
         this.userName = userName;
         this.workCount = workCount;
@@ -17,11 +17,11 @@ public class LikeAuthorItem {
         this.likeNum = likeNum;
     }
 
-    public int getUserImg() {
+    public String getUserImg() {
         return userImg;
     }
 
-    public void setUserImg(int userImg) {
+    public void setUserImg(String userImg) {
         this.userImg = userImg;
     }
 

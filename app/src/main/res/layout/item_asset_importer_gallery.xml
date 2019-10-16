@@ -1,13 +1,15 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:padding="10dp">
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:padding="10dp"
+    android:layout_gravity="center">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/img_asset_importer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/yeoni" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/yeoni"
+        android:scaleType="fitCenter"/>
 
 </LinearLayout>

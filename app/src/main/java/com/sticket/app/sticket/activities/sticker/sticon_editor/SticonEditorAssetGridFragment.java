@@ -47,5 +47,6 @@ public class SticonEditorAssetGridFragment extends Fragment {
 
     public void setOnAssetClickListener(OnAssetClickListener onAssetClickListener) {
         this.onAssetClickListener = onAssetClickListener;
+
     }
 }

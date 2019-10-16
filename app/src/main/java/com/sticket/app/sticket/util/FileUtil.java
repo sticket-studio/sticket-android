@@ -32,6 +32,8 @@ public class FileUtil {
     public static String IMAGE_ASSET_DIRECTORY_PATH;
     public static String ALBUM_DIRECTORY_PATH;
 
+
+
     public static void buildPaths() {
         EXTERNAL_STORAGE_DIRECTORY = Preference.getInstance().getString(Preference.PREFERENCE_NAME_SAVE_LOCATION);
         APPLICATION_DIRECTORY_PATH = EXTERNAL_STORAGE_DIRECTORY + "/sticket";
@@ -46,6 +48,7 @@ public class FileUtil {
     }
 
     public static void structDirectories() {
+
         File dataDir = new File(DATA_DIRECTORY_PATH);
         File thumbnailDir = new File(THUMBNAIL_DIR_PATH);
         File assetThumbnailDir = new File(THUMBNAIL_ASSET_DIRECTORY_PATH);
@@ -82,7 +85,7 @@ public class FileUtil {
     }
 
     public static boolean saveBitmapToFile(Bitmap bitmap, String destDirPath, String destFileName) {
-        Log.e(TAG, "destDirPath: "+ destDirPath);
+
         File file = new File(destDirPath);
         if (!file.exists()) {
             file.mkdirs();

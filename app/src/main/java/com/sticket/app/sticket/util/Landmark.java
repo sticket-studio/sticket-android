@@ -30,6 +30,7 @@ public enum Landmark implements Serializable {
     private final String korName;
 
     Landmark(float x, float y, int no, String korName) {
+
         this.x = x;
         this.y = y;
         this.no = no;
