@@ -1,7 +1,13 @@
-package com.sticket.app.sticket.util;
+package com.sticket.app.sticket;
 
 import android.app.Application;
 import android.os.Environment;
+
+import com.sticket.app.sticket.database.InitBasicAssets;
+import com.sticket.app.sticket.util.Alert;
+import com.sticket.app.sticket.util.FileUtil;
+import com.sticket.app.sticket.util.MyBitmapFactory;
+import com.sticket.app.sticket.util.Preference;
 
 public class MyApplication extends Application {
     private static final String TAG = "MyApplication";
