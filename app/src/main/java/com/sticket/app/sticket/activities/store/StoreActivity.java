@@ -29,6 +29,7 @@ import com.sticket.app.sticket.activities.store.store_viewbyasset.StoreViewByAss
 import com.sticket.app.sticket.databinding.ActivityStoreBinding;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserPageResponse;
+import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.SimpleCallbackUtil;
 
 public class StoreActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -83,6 +84,8 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                     .enqueue(SimpleCallbackUtil.getSimpleCallback(responseBody -> {
                         ApiClient.getInstance().setUserId(0);
                         ApiClient.getInstance().setToken(null);
+                        Preference.getInstance().putString(Preference.PREFERENCE_NAME_EMAIL, null);
+                        Preference.getInstance().putString(Preference.PREFERENCE_NAME_PASSWORD, null);
                         checkSignedIn();
                     }));
         });

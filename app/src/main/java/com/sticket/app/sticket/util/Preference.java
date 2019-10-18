@@ -23,6 +23,8 @@ public class Preference {
     public static final String PREFERENCE_NAME_HD = "HIGH_QUALITY";
     public static final String PREFERENCE_NAME_FIRST_LAUNCH = "FIRST_LAUNCH";
     public static final String PREFERENCE_NAME_SAVE_LOCATION = "SAVE_LOCATION";
+    public static final String PREFERENCE_NAME_EMAIL = "EMAIL";
+    public static final String PREFERENCE_NAME_PASSWORD = "PASSWORD";
 
     private static Preference instance;
     private static SharedPreferences sharedPreferences;
