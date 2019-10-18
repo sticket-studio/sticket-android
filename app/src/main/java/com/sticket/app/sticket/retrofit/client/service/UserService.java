@@ -1,5 +1,6 @@
 package com.sticket.app.sticket.retrofit.client.service;
 
+import com.sticket.app.sticket.retrofit.dto.request.user.UserUpdateRequest;
 import com.sticket.app.sticket.retrofit.dto.response.user.GetMyFavoriteAuthorsResponse;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserPageResponse;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserSimple;
@@ -46,7 +47,7 @@ public interface UserService {
      * @param user 바꿀 User의 정보
      */
     @PUT("sticket/api/normal/users")
-    public Call<ApiMessasge> updateMyInfo(@Body User user);
+    public Call<ApiMessasge> updateMyInfo(@Body UserUpdateRequest user);
 
     /**
      * 내가 좋아하는 작가 리스트 조회
