@@ -1,9 +1,18 @@
 package com.sticket.app.sticket.retrofit.dto.request.user;
 
 public class UserUpdateRequest {
+    private String name;
     private String email;
-    private String username;
-    private String password;
+    private String description;
+    private String imgUrl;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getEmail() {
         return email;
@@ -13,19 +22,19 @@ public class UserUpdateRequest {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPassword() {
-        return password;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

@@ -2,7 +2,9 @@ package com.sticket.app.sticket.retrofit.dto.response.asset;
 
 import com.sticket.app.sticket.models.Asset;
 
-public class SimpleAssetResponse {
+import java.io.Serializable;
+
+public class SimpleAssetResponse implements Serializable {
     private int id;
     private String imgUrl;
     private String name;

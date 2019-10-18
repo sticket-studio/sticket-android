@@ -56,6 +56,8 @@ public class SignupActivity extends AppCompatActivity {
 
         ApiClient.getInstance().getAuthService()
                 .userSignUp(request)
-                .enqueue(SimpleCallbackUtil.getSimpleCallback());
+                .enqueue(SimpleCallbackUtil.getSimpleCallback(responseBody -> {
+                    finish();
+                }));
     }
 }
