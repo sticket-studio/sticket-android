@@ -29,6 +29,7 @@ import com.sticket.app.sticket.activities.store.store_viewbyasset.StoreViewByAss
 import com.sticket.app.sticket.databinding.ActivityStoreBinding;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserPageResponse;
+import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.SimpleCallbackUtil;
 
 public class StoreActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +41,8 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
     private TextView emailTxt;
     private Button signinBtn;
     private Button signoutBtn;
+
+    private UserPageResponse user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +76,7 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
         signinBtn = headerView.findViewById(R.id.btn_store_header_signin);
         signoutBtn = headerView.findViewById(R.id.btn_store_header_signout);
 
-        signinBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(StoreActivity.this, SigninActivity.class);
-            startActivityForResult(intent, ACTIVITY_REQ_SIGNIN);
-        });
+        signinBtn.setOnClickListener(v -> startSignInActivity());
 
         signoutBtn.setOnClickListener(v -> {
             ApiClient.getInstance().getAuthService()
@@ -84,6 +84,8 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                     .enqueue(SimpleCallbackUtil.getSimpleCallback(responseBody -> {
                         ApiClient.getInstance().setUserId(0);
                         ApiClient.getInstance().setToken(null);
+                        Preference.getInstance().putString(Preference.PREFERENCE_NAME_EMAIL, null);
+                        Preference.getInstance().putString(Preference.PREFERENCE_NAME_PASSWORD, null);
                         checkSignedIn();
                     }));
         });
@@ -125,6 +127,12 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                 binding.txtToolbarTitle.setText("애셋별 열람");
                 break;
             case R.id.nav_my_page:
+                // 로그인이 안되어있으면 로그인 페이지로 이동
+                if (!ApiClient.getInstance().isLoggedIn()) {
+                    startSignInActivity();
+                    return false;
+                }
+
                 StoreMyPageFragment storeMyPageFragment = new StoreMyPageFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt(StoreMyPageFragment.EXTRA_USER_IDX, ApiClient.getInstance().getUserId());
@@ -135,12 +143,22 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                 binding.txtToolbarTitle.setText("마이 페이지");
                 break;
             case R.id.nav_like:
+                // 로그인이 안되어있으면 로그인 페이지로 이동
+                if (!ApiClient.getInstance().isLoggedIn()) {
+                    startSignInActivity();
+                    return false;
+                }
                 getSupportFragmentManager().beginTransaction().replace(
                         R.id.fragment_container, new StoreLikeFragement()).commit();
                 binding.drawerLayout.closeDrawer(GravityCompat.START);
                 binding.txtToolbarTitle.setText("좋아요");
                 break;
             case R.id.nav_register:
+                // 로그인이 안되어있으면 로그인 페이지로 이동
+                if (!ApiClient.getInstance().isLoggedIn()) {
+                    startSignInActivity();
+                    return false;
+                }
                 getSupportFragmentManager().beginTransaction().replace(
                         R.id.fragment_container, new StoreRegisterFragment()).commit();
                 binding.drawerLayout.closeDrawer(GravityCompat.START);
@@ -164,8 +182,6 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
         }
     }
-
-    private UserPageResponse user;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -192,5 +208,10 @@ public class StoreActivity extends AppCompatActivity implements NavigationView.O
                         checkSignedIn();
                     }));
         }
+    }
+
+    private void startSignInActivity() {
+        Intent intent = new Intent(StoreActivity.this, SigninActivity.class);
+        startActivityForResult(intent, ACTIVITY_REQ_SIGNIN);
     }
 }

@@ -1,9 +1,11 @@
 package com.sticket.app.sticket.retrofit.dto.request.auth;
 
 public class SignInRequest {
+    public static final String GRANT_TYPE = "password";
+
     private String username;
     private String password;
-    private String grantType = "password";
+    private String grantType = GRANT_TYPE;
 
     public String getUsername() {
         return username;

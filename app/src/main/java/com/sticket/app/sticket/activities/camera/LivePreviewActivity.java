@@ -146,6 +146,7 @@ public final class LivePreviewActivity extends AppCompatActivity
         if (sticon != null) {
             MyBitmapFactory.getInstance().setSticon(sticketDatabase.sticonDao().getLastSticon());
         }
+        InitBasicAssets.initPurchasedAssets(LivePreviewActivity.this);
 
         startCameraSource();
     }

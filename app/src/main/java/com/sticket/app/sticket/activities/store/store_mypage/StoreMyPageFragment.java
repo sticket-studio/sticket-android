@@ -1,5 +1,6 @@
 package com.sticket.app.sticket.activities.store.store_mypage;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.setting.AccountActivity;
 import com.sticket.app.sticket.databinding.FragmentStoreMypageBinding;
 import com.sticket.app.sticket.models.Asset;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
@@ -40,9 +42,14 @@ public class StoreMyPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store_mypage, container, false);
         userIdx = getArguments().getInt(EXTRA_USER_IDX);
-        initViews();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initViews();
     }
 
     private void initViews() {
@@ -87,6 +94,9 @@ public class StoreMyPageFragment extends Fragment {
                         .dislikeAuthor(userIdx)
                         .enqueue(SimpleCallbackUtil.getSimpleCallback());
             }
+        });
+        binding.btnStoreMypageSetting.setOnClickListener(v->{
+            startActivity(new Intent(getContext(), AccountActivity.class));
         });
     }
 

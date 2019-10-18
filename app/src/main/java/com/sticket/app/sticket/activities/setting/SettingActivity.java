@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.sign.SigninActivity;
+import com.sticket.app.sticket.retrofit.client.ApiClient;
 import com.sticket.app.sticket.util.FileUtil;
 import com.sticket.app.sticket.util.Preference;
 
@@ -51,10 +53,15 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void btnToAccountManagement(View view) {
-        Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
-        //To begin from a selected folder instead of sd card's root folder. Example : Pictures directory
-        intent.putExtra("location", FileUtil.ALBUM_DIRECTORY_PATH);
-        startActivity(intent);
+        if(ApiClient.getInstance().isLoggedIn()) {
+            Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+            //To begin from a selected folder instead of sd card's root folder. Example : Pictures directory
+            intent.putExtra("location", FileUtil.ALBUM_DIRECTORY_PATH);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, SigninActivity.class);
+            startActivity(intent);
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
