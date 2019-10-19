@@ -1,5 +1,6 @@
 package com.sticket.app.sticket.activities.store.store_stick;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.sign.SigninActivity;
+import com.sticket.app.sticket.activities.store.StoreActivity;
 import com.sticket.app.sticket.adapter.StoreStickAdapter;
 import com.sticket.app.sticket.databinding.FragmentStoreStickBinding;
 import com.sticket.app.sticket.models.Advertisement;
@@ -34,17 +37,32 @@ public class StoreStickFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store_stick, container, false);
 
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         initData();
         initViews();
-
-        return binding.getRoot();
     }
 
     private void initViews() {
         stickAdapter = new StoreStickAdapter(this.sticks);
-        stickAdapter.setOnBuyStickListener(newStick -> {
-            int currentStick = Integer.parseInt(binding.txtStoreStickerMyStick.getText().toString());
-            binding.txtStoreStickerMyStick.setText(String.valueOf(currentStick+newStick));
+        stickAdapter.setOnBuyStickListener(stick -> {
+
+            if (ApiClient.getInstance().isLoggedIn()) {
+                ApiClient.getInstance().getStickService()
+                        .buyStick(stick.getId())
+                        .enqueue(SimpleCallbackUtil.getSimpleCallback(responseBody -> {
+                            int currentStick = Integer.parseInt(binding.txtStoreStickerMyStick.getText().toString());
+                            binding.txtStoreStickerMyStick.setText(String.valueOf(currentStick + stick.getStick()));
+                        }));
+            } else {
+                getActivity().startActivityForResult(new Intent(getContext(), SigninActivity.class),
+                        StoreActivity.ACTIVITY_REQ_SIGNIN);
+            }
         });
         binding.rvStoreStickSticks.setLayoutManager(new GridLayoutManager(getContext(), 3));
         binding.rvStoreStickSticks.setAdapter(stickAdapter);

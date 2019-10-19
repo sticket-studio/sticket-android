@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +34,7 @@ import com.sticket.app.sticket.util.Preference;
 import com.sticket.app.sticket.util.SimpleCallbackUtil;
 
 public class StoreActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private static final int ACTIVITY_REQ_SIGNIN = 1234;
+    public static final int ACTIVITY_REQ_SIGNIN = 1234;
 
     private ActivityStoreBinding binding;
     private ImageView profileImg;
