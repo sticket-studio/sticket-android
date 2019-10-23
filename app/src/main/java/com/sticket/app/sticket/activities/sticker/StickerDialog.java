@@ -17,7 +17,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.activities.sticker.asset_importer.AssetImporter;
+import com.sticket.app.sticket.activities.sticker.asset_importer.AssetImporterAcitivity;
 import com.sticket.app.sticket.activities.sticker.sticon_editor.SticonEditorActivity;
 import com.sticket.app.sticket.database.InitBasicAssets;
 import com.sticket.app.sticket.database.SticketDatabase;
@@ -103,7 +103,7 @@ public class StickerDialog extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.btn_asset_importer:
-                        Intent assetImpoterIntent = new Intent(getContext(), AssetImporter.class);
+                        Intent assetImpoterIntent = new Intent(getContext(), AssetImporterAcitivity.class);
                         startActivity(assetImpoterIntent);
                         break;
                     case R.id.btn_sticon_editor:

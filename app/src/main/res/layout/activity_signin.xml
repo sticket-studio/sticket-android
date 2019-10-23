@@ -42,7 +42,8 @@
                 android:layout_marginBottom="10dip"
                 android:layout_weight="1"
                 android:gravity="bottom"
-                android:text="Sign up"
+                android:text="Sign In"
+                android:textStyle="bold"
                 android:textSize="20dip" />
 
             <EditText
@@ -91,6 +92,7 @@
                 android:layout_marginRight="25dip"
                 android:layout_marginBottom="10dip"
                 android:layout_weight="1"
+                style="?android:attr/borderlessButtonStyle"
                 android:background="@drawable/btn_pink"
                 android:gravity="center"
                 android:text="로그인"

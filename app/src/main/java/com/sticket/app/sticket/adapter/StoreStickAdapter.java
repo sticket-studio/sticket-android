@@ -1,7 +1,6 @@
 package com.sticket.app.sticket.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,16 +8,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.adapter.viewholders.StoreHomeHomeAssetsViewHolder;
 import com.sticket.app.sticket.adapter.viewholders.StoreStickViewHolder;
-import com.sticket.app.sticket.databinding.ItemStoreAssetBinding;
 import com.sticket.app.sticket.databinding.ItemStoreStickBinding;
 import com.sticket.app.sticket.models.Stick;
-import com.sticket.app.sticket.retrofit.client.ApiClient;
-import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
-import com.sticket.app.sticket.retrofit.message.ApiMessasge;
 import com.sticket.app.sticket.util.AlertDialogBuilderUtil;
-import com.sticket.app.sticket.util.SimpleCallbackUtil;
 
 import java.util.List;
 
@@ -58,13 +51,9 @@ public class StoreStickAdapter extends RecyclerView.Adapter<StoreStickViewHolder
         binding.getRoot().setOnClickListener(v -> {
             AlertDialogBuilderUtil.simpleDialog(context, "스틱 구매", "스틱을 구매하시겠습니까?",
                     (dialog, which) -> {
-                        ApiClient.getInstance().getStickService()
-                                .buyStick(item.getId())
-                                .enqueue(SimpleCallbackUtil.getSimpleCallback(responseBody -> {
-                                    if (onBuyStickListener != null) {
-                                        onBuyStickListener.onBuyStick(item.getStick());
-                                    }
-                                }));
+                        if (onBuyStickListener != null) {
+                            onBuyStickListener.onBuyStick(item);
+                        }
                     });
         });
     }
@@ -79,7 +68,7 @@ public class StoreStickAdapter extends RecyclerView.Adapter<StoreStickViewHolder
     }
 
     public interface OnBuyStickListener {
-        public void onBuyStick(int newStick);
+        public void onBuyStick(Stick stick);
     }
 
 }

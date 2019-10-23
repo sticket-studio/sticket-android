@@ -76,115 +76,107 @@ public class CameraSettingDialog extends Dialog {
 
     // view에서 갖다 쓰기 때문에 initViews() 보다 먼저 해줘야함!
     private void initListeners() {
-        onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Field[] declaredFields = CameraSource.class.getDeclaredFields();
-                Camera camera = null;
-                for (Field field : declaredFields) {
-                    if (field.getType() == Camera.class) {
-                        try {
-                            camera = (Camera) field.get(cameraSource);
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    }
-                }
+        onCheckedChangeListener = (buttonView, isChecked) -> {
 
-                if (camera == null) throw new RuntimeException("Camera is Null");
-
-                Camera.Parameters p = camera.getParameters();
-
-                switch (buttonView.getId()) {
-                    case R.id.toggleFlash:
-                        if (isChecked) {
-                            // Flash 조작 불가능 하다면 다시 OFF 처리
-                            if (cameraSource.getCameraFacing() == CameraSource.CAMERA_FACING_FRONT) {
-                                Alert.makeText("전면 카메라에선 플래시 조작이 불가능합니다");
-
-                                buttonView.setChecked(false);
-
-                                // SharedPreference에 Flash값 저장 - FLASH_OFF
-                                CameraOption.getInstance().setFlash(Flash.FLASH_OFF);
-
-                                break;
-                            } else {
-                                p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                                CameraOption.getInstance().setFlash(Flash.FLASH_ON);
+            switch (buttonView.getId()) {
+                case R.id.toggleFlash:
+                    Field[] declaredFields = CameraSource.class.getDeclaredFields();
+                    Camera camera = null;
+                    for (Field field : declaredFields) {
+                        if (field.getType() == Camera.class) {
+                            try {
+                                camera = (Camera) field.get(cameraSource);
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
                             }
-                        } else {
-                            p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                            break;
+                        }
+                    }
+
+                    if (camera == null) throw new RuntimeException("Camera is Null");
+
+                    Camera.Parameters p = camera.getParameters();
+
+                    if (isChecked) {
+                        // Flash 조작 불가능 하다면 다시 OFF 처리
+                        if (cameraSource.getCameraFacing() == CameraSource.CAMERA_FACING_FRONT) {
+                            Alert.makeText("전면 카메라에선 플래시 조작이 불가능합니다");
+
+                            buttonView.setChecked(false);
+
+                            // SharedPreference에 Flash값 저장 - FLASH_OFF
                             CameraOption.getInstance().setFlash(Flash.FLASH_OFF);
-                        }
 
-                        Preference.getInstance().putInt(PREFERENCE_NAME_FLASH
-                                , CameraOption.getInstance().getFlash().getVal());
-
-                        camera.setParameters(p);
-                        camera.startPreview();
-                        break;
-                    case R.id.SwitchAutoSave:
-                        CameraOption.getInstance().setAutoSave(isChecked);
-                        Preference.getInstance().putBoolean(PREFERENCE_NAME_AUTO_SAVE
-                                , isChecked);
-                        break;
-                    case R.id.SwitchTouchCapture:
-                        CameraOption.getInstance().setTouchCapture(isChecked);
-                        Preference.getInstance().putBoolean(PREFERENCE_NAME_TOUCH_CAPTURE
-                                , isChecked);
-                        break;
-                    case R.id.SwitchHD:
-                        CameraOption.getInstance().setHD(isChecked);
-                        Preference.getInstance().putBoolean(PREFERENCE_NAME_HD
-                                , isChecked);
-                        if (onQualityChangeListener != null) {
-                            onQualityChangeListener.onQualityChange(isChecked);
+                            break;
+                        } else {
+                            p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                            CameraOption.getInstance().setFlash(Flash.FLASH_ON);
                         }
-                        break;
-                }
+                    } else {
+                        p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                        CameraOption.getInstance().setFlash(Flash.FLASH_OFF);
+                    }
+
+                    Preference.getInstance().putInt(PREFERENCE_NAME_FLASH
+                            , CameraOption.getInstance().getFlash().getVal());
+
+                    camera.setParameters(p);
+                    camera.startPreview();
+                    break;
+                case R.id.SwitchAutoSave:
+                    CameraOption.getInstance().setAutoSave(isChecked);
+                    Preference.getInstance().putBoolean(PREFERENCE_NAME_AUTO_SAVE, isChecked);
+                    break;
+                case R.id.SwitchTouchCapture:
+                    CameraOption.getInstance().setTouchCapture(isChecked);
+                    Preference.getInstance().putBoolean(PREFERENCE_NAME_TOUCH_CAPTURE, isChecked);
+                    break;
+                case R.id.SwitchHD:
+                    CameraOption.getInstance().setHD(isChecked);
+                    Preference.getInstance().putBoolean(PREFERENCE_NAME_HD, isChecked);
+                    if (onQualityChangeListener != null) {
+                        onQualityChangeListener.onQualityChange(isChecked);
+                    }
+                    break;
             }
         };
 
-        onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.btnTimer:
-                        Timer curTimer = CameraOption.getInstance().getTimer();
-                        int curTimerValue = curTimer.getVal();
-                        int nextTimerIdx = (curTimerValue + 1) % Timer.values().length;
+        onClickListener = v -> {
+            switch (v.getId()) {
+                case R.id.btnTimer:
+                    Timer curTimer = CameraOption.getInstance().getTimer();
+                    int curTimerValue = curTimer.getVal();
+                    int nextTimerIdx = (curTimerValue + 1) % Timer.values().length;
 
-                        Timer nextTimer = Timer.values()[nextTimerIdx];
-                        CameraOption.getInstance().setTimer(nextTimer);
+                    Timer nextTimer = Timer.values()[nextTimerIdx];
+                    CameraOption.getInstance().setTimer(nextTimer);
 
-                        Preference.getInstance().putInt(PREFERENCE_NAME_TIMER
-                                , nextTimer.getVal());
-                        timerBtn.setBackgroundResource(CameraOption.TIMER_IMGS[nextTimer.getVal()]);
-                        break;
-                }
-                switch (v.getId()) {
-                    case R.id.btnRatio:
-                        Ratio curTimer = CameraOption.getInstance().getRatio();
-                        int curRatioValue = curTimer.getVal();
-                        int nextRatioIdx = (curRatioValue + 1) % Ratio.values().length;
+                    Preference.getInstance().putInt(PREFERENCE_NAME_TIMER
+                            , nextTimer.getVal());
+                    timerBtn.setBackgroundResource(CameraOption.TIMER_IMGS[nextTimer.getVal()]);
+                    break;
+            }
+            switch (v.getId()) {
+                case R.id.btnRatio:
+                    Ratio curTimer = CameraOption.getInstance().getRatio();
+                    int curRatioValue = curTimer.getVal();
+                    int nextRatioIdx = (curRatioValue + 1) % Ratio.values().length;
 
-                        Ratio nextRatio = Ratio.values()[nextRatioIdx];
-                        CameraOption.getInstance().setRatio(nextRatio);
+                    Ratio nextRatio = Ratio.values()[nextRatioIdx];
+                    CameraOption.getInstance().setRatio(nextRatio);
 
-                        Preference.getInstance().putInt(PREFERENCE_NAME_RATIO_WIDTH
-                                , nextRatio.getWidth());
-                        Preference.getInstance().putInt(PREFERENCE_NAME_RATIO_HEIGHT
-                                , nextRatio.getHeight());
-                        Preference.getInstance().putInt(PREFERENCE_NAME_RATIO
-                                , nextRatioIdx);
-                        ratioBtn.setBackgroundResource(CameraOption.RATIO_IMGS[nextRatio.getVal()]);
+                    Preference.getInstance().putInt(PREFERENCE_NAME_RATIO_WIDTH
+                            , nextRatio.getWidth());
+                    Preference.getInstance().putInt(PREFERENCE_NAME_RATIO_HEIGHT
+                            , nextRatio.getHeight());
+                    Preference.getInstance().putInt(PREFERENCE_NAME_RATIO
+                            , nextRatioIdx);
+                    ratioBtn.setBackgroundResource(CameraOption.RATIO_IMGS[nextRatio.getVal()]);
 
-                        if (onRatioChangeListener != null) {
-                            onRatioChangeListener.onRatioChange(nextRatioIdx);
-                        }
-                        break;
-                }
+                    if (onRatioChangeListener != null) {
+                        onRatioChangeListener.onRatioChange(nextRatioIdx);
+                    }
+                    break;
             }
         };
     }

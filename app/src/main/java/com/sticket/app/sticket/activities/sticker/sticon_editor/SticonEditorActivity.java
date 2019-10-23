@@ -48,8 +48,6 @@ public class SticonEditorActivity extends AppCompatActivity {
     Button leftEyeBtn;
     @BindView(R.id.btn_sticon_editor_right_eye)
     Button rightEyeBtn;
-    @BindView(R.id.btn_sticon_editor_glasses)
-    Button glassesBtn;
     @BindView(R.id.btn_sticon_editor_nose)
     Button noseBtn;
     @BindView(R.id.btn_sticon_editor_left_cheek)
@@ -113,7 +111,7 @@ public class SticonEditorActivity extends AppCompatActivity {
     private void initListener() {
         stickerView.setOnStickerOperationListener(new StickerView.OnStickerOperationListener() {
             @Override
-            public void onStickerClicked(Sticker sticker){
+            public void onStickerClicked(Sticker sticker) {
 
                 Landmark landmark = landmarkMap.get(sticker);
 
@@ -173,10 +171,9 @@ public class SticonEditorActivity extends AppCompatActivity {
     }
 
     @OnClick({R.id.btn_sticon_editor_left_eye, R.id.btn_sticon_editor_right_eye,
-            R.id.btn_sticon_editor_glasses, R.id.btn_sticon_editor_nose,
-            R.id.btn_sticon_editor_left_cheek, R.id.btn_sticon_editor_right_cheek
-            , R.id.btn_sticon_editor_mouth, R.id.btn_sticon_editor_left_ear,
-            R.id.btn_sticon_editor_right_ear})
+            R.id.btn_sticon_editor_nose, R.id.btn_sticon_editor_left_cheek,
+            R.id.btn_sticon_editor_right_cheek, R.id.btn_sticon_editor_mouth,
+            R.id.btn_sticon_editor_left_ear, R.id.btn_sticon_editor_right_ear})
     public void onClick(View v) {
         if (!stickerMap.containsKey(currentLandmark)) {
             currentBtn.setBackground(getDrawable(R.drawable.btn_gray));
@@ -265,7 +262,7 @@ public class SticonEditorActivity extends AppCompatActivity {
 
             int isFlipped = sticker.isFlippedHorizontally() ? 1 : 0;
             int rotate = (int) sticker.getCurrentAngle();
-            if (isFlipped==1) rotate += 180;
+            if (isFlipped == 1) rotate += 180;
             double ratio = sticker.getCurrentScale();
 
             sticonAsset.setSticonIdx((int) newSticonId);

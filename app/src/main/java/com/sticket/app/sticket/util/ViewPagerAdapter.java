@@ -16,7 +16,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    private final List<String> defaultTitles = Arrays.asList("눈", "코", "입", "볼", "귀걸이", "스티콘", "모션티콘");
+    private final List<String> defaultTitles = Arrays.asList("눈", "코", "입", "볼", "귀걸이", "스티콘");
 
     public ViewPagerAdapter(FragmentManager manager) {
         super(manager);

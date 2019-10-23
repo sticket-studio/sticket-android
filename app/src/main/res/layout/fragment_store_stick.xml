@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="19dp"
             android:layout_marginTop="16dp"
-            android:text="결제하여 스틱 충전"
+            android:text="광고로 스틱 충전"
             android:textColor="@color/black" />
 
         <android.support.v7.widget.RecyclerView

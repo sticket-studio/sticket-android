@@ -6,7 +6,7 @@
     android:id="@+id/fireTopLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_background_grey"
+    android:background="@color/white"
     android:keepScreenOn="false"
     android:orientation="vertical"
     tools:context=".activities.setting.SettingActivity">
@@ -36,28 +36,20 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="설정"
-            android:textSize="15sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutAccountManagement"
+    <TextView
+        android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primary_background_grey"
-            android:paddingLeft="10dp"
-            android:paddingTop="15dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:text="계정 관리" />
-
-    </LinearLayout>
+        android:background="@color/primary_background_grey"
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:text="계정 관리" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/textAccountManagement"
@@ -83,12 +75,13 @@
 
         <ImageButton
             android:id="@+id/btnAccountManagement"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_gravity="center"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:adjustViewBounds="true"
             android:background="@color/white"
+            android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/img_next"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -98,142 +91,91 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/txtCameraSetting"
+
+    <TextView
+        android:id="@+id/tex1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/primary_background_grey"
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:text="카메라 설정" />
 
-        <TextView
-            android:id="@+id/tex1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primary_background_grey"
-            android:paddingLeft="10dp"
-            android:paddingTop="15dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:text="카메라 설정" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutGrid"
+    <Switch
+        android:id="@+id/switchGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:text="그리드"
+        android:textColor="#000" />
 
-        <Switch
-            android:id="@+id/switchGrid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="그리드"
-            android:textColor="#000" />
+    <!--    <Switch-->
+    <!--        android:id="@+id/switchWaterMark"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:text="sticket 워터마크"-->
+    <!--        android:textColor="#000" />-->
 
-    </LinearLayout>
+    <!--    <Switch-->
+    <!--        android:id="@+id/switchMirror"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:text="거울 모드"-->
+    <!--        android:textColor="#000" />-->
 
-    <LinearLayout
-        android:id="@+id/layoutWaterMark"
+    <!--    <Switch-->
+    <!--        android:id="@+id/switchLocation"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:text="위치 정보"-->
+    <!--        android:textColor="#000" />-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/layoutSavePath"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/white"-->
+    <!--        android:orientation="vertical">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/txtSavePath"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:paddingLeft="10dp"-->
+    <!--            android:paddingTop="10dp"-->
+    <!--            android:paddingRight="10dp"-->
+    <!--            android:paddingBottom="5dp"-->
+    <!--            android:text="저장 경로"-->
+    <!--            android:textColor="#000" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/txtSettingPath"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:paddingLeft="10dp"-->
+    <!--            android:paddingRight="10dp"-->
+    <!--            android:paddingBottom="10dp"-->
+    <!--            android:text="저장 경로"-->
+    <!--            android:textColor="#888"-->
+    <!--            android:textSize="11sp" />-->
+
+    <!--    </LinearLayout>-->
+
+    <TextView
+        android:id="@+id/txtAppInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <Switch
-            android:id="@+id/switchWaterMark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="sticket 워터마크"
-            android:textColor="#000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutMirror"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <Switch
-            android:id="@+id/switchMirror"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="거울 모드"
-            android:textColor="#000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <Switch
-            android:id="@+id/switchLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="위치 정보"
-            android:textColor="#000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutSavePath"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txtSavePath"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:text="저장 경로"
-            android:textColor="#000" />
-
-        <TextView
-            android:id="@+id/txtSettingPath"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:text="저장 경로"
-            android:textColor="#888"
-            android:textSize="11sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutAppInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txtAppInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primary_background_grey"
-            android:paddingLeft="10dp"
-            android:paddingTop="15dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:text="앱 정보" />
-
-    </LinearLayout>
+        android:background="@color/primary_background_grey"
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:text="앱 정보" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layoutVersion"
@@ -272,89 +214,44 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutReview"
+    <TextView
+        android:id="@+id/txtReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:text="리뷰 및 별점 주기"
+        android:textColor="#000" />
 
-        <TextView
-            android:id="@+id/txtReview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="리뷰 및 별점 주기"
-            android:textColor="#000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutContact"
+    <TextView
+        android:id="@+id/txtContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:text="CONTACT US"
+        android:textColor="#000" />
 
-        <TextView
-            android:id="@+id/txtContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="CONTACT US"
-            android:textColor="#000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutTermsOfService"
+    <TextView
+        android:id="@+id/txtTermsOfService"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:text="이용 약관"
+        android:textColor="#000" />
 
-        <TextView
-            android:id="@+id/txtTermsOfService"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="이용 약관"
-            android:textColor="#000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutPrivacyStatement"
+    <TextView
+        android:id="@+id/txtPrivacyStatement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:text="개인정보 취급방침"
+        android:textColor="#000" />
 
-        <TextView
-            android:id="@+id/txtPrivacyStatement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="개인정보 취급방침"
-            android:textColor="#000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutLicense"
+    <TextView
+        android:id="@+id/txtLicense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txtLicense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="OPEN SOURCE LICENSE"
-            android:textColor="#000" />
-
-    </LinearLayout>
+        android:padding="10dp"
+        android:text="OPEN SOURCE LICENSE"
+        android:textColor="#000" />
 
 </LinearLayout>
