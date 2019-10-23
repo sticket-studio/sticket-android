@@ -22,10 +22,9 @@ public class StickerGridFragment extends Fragment {
     public static final int GRID_TYPE_ASSET_CHEEK = 4;
     public static final int GRID_TYPE_ASSET_EAR = 5;
     public static final int GRID_TYPE_STICON = 6;
-    public static final int GRID_TYPE_MOTIONTICON = 7;
     public static final int[] GRID_TYPE_ARRAY = {GRID_TYPE_ASSET_EYE, GRID_TYPE_ASSET_NOSE
     , GRID_TYPE_ASSET_MOUTH, GRID_TYPE_ASSET_CHEEK, GRID_TYPE_ASSET_EAR
-    , GRID_TYPE_STICON, GRID_TYPE_MOTIONTICON};
+    , GRID_TYPE_STICON};
 
     private AdapterView.OnItemClickListener onItemClickListener;
 
@@ -49,8 +48,6 @@ public class StickerGridFragment extends Fragment {
 
             if (type == GRID_TYPE_STICON) {
                 adapter = new LiveSticonGridAdapter(getActivity());
-            } else if (type == GRID_TYPE_MOTIONTICON) {
-                adapter = new LiveMotionticonGridAdapter(getActivity());
             } else {
                 Landmark landmark;
                 if(type == GRID_TYPE_ASSET_EYE){

@@ -24,8 +24,8 @@ import lib.folderpicker.FolderPicker;
 public class SettingActivity extends AppCompatActivity {
     private static final int FOLDERPICKER_CODE = 123;
 
-    @BindView(R.id.txtSettingPath)
-    TextView pathTxt;
+//    @BindView(R.id.txtSettingPath)
+//    TextView pathTxt;
 
     @Override
 
@@ -39,14 +39,14 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initViews(){
-        pathTxt.setText(FileUtil.ALBUM_DIRECTORY_PATH);
+//        pathTxt.setText(FileUtil.ALBUM_DIRECTORY_PATH);
     }
 
-    @OnClick(R.id.layoutSavePath)
-    void savePathLayoutClick(View view){
-        Intent intent = new Intent(this, FolderPicker.class);
-        startActivityForResult(intent, FOLDERPICKER_CODE);
-    }
+//    @OnClick(R.id.layoutSavePath)
+//    void savePathLayoutClick(View view){
+//        Intent intent = new Intent(this, FolderPicker.class);
+//        startActivityForResult(intent, FOLDERPICKER_CODE);
+//    }
 
     public void btnToCamera(View v) {
         onBackPressed();
@@ -69,7 +69,7 @@ public class SettingActivity extends AppCompatActivity {
 
             String directoryLocation = intent.getExtras().getString("data");
             Preference.getInstance().putString(Preference.PREFERENCE_NAME_SAVE_LOCATION, directoryLocation);
-            pathTxt.setText(directoryLocation);
+//            pathTxt.setText(directoryLocation);
 
             FileUtil.structDirectories();
 
