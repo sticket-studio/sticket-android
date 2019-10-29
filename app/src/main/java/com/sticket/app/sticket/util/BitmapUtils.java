@@ -84,5 +84,17 @@ public class BitmapUtils {
             return null;
         }
     }
+
+    static public Bitmap resizeBitmap(Bitmap original) {
+        int resizeWidth = original.getWidth()*3;
+
+        double aspectRatio = (double) original.getHeight() / (double) original.getWidth();
+        int targetHeight = (int) (resizeWidth * aspectRatio);
+        Bitmap result = Bitmap.createScaledBitmap(original, resizeWidth, targetHeight, false);
+        if (result != original) {
+            original.recycle();
+        }
+        return result;
+    }
 }
 

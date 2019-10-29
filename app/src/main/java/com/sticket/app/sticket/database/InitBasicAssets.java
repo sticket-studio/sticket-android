@@ -165,7 +165,9 @@ public class InitBasicAssets {
                             List<Asset> assetList = new ArrayList<>();
                             for (SimpleAssetResponse asset : assets) {
                                 Bitmap bitmap = BitmapUtils.getBitmapFromURL(asset.getImgUrl());
-                                Asset assetEntity = createAssetEntity(bitmap, asset.getId() + "_" + asset.getName(), asset.getLandmark());
+                                Bitmap resizedBitmap = BitmapUtils.resizeBitmap(bitmap);
+                                bitmap.recycle();
+                                Asset assetEntity = createAssetEntity(resizedBitmap, asset.getId() + "_" + asset.getName(), asset.getLandmark());
                                 assetEntity.setImgUrl(asset.getImgUrl());
                                 assetList.add(assetEntity);
                             }
