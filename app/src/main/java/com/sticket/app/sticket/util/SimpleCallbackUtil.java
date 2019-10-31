@@ -3,6 +3,8 @@ package com.sticket.app.sticket.util;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.sticket.app.sticket.retrofit.client.ApiClient;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +33,8 @@ public class SimpleCallbackUtil {
                 } else {
                     Log.e(TAG, "에러");
                     Alert.makeText("에러");
+                    ApiClient.getInstance().setUserId(0);
+                    ApiClient.getInstance().setToken(null);
                 }
             }
 

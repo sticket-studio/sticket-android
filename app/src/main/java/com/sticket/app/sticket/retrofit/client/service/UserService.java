@@ -2,6 +2,7 @@ package com.sticket.app.sticket.retrofit.client.service;
 
 import com.sticket.app.sticket.retrofit.dto.request.user.UserUpdateRequest;
 import com.sticket.app.sticket.retrofit.dto.response.user.GetMyFavoriteAuthorsResponse;
+import com.sticket.app.sticket.retrofit.dto.response.user.UserLikeUserResponse;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserPageResponse;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserSimple;
 import com.sticket.app.sticket.retrofit.message.ApiMessasge;
@@ -59,6 +60,16 @@ public interface UserService {
     public Call<List<UserSimple>> getMyLikeAuthor();
 
     /**
+     * 작가 좋아요 여부 확인
+     * [작가 페이지]
+     *
+     * @param userId 좋아요 확인할 작가의 Id
+     * @return 좋아요 여부
+     */
+    @GET("sticket/api/normal/users/like/{userId}")
+    public Call<UserLikeUserResponse> isLikedAuthor(@Path("userId") int userId);
+
+    /**
      * 작가 좋아요
      * [작가 페이지]
      *
@@ -74,7 +85,7 @@ public interface UserService {
      * @param userId 좋아요 취소할 작가의 Id
      * @return 성공 여부
      */
-    @DELETE("sticket/api/normal/users/like/{userId}")
+    @DELETE("sticket/api/normal/users/dislike/{userId}")
     public Call<ApiMessasge> dislikeAuthor(@Path("userId") int userId);
 
 

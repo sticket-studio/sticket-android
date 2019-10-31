@@ -79,6 +79,18 @@ public class StoreMyPageFragment extends Fragment {
         } else {
             binding.toggleStoreMypageLike.setVisibility(View.VISIBLE);
             binding.btnStoreMypageSetting.setVisibility(View.GONE);
+            ApiClient.getInstance().getUserService()
+                    .isLikedAuthor(userIdx)
+                    .enqueue(SimpleCallbackUtil.getSimpleCallback(userLikeUserResponse->{
+                        Log.e(TAG, "userLikeUserResponse.isLiked(): "+ userLikeUserResponse.isLiked());
+                        if(userLikeUserResponse.isLiked()){
+                            Log.e(TAG, "binding.toggleStoreMypageLike.setChecked(true) ");
+                            binding.toggleStoreMypageLike.setChecked(true);
+                        }else{
+                            Log.e(TAG, "binding.toggleStoreMypageLike.setChecked(false) ");
+                            binding.toggleStoreMypageLike.setChecked(false);
+                        }
+                    }));
         }
         initListener();
     }
