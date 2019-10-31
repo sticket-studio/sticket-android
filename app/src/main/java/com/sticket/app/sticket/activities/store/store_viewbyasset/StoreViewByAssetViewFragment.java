@@ -13,6 +13,7 @@ import android.widget.GridView;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.store.StoreItemViewActivity;
 import com.sticket.app.sticket.activities.store.store_home.StoreHomeStickerGridAdapter;
+import com.sticket.app.sticket.activities.store.store_preview.StorePreviewActicity;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
 import com.sticket.app.sticket.retrofit.client.ApiConfig;
 import com.sticket.app.sticket.retrofit.client.CustomCallback;
@@ -42,7 +43,7 @@ public class StoreViewByAssetViewFragment extends Fragment {
 
         storeStickerGridView.setAdapter(adapter);
         String landmark ="EYE_LEFT";
-        if(landStr.equals("눈")){
+        if(landStr.equals("왼눈")){
             landmark = "EYE_LEFT";
         }else if(landStr.equals("코")){
             landmark="NOSE";
@@ -75,7 +76,10 @@ public class StoreViewByAssetViewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO : Preview Page
-                Intent intent = new Intent(getActivity(), StoreItemViewActivity.class);
+                Intent intent = new Intent(getActivity(), StorePreviewActicity.class);
+                Log.i("assetName",adapter.getItem(position).getName());
+                intent.putExtra("assetName",adapter.getItem(position).getName());
+                intent.putExtra("assetId",adapter.getItem(position).getId()+"");
                 startActivity(intent);
             }
         });

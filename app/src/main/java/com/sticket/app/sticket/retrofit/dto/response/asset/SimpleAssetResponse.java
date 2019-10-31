@@ -13,11 +13,14 @@ public class SimpleAssetResponse implements Serializable {
     private String authorName;
     private int themeId;
     private String themeName;
+    private int price;
 
     public SimpleAssetResponse() {
     }
 
-    public SimpleAssetResponse(int id, String imgUrl, String name, String landmark, int authorId, String authorName, int themeId, String themeName) {
+
+
+    public SimpleAssetResponse(int id, String imgUrl, String name, String landmark, int authorId, String authorName, int themeId, String themeName, int price) {
         this.id = id;
         this.imgUrl = imgUrl;
         this.name = name;
@@ -26,6 +29,7 @@ public class SimpleAssetResponse implements Serializable {
         this.authorName = authorName;
         this.themeId = themeId;
         this.themeName = themeName;
+        this.price = price;
     }
 
     public int getId() {
@@ -91,10 +95,17 @@ public class SimpleAssetResponse implements Serializable {
     public void setThemeName(String themeName) {
         this.themeName = themeName;
     }
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public static SimpleAssetResponse mapping(Asset asset) {
         return new SimpleAssetResponse(asset.getId(), asset.getImgUrl(), asset.getName(),
                 asset.getLandmark(), asset.getAuthor().getId(), asset.getAuthor().getName(),
-                asset.getTheme().getId(), asset.getTheme().getName());
+                asset.getTheme().getId(), asset.getTheme().getName(),asset.getPrice());
     }
 }

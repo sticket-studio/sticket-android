@@ -11,13 +11,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.models.Asset;
+import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
 import com.sticket.app.sticket.retrofit.client.CustomCallback;
 import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 import com.sticket.app.sticket.retrofit.dto.response.user.UserSimple;
 import com.sticket.app.sticket.util.Landmark;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class StoreHomeStickerGridAdapter extends BaseAdapter {
     public int getCount() {
         return this.icons.size();
     }
+
     public void addItem(SimpleAssetResponse sa){
         icons.add(sa);
         Log.i("size",icons.size()+"");
@@ -61,7 +63,7 @@ public class StoreHomeStickerGridAdapter extends BaseAdapter {
 
 
     @Override
-    public Object getItem(int position) {
+    public SimpleAssetResponse getItem(int position) {
         return icons.get(position);
     }
 
@@ -88,11 +90,17 @@ public class StoreHomeStickerGridAdapter extends BaseAdapter {
         }
 
         SimpleAssetResponse simpleAssetResponse = icons.get(position);
-        Glide.with(parent.getContext()).load(simpleAssetResponse.getImgUrl())
-                .into(storeHomeStickerViewHolder.assetImg);
+        if(simpleAssetResponse.getImgUrl().startsWith("/")){
+            Glide.with(parent.getContext())
+                    .load(new File(simpleAssetResponse.getImgUrl()))
+                    .into(storeHomeStickerViewHolder.assetImg);
+        }else {
+            Glide.with(parent.getContext()).load(simpleAssetResponse.getImgUrl())
+                    .into(storeHomeStickerViewHolder.assetImg);
+        }
         storeHomeStickerViewHolder.assetName.setText(simpleAssetResponse.getName());
-
 
         return convertView;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.sticket.app.sticket.activities.store.store_viewbyasset;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -65,6 +66,7 @@ public class StoreViewByAssetFragment extends Fragment {
         public void addFrag(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             Bundle bundle = new Bundle(1);
+
             bundle.putString("landmark",title);
             fragment.setArguments(bundle);
             mFragmentTitleList.add(title);
