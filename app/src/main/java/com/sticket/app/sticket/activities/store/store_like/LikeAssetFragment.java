@@ -20,6 +20,7 @@ import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -75,7 +76,6 @@ public class LikeAssetFragment extends Fragment {
         binding.mouseItemRecycler.setAdapter(mouseAssetsAdapter);
         binding.cheekItemRecycler.setAdapter(cheekAssetsAdapter);
         binding.earItemRecycler.setAdapter(earAssetsAdpater);
-
 
         return binding.getRoot();
     }
