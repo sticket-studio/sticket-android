@@ -96,7 +96,7 @@ public class LikeAssetFragment extends Fragment {
                                     eyeAssets.add(sa);
                                 }else if(landStr.equals("NOSE")){
                                     noseAssets.add(sa);
-                                }else if(landStr.equals("MOUTH")) {
+                                }else if(landStr.equals("MOUTH_BOTTOM")) {
                                     mouseAssets.add(sa);
                                 }else if(landStr.equals("CHEEK_LEFT")){
                                     cheekAssets.add(sa);

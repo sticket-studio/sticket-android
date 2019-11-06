@@ -145,9 +145,7 @@ public class AssetImporterAcitivity extends AppCompatActivity implements View.On
         }
 
         Asset asset = new Asset();
-        asset.setImgUrl("");
-        Log.e(TAG, "current Bitmap : " + bitmap);
-        Log.e(TAG, "" + stickerView.getCurrentSticker().getMappedCenterPoint().x);
+        asset.setImgUrl(null);
         Landmark landmark = currentLandmark;
 
         float xAssetOffset = (stickerView.getWidth() - dummyX) / 2f + dummyX * landmark.getX() / 100f
@@ -165,10 +163,8 @@ public class AssetImporterAcitivity extends AppCompatActivity implements View.On
         float offsetY = -(float) (stickerView.getCurrentSticker().getMappedCenterPoint().y - yAssetOffset) / bitmap.getHeight();
 
 
-        Log.e(TAG, "bitmap Check" + bitmap);
         String fileName = "thumbnail" + bitmap;
         FileUtil.structDirectories();
-        Log.e(TAG, "file path check : " + FileUtil.THUMBNAIL_ASSET_DIRECTORY_PATH);
         FileUtil.saveBitmapToFile(bitmap, FileUtil.THUMBNAIL_ASSET_DIRECTORY_PATH, fileName);
         asset.setLocalUrl(FileUtil.THUMBNAIL_ASSET_DIRECTORY_PATH + "/" + fileName + ".png");
 
@@ -178,6 +174,7 @@ public class AssetImporterAcitivity extends AppCompatActivity implements View.On
         asset.setRotate(rotate);
         asset.setLandmark(landmark);
         asset.setRatio(ratio);
+        asset.setType(Asset.TYPE_OWN);
         database.assetDao().insert(asset);
 
         finish();
@@ -239,7 +236,7 @@ public class AssetImporterAcitivity extends AppCompatActivity implements View.On
                 rightCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 leftCheekBtn.setBackground(getDrawable(R.drawable.btn_gray));
                 noseBtn.setBackground(getDrawable(R.drawable.btn_gray));
-                currentLandmark = Landmark.MOUTH;
+                currentLandmark = Landmark.MOUTH_BOTTOM;
                 break;
         }
     }

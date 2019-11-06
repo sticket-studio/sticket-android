@@ -58,7 +58,7 @@
                 android:background="@drawable/btn_input"
                 android:hint="E-mail"
                 android:paddingStart="30dp"
-                android:text="yhc944@gmail.com"
+                android:text="yhc94@naver.com"
                 android:textAllCaps="false"
                 android:textColor="#333333"
                 android:textColorHint="@color/grey"

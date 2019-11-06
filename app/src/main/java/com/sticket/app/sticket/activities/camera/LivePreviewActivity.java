@@ -143,6 +143,7 @@ public final class LivePreviewActivity extends AppCompatActivity
         super.onResume();
 
         Sticon sticon = sticketDatabase.sticonDao().getLastSticon();
+        InitBasicAssets.printInfo(this);
         if (sticon != null) {
             MyBitmapFactory.getInstance().setSticon(sticketDatabase.sticonDao().getLastSticon());
         }

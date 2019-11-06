@@ -7,6 +7,7 @@ import com.sticket.app.sticket.util.Landmark;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -21,7 +22,7 @@ public interface AssetService {
 
     @Multipart
     @POST("sticket/api/normal/assets")
-    Call<ApiMessasge> insertAsset(@Part("img") RequestBody img,
+    Call<ApiMessasge> insertAsset(@Part MultipartBody.Part img,
                                   @Part("description")RequestBody description,
                                   @Part("landmark")RequestBody landmark,
                                   @Part("name")RequestBody name,

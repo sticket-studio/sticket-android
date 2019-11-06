@@ -6,7 +6,7 @@
     android:scrollbars="vertical"
     android:paddingBottom="42dp">
 
-    <GridView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/storeStickerGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

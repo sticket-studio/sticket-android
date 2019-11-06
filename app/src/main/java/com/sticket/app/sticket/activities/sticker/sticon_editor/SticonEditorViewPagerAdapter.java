@@ -25,7 +25,7 @@ public class SticonEditorViewPagerAdapter extends FragmentPagerAdapter {
         landmarkList.add(Landmark.EYE_LEFT);
         landmarkList.add(Landmark.EYE_RIGHT);
         landmarkList.add(Landmark.NOSE);
-        landmarkList.add(Landmark.MOUTH);
+        landmarkList.add(Landmark.MOUTH_BOTTOM);
         landmarkList.add(Landmark.CHEEK_LEFT);
         landmarkList.add(Landmark.CHEEK_RIGHT);
         landmarkList.add(Landmark.EAR_LEFT);

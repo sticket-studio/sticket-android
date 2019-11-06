@@ -11,15 +11,11 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.activities.store.StoreItemViewActivity;
 import com.sticket.app.sticket.activities.store.store_home.StoreHomeStickerGridAdapter;
-import com.sticket.app.sticket.activities.store.store_preview.StorePreviewActicity;
+import com.sticket.app.sticket.activities.store.store_preview.StorePreviewActivity;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
-import com.sticket.app.sticket.retrofit.client.ApiConfig;
 import com.sticket.app.sticket.retrofit.client.CustomCallback;
 import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
-import com.sticket.app.sticket.retrofit.dto.response.user.UserSimple;
-import com.sticket.app.sticket.util.Landmark;
 
 import java.util.List;
 
@@ -48,7 +44,7 @@ public class StoreViewByAssetViewFragment extends Fragment {
         }else if(landStr.equals("코")){
             landmark="NOSE";
         }else if(landStr.equals("입")) {
-            landmark = "MOUTH";
+            landmark = "MOUTH_BOTTOM";
         }else if(landStr.equals("볼")){
             landmark = "CHEEK_LEFT";
         }else if(landStr.equals("귀")){
@@ -76,7 +72,7 @@ public class StoreViewByAssetViewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO : Preview Page
-                Intent intent = new Intent(getActivity(), StorePreviewActicity.class);
+                Intent intent = new Intent(getActivity(), StorePreviewActivity.class);
                 Log.i("assetName",adapter.getItem(position).getName());
                 intent.putExtra("assetName",adapter.getItem(position).getName());
                 intent.putExtra("assetId",adapter.getItem(position).getId()+"");

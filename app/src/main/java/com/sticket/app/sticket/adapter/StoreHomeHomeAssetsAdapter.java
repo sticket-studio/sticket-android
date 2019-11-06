@@ -9,10 +9,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sticket.app.sticket.R;
-import com.sticket.app.sticket.activities.store.store_preview.StorePreviewActicity;
+import com.sticket.app.sticket.activities.store.store_preview.StorePreviewActivity;
 import com.sticket.app.sticket.adapter.viewholders.StoreHomeHomeAssetsViewHolder;
-import com.sticket.app.sticket.database.entity.Asset;
 import com.sticket.app.sticket.databinding.ItemStoreAssetBinding;
 import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 
@@ -59,7 +59,7 @@ public class StoreHomeHomeAssetsAdapter extends RecyclerView.Adapter<StoreHomeHo
                 onPreviewClickListener.onPreviewClick(binding.getItem());
             }
 
-            Intent intent = new Intent(mContext, StorePreviewActicity.class);
+            Intent intent = new Intent(mContext, StorePreviewActivity.class);
             intent.putExtra("assetName",binding.getItem().getName());
             Log.i("click test",binding.getItem().getId()+"");
 
@@ -71,6 +71,8 @@ public class StoreHomeHomeAssetsAdapter extends RecyclerView.Adapter<StoreHomeHo
         Glide.with(binding.getRoot())
                 .load(item.getImgUrl())
                 .placeholder(R.drawable.basic_cheek_logo1)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)// 디스크 캐시 저장 off
+                .skipMemoryCache(true)// 메모리 캐시 저장 off
                 .into(binding.imgItemAssetPreview);
     }
 

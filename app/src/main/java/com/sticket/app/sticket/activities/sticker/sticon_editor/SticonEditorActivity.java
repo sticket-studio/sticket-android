@@ -165,7 +165,7 @@ public class SticonEditorActivity extends AppCompatActivity {
         buttonMap.put(Landmark.CHEEK_LEFT, leftCheekBtn);
         buttonMap.put(Landmark.CHEEK_RIGHT, rightCheekBtn);
         buttonMap.put(Landmark.NOSE, noseBtn);
-        buttonMap.put(Landmark.MOUTH, mouthBtn);
+        buttonMap.put(Landmark.MOUTH_BOTTOM, mouthBtn);
         buttonMap.put(Landmark.EAR_LEFT, leftEarBtn);
         buttonMap.put(Landmark.EAR_RIGHT, rightEarBtn);
     }
@@ -201,7 +201,7 @@ public class SticonEditorActivity extends AppCompatActivity {
                 currentLandmark = Landmark.NOSE;
                 break;
             case R.id.btn_sticon_editor_mouth:
-                currentLandmark = Landmark.MOUTH;
+                currentLandmark = Landmark.MOUTH_BOTTOM;
                 break;
             case R.id.btn_sticon_editor_left_ear:
                 currentLandmark = Landmark.EAR_LEFT;

@@ -30,7 +30,7 @@ public class StoreMyPageFragment extends Fragment {
     public static final String EXTRA_USER_IDX = "USER_IDX";
 
     private static final String[] LANDMARKS = {"눈", "코", "입", "볼", "귀"};
-    private static final String[] LANDMARKS_ENG = {"EYE_LEFT", "NOSE", "MOUTH", "CHEEK_LEFT", "EAR_LEFT"};
+    private static final String[] LANDMARKS_ENG = {"EYE_LEFT", "NOSE", "MOUTH_BOTTOM", "CHEEK_LEFT", "EAR_LEFT"};
     private FragmentStoreMypageBinding binding;
     private UserPageResponse user;
     private int userIdx;

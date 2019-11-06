@@ -8,16 +8,24 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.database.SticketDatabase;
+import com.sticket.app.sticket.database.entity.Asset;
+import com.sticket.app.sticket.retrofit.dto.request.asset.InsertAssetRequest;
+import com.sticket.app.sticket.util.Landmark;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StoreRegisterFragment extends Fragment {
+    private static final String[] korLandmarks = new String[]{"눈", "코", "입", "볼", "귀"};
+
+    private StoreRegisterViewFragment[] storeRegisterViewFragments = new StoreRegisterViewFragment[5];
 
     @Nullable
     @Override
@@ -35,12 +43,22 @@ public class StoreRegisterFragment extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        SticketDatabase sd = SticketDatabase.getDatabase(getContext());
+        List<Asset> allAsset = sd.assetDao().getAllassets();
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFrag(new StoreRegisterViewFragment(), "눈");
-        adapter.addFrag(new StoreRegisterViewFragment(), "코");
-        adapter.addFrag(new StoreRegisterViewFragment(), "입");
-        adapter.addFrag(new StoreRegisterViewFragment(), "볼");
-        adapter.addFrag(new StoreRegisterViewFragment(), "귀");
+        for (int i = 0; i < 5; i++) {
+            storeRegisterViewFragments[i] = new StoreRegisterViewFragment();
+            ArrayList<Asset> tempAssets = new ArrayList<>();
+
+            for (Asset asset : allAsset) {
+                if (asset.getType() == Asset.TYPE_OWN && asset.getLandmark() == Landmark.LANDMARKS[i]) {
+                    tempAssets.add(asset);
+                }
+            }
+
+            adapter.addFrag(storeRegisterViewFragments[i], tempAssets,Landmark.LANDMARKS[i]);
+        }
         viewPager.setAdapter(adapter);
     }
 
@@ -62,12 +80,14 @@ public class StoreRegisterFragment extends Fragment {
             return mFragmentList.size();
         }
 
-        public void addFrag(Fragment fragment, String title) {
+        public void addFrag(Fragment fragment, ArrayList<Asset> assets, Landmark landmark) {
             mFragmentList.add(fragment);
-            Bundle bundle = new Bundle(1);
-            bundle.putString("landmark",title);
+            Bundle bundle = new Bundle();
+            bundle.putString("landmark", landmark.getKorName());
+            bundle.putSerializable(StoreRegisterViewFragment.EXTRA_REGISTER_ASSETS, assets);
+            bundle.putSerializable(StoreRegisterViewFragment.EXTRA_REGISTER_LANDMARK, landmark);
             fragment.setArguments(bundle);
-            mFragmentTitleList.add(title);
+            mFragmentTitleList.add(landmark.getKorName());
         }
 
         @Override
