@@ -1,16 +1,13 @@
 package com.sticket.app.sticket.activities.sticker;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.util.Landmark;
@@ -55,7 +52,7 @@ public class StickerGridFragment extends Fragment {
                 }else if(type == GRID_TYPE_ASSET_NOSE){
                     landmark = Landmark.NOSE;
                 }else if(type == GRID_TYPE_ASSET_MOUTH){
-                    landmark = Landmark.MOUTH;
+                    landmark = Landmark.MOUTH_BOTTOM;
                 }else if(type == GRID_TYPE_ASSET_CHEEK){
                     landmark = Landmark.CHEEK_LEFT;
                 }else{

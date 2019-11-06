@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.sticket.app.sticket.database.entity.Asset" />
+
+        <variable
+            name="adapter"
+            type="com.sticket.app.sticket.adapter.StoreRegisterAssetAdapter" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/img_item_asset_preview"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
+            android:padding="16dp"
+            android:background="@drawable/item_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_item_asset_name"
+            android:layout_width="64dp"
+            android:layout_height="24dp"
+            android:background="@drawable/item_tag_bg"
+            android:padding="3dp"
+            android:text="@{item.landmark.korName}"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_item_asset_preview"
+            app:layout_constraintEnd_toEndOf="@+id/img_item_asset_preview"
+            app:layout_constraintStart_toStartOf="@+id/img_item_asset_preview"
+            app:layout_constraintTop_toBottomOf="@+id/img_item_asset_preview" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

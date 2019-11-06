@@ -1,96 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fireTopLayout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:keepScreenOn="false"
-    tools:context=".activities.store.store_register.StoreRegisterAssetActivity">
-
-    <RelativeLayout
-        android:id="@+id/app_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white">
-
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:background="@color/transparent"
-            android:onClick="btnToBack"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/img_back" />
-
-        <TextView
-            android:id="@+id/app_compat_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="애셋 등록"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            />
-
-        <ImageButton
-            android:id="@+id/btn_finish"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="@color/transparent"
-            android:onClick="btnToRegister"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/btn_finish" />
-
-    </RelativeLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:id="@+id/layoutAccountManagement2"
+        android:id="@+id/fireTopLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:keepScreenOn="false"
+        android:orientation="vertical"
+        tools:context=".activities.store.store_register.StoreRegisterAssetActivity">
 
-        <TextView
-            android:id="@+id/text1"
+        <RelativeLayout
+            android:id="@+id/app_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:text="애셋 이름 : "
-            android:background="@color/white"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
 
-        <EditText
-            android:id="@+id/edittext"
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:padding="19dp"
+                android:onClick="btnToBack"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_back" />
+
+            <TextView
+                android:id="@+id/app_compat_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="애셋 등록"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/btn_finish"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:adjustViewBounds="true"
+                android:padding="18dp"
+                android:background="@color/transparent"
+                android:onClick="btnToRegister"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_finish" />
+        </RelativeLayout>
+
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:colorControlNormal="@color/whitegrey"
-            android:colorControlActivated="@color/colorPrimary"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
 
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:src="@drawable/basic_cheek_flower"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
+                <Button
+                    android:id="@+id/btn_register_asset_cute"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:textSize="12.5sp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/btn_pink"
+                    android:text="귀염뽀짝"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_register_asset_fun"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:textSize="12.5sp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/btn_gray"
+                    android:text="재밌는"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_register_asset_soft"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:textSize="12.5sp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/btn_gray"
+                    android:text="부드러운"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_register_asset_sexy"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:textSize="12.5sp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/btn_gray"
+                    android:text="섹시한"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_register_asset_romantic"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:textSize="12.5sp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/btn_gray"
+                    android:text="로맨틱"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/layoutAccountManagement2"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="애셋 이름 : " />
+
+            <EditText
+                android:id="@+id/edit_register_asset_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:layout_marginBottom="16dp"
+                android:colorControlActivated="@color/colorPrimary"
+                android:colorControlNormal="@color/whitegrey" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="애셋 설명 : " />
+
+            <EditText
+                android:id="@+id/edit_register_asset_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:colorControlActivated="@color/colorPrimary"
+                android:colorControlNormal="@color/whitegrey" />
+
+            <ImageView
+                android:id="@+id/img_register_asset_icon"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/basic_cheek_flower" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>

@@ -2,6 +2,7 @@ package com.sticket.app.sticket.activities.store.store_like;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sticket.app.sticket.R;
+import com.sticket.app.sticket.activities.store.store_mypage.StoreMyPageFragment;
+import com.sticket.app.sticket.retrofit.client.ApiClient;
 
 import org.w3c.dom.Text;
 
@@ -22,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LikeAuthorItemAdapter extends BaseAdapter {
+    private OnAuthorClickListener onAuthorClickListener;
+
     private class LikeAuthorItemViewHolder {
         public LikeAuthorItemViewHolder(ImageView userImge, TextView userName, TextView workCount, TextView title, TextView likeNum) {
             this.userImge = userImge;
@@ -49,20 +54,20 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
         return this.itemList.size();
     }
 
-    public View getView(final int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent) {
         int pos = position;
         LikeAuthorItemViewHolder likeAuthorItemViewHolder;
-        if(convertView == null){
-            LayoutInflater inflater = (LayoutInflater)parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_author_like,parent,false);
-            ImageView userImg = (ImageView)convertView.findViewById(R.id.img_like_author_userImg);
-            TextView userName = (TextView)convertView.findViewById(R.id.txt_like_author_userName);
-            TextView workCount = (TextView)convertView.findViewById(R.id.txt_like_author_workCount);
-            TextView title = (TextView)convertView.findViewById(R.id.txt_like_author_title);
-            TextView likeNum= (TextView)convertView.findViewById(R.id.txt_like_author_likeNum);
-            likeAuthorItemViewHolder = new LikeAuthorItemViewHolder(userImg,userName,workCount,title,likeNum);
-        }else{
-            likeAuthorItemViewHolder= (LikeAuthorItemViewHolder)convertView.getTag();
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.item_author_like, parent, false);
+            ImageView userImg = (ImageView) convertView.findViewById(R.id.img_like_author_userImg);
+            TextView userName = (TextView) convertView.findViewById(R.id.txt_like_author_userName);
+            TextView workCount = (TextView) convertView.findViewById(R.id.txt_like_author_workCount);
+            TextView title = (TextView) convertView.findViewById(R.id.txt_like_author_title);
+            TextView likeNum = (TextView) convertView.findViewById(R.id.txt_like_author_likeNum);
+            likeAuthorItemViewHolder = new LikeAuthorItemViewHolder(userImg, userName, workCount, title, likeNum);
+        } else {
+            likeAuthorItemViewHolder = (LikeAuthorItemViewHolder) convertView.getTag();
         }
 
 
@@ -76,16 +81,14 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
 
 
         //클릭하면 어쪌껀가~~~~~~ 여기다 정의하기
-        convertView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
+        convertView.setOnClickListener(v -> {
+            if (onAuthorClickListener != null) {
+                onAuthorClickListener.onAuthorClick(likeAuthorItem.getId());
             }
         });
 
         return convertView;
     }
-
 
 
     @Override
@@ -94,15 +97,20 @@ public class LikeAuthorItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public LikeAuthorItem getItem(int position){
+    public LikeAuthorItem getItem(int position) {
         return itemList.get(position);
     }
 
-    public void addItem(String resourse, String userName, int workCount, String title, String likeNum){
-        LikeAuthorItem likeAuthorItem = new LikeAuthorItem(resourse,userName,workCount ,title,likeNum);
+    public void addItem(int id, String resourse, String userName, int workCount, String title, String likeNum) {
+        LikeAuthorItem likeAuthorItem = new LikeAuthorItem(id, resourse, userName, workCount, title, likeNum);
         itemList.add(likeAuthorItem);
     }
 
+    public void setOnAuthorClickListener(OnAuthorClickListener onAuthorClickListener) {
+        this.onAuthorClickListener = onAuthorClickListener;
+    }
 
-
+    public interface OnAuthorClickListener {
+        public void onAuthorClick(int userIdx);
+    }
 }

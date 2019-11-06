@@ -55,12 +55,12 @@ public class InitBasicAssets {
                             landmarkStr = Landmark.CHEEK_LEFT.name();
                         } else if (name.startsWith("basic_nose_")) {
                             landmarkStr = Landmark.NOSE.name();
-                        } else if (name.startsWith("basic_mouth_")) {
-                            landmarkStr = Landmark.MOUTH.name();
+                        } else if (name.startsWith("basic_mouth_bottom")) {
+                            landmarkStr = Landmark.MOUTH_BOTTOM.name();
                         } else {
                             Log.e(TAG, "setLandmark error : " + name);
                         }
-                        assets.add(createAssetEntity(bitmap, name, landmarkStr));
+                        assets.add(createAssetEntity(bitmap, name, landmarkStr,Asset.TYPE_BASIC));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -76,12 +76,13 @@ public class InitBasicAssets {
         }
     }
 
-    private static Asset createAssetEntity(Bitmap bitmap, String name, String landmarkStr) {
+    private static Asset createAssetEntity(Bitmap bitmap, String name, String landmarkStr, int type) {
 
         isSuccess &= FileUtil.saveBitmapToFile(bitmap, IMAGE_ASSET_DIRECTORY_PATH, name);
 
         Asset asset = new Asset();
         asset.setLocalUrl(IMAGE_ASSET_DIRECTORY_PATH + "/" + name + ".png");
+        asset.setType(type);
 
         for (Landmark landmark : Landmark.LANDMARKS) {
             if (landmarkStr.equals(landmark.name())) {
@@ -94,6 +95,7 @@ public class InitBasicAssets {
 
     public static void printInfo(Context context) {
         SticketDatabase database = SticketDatabase.getDatabase(context);
+
         List<Asset> assetList = database.assetDao().getAllassets();
         List<SticonAsset> sticonAssetList = database.sticonAssetDao().getAllSticon_assets();
         List<Sticon> sticonList = database.sticonDao().getAllSticon();
@@ -165,7 +167,11 @@ public class InitBasicAssets {
                             List<Asset> assetList = new ArrayList<>();
                             for (SimpleAssetResponse asset : assets) {
                                 Bitmap bitmap = BitmapUtils.getBitmapFromURL(asset.getImgUrl());
-                                Asset assetEntity = createAssetEntity(bitmap, asset.getId() + "_" + asset.getName(), asset.getLandmark());
+                                Bitmap resizedBitmap = BitmapUtils.resizeBitmap(bitmap);
+                                bitmap.recycle();
+                                Asset assetEntity = createAssetEntity(resizedBitmap,
+                                        asset.getId() + "_" + asset.getName(),
+                                        asset.getLandmark(),Asset.TYPE_SERVER);
                                 assetEntity.setImgUrl(asset.getImgUrl());
                                 assetList.add(assetEntity);
                             }

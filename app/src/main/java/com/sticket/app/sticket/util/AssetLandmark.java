@@ -12,5 +12,5 @@ import static com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark.RIGH
 import static com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark.RIGHT_EYE;
 
 public enum AssetLandmark implements Serializable {
-    EYE, NOSE, MOUTH, CHEEK, EAR
+    EYE, NOSE, MOUTH_BOTTOM, CHEEK, EAR
 }

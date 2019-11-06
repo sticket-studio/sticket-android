@@ -9,8 +9,14 @@ import android.arch.persistence.room.TypeConverters;
 import com.sticket.app.sticket.database.EnumLandmarkTypeConverter;
 import com.sticket.app.sticket.util.Landmark;
 
+import java.io.Serializable;
+
 @Entity(tableName = "asset")
-public class Asset {
+public class Asset implements Serializable {
+    public static final int TYPE_OWN = -1;
+    public static final int TYPE_BASIC = 0;
+    public static final int TYPE_SERVER = 1;
+
     @PrimaryKey(autoGenerate = true)
     private  int idx;
 
@@ -38,6 +44,12 @@ public class Asset {
     @ColumnInfo(name="landmark")
     @TypeConverters(EnumLandmarkTypeConverter.class)
     private Landmark landmark;
+
+    // -1: Own
+    // 0: Basic
+    // 1: Server
+    @ColumnInfo(name="type")
+    private int type;
 
     public int getIdx() {
         return idx;
@@ -106,4 +118,12 @@ public class Asset {
     public void setRatio(double ratio){this.ratio = ratio;}
 
     public double getRatio(){return ratio;}
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 }

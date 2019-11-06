@@ -1,6 +1,7 @@
 package com.sticket.app.sticket.activities.store.store_like;
 
 import android.content.res.Resources;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sticket.app.sticket.R;
 import com.sticket.app.sticket.activities.store.store_mypage.StoreMyPageFragment;
+import com.sticket.app.sticket.databinding.ActivityStoreBinding;
 import com.sticket.app.sticket.models.Asset;
 import com.sticket.app.sticket.models.User;
 import com.sticket.app.sticket.retrofit.client.ApiClient;
@@ -53,6 +56,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LikeAuthorFragment extends Fragment {
+
     private ListView likeAuthorListView;
     private LikeAuthorItemAdapter likeAuthorAdapter;
     List<UserSimple> userSimples;
@@ -66,6 +70,18 @@ public class LikeAuthorFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_like_author, container, false);
         likeAuthorAdapter = new LikeAuthorItemAdapter();
+        likeAuthorAdapter.setOnAuthorClickListener(userId->{
+            ActivityStoreBinding activityStoreBinding
+                    = DataBindingUtil.setContentView(getActivity(), R.layout.activity_store);
+            StoreMyPageFragment storeMyPageFragment = new StoreMyPageFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(StoreMyPageFragment.EXTRA_USER_IDX, userId);
+            storeMyPageFragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(
+                    R.id.fragment_container, storeMyPageFragment).commit();
+            activityStoreBinding.txtToolbarTitle.setText("작가페이지");
+            activityStoreBinding.drawerLayout.closeDrawer(GravityCompat.START);
+        });
         likeAuthorListView = (ListView) view.findViewById(R.id.layout_authorItemView_listView);
         likeAuthorListView.setAdapter(likeAuthorAdapter);
 
@@ -79,7 +95,7 @@ public class LikeAuthorFragment extends Fragment {
                 } else {
 
                     for(UserSimple us : response.body()){
-                        likeAuthorAdapter.addItem(us.getImgUrl(),us.getName(),us.getWorksCnt(),us.getDescription(),us.getFollowerCnt()+"");
+                        likeAuthorAdapter.addItem(us.getId(), us.getImgUrl(),us.getName(),us.getWorksCnt(),us.getDescription(),us.getFollowerCnt()+"");
                     }
                     likeAuthorAdapter.notifyDataSetChanged();
                 }

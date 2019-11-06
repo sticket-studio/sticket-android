@@ -20,6 +20,7 @@ import com.sticket.app.sticket.retrofit.dto.response.asset.SimpleAssetResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -76,7 +77,6 @@ public class LikeAssetFragment extends Fragment {
         binding.cheekItemRecycler.setAdapter(cheekAssetsAdapter);
         binding.earItemRecycler.setAdapter(earAssetsAdpater);
 
-
         return binding.getRoot();
     }
 
@@ -96,7 +96,7 @@ public class LikeAssetFragment extends Fragment {
                                     eyeAssets.add(sa);
                                 }else if(landStr.equals("NOSE")){
                                     noseAssets.add(sa);
-                                }else if(landStr.equals("MOUTH")) {
+                                }else if(landStr.equals("MOUTH_BOTTOM")) {
                                     mouseAssets.add(sa);
                                 }else if(landStr.equals("CHEEK_LEFT")){
                                     cheekAssets.add(sa);

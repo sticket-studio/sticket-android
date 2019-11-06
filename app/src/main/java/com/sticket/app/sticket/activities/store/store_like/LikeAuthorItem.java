@@ -3,18 +3,28 @@ package com.sticket.app.sticket.activities.store.store_like;
 import android.graphics.drawable.Drawable;
 
 public class LikeAuthorItem {
+    private int id;
     private String userImg;
     private String userName;
     private int workCount;
     private String title;
     private String likeNum;
 
-    public LikeAuthorItem(String userImg, String userName, int workCount, String title, String likeNum) {
+    public LikeAuthorItem(int id, String userImg, String userName, int workCount, String title, String likeNum) {
+        this.id = id;
         this.userImg = userImg;
         this.userName = userName;
         this.workCount = workCount;
         this.title = title;
         this.likeNum = likeNum;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUserImg() {

@@ -30,7 +30,7 @@ public class StoreMyPageFragment extends Fragment {
     public static final String EXTRA_USER_IDX = "USER_IDX";
 
     private static final String[] LANDMARKS = {"눈", "코", "입", "볼", "귀"};
-    private static final String[] LANDMARKS_ENG = {"EYE_LEFT", "NOSE", "MOUTH", "CHEEK_LEFT", "EAR_LEFT"};
+    private static final String[] LANDMARKS_ENG = {"EYE_LEFT", "NOSE", "MOUTH_BOTTOM", "CHEEK_LEFT", "EAR_LEFT"};
     private FragmentStoreMypageBinding binding;
     private UserPageResponse user;
     private int userIdx;
@@ -79,6 +79,18 @@ public class StoreMyPageFragment extends Fragment {
         } else {
             binding.toggleStoreMypageLike.setVisibility(View.VISIBLE);
             binding.btnStoreMypageSetting.setVisibility(View.GONE);
+            ApiClient.getInstance().getUserService()
+                    .isLikedAuthor(userIdx)
+                    .enqueue(SimpleCallbackUtil.getSimpleCallback(userLikeUserResponse->{
+                        Log.e(TAG, "userLikeUserResponse.isLiked(): "+ userLikeUserResponse.isLiked());
+                        if(userLikeUserResponse.isLiked()){
+                            Log.e(TAG, "binding.toggleStoreMypageLike.setChecked(true) ");
+                            binding.toggleStoreMypageLike.setChecked(true);
+                        }else{
+                            Log.e(TAG, "binding.toggleStoreMypageLike.setChecked(false) ");
+                            binding.toggleStoreMypageLike.setChecked(false);
+                        }
+                    }));
         }
         initListener();
     }
