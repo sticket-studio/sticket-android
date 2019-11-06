@@ -19,6 +19,7 @@ import com.sticket.app.sticket.retrofit.dto.response.user.UserSimple;
 import com.sticket.app.sticket.util.Landmark;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +50,17 @@ public class StoreHomeStickerGridAdapter extends BaseAdapter {
     public int getCount() {
         return this.icons.size();
     }
+    public void addItem(SimpleAssetResponse sa){
+        icons.add(sa);
+        Log.i("size",icons.size()+"");
+    }
+
+    public void setItems(List<SimpleAssetResponse> icons){
+        for(SimpleAssetResponse s : icons){
+            icons.add(s);
+        }
+    }
+
 
     public void addItem(SimpleAssetResponse sa){
         icons.add(sa);
